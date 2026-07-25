@@ -2,7 +2,7 @@ experiences:
 
 - place: "KAIST"
   time: "2025 - now"
-  title: "M.S. Student"
+  title: "M.S."
   subtitle: "School of Computing <br/> Advised by Jihee Kim and Dongman Lee"
   category: "school"
 
@@ -14,7 +14,7 @@ experiences:
 
 - place: "KAIST"
   time: "2017 - 2024"
-  title: "B.S. Student"
+  title: "B.S."
   subtitle: "School of Computing <br/> Minor in Business and Technology Management"
   category: "school"
 
