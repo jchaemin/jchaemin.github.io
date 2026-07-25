@@ -24,4 +24,4 @@ papers:
     authors: "Husnu Baris Baydargil, <b>Chaemin Jang</b>, Meeyoung Cha"
     venue: "KCC'23: Korea Computer Congress. 2023."
     paper_pdf: "/assets/publications/2023_alzheimers/paper.pdf"
-    selected: n
+    selected: y
