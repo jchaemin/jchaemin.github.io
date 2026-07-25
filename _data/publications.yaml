@@ -17,3 +17,9 @@ papers:
     venue: "GoodIT'25: ACM International Conference on Information Technology for Social Good. 2025."
     paper_pdf: "/assets/publications/2025_north_korea/paper.pdf"
     selected: y
+
+  - title: "Performance Comparison of Alzheimer's Disease Recognition Between 2D and 3D PET and MRI Images"
+    authors: "Husnu Baris Baydargil, <b>Chaemin Jang</b>, Meeyoung Cha"
+    venue: "KCC'23: Korea Computer Congress. 2023."
+    paper_pdf: "/assets/publications/2023_alzheimers/paper.pdf"
+    selected: n
