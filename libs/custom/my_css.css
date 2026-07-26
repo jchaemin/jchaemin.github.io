@@ -201,21 +201,6 @@ h4 {
     margin-left: 70px; }
 }
 
-/* make the timeline fluid instead of a fixed 800px */
-/* geometry — desktop only, above the timeline's 660px breakpoint */
-@media screen and (min-width: 661px) {
-  .timeline {
-    width: 100%;
-    max-width: 800px; }
-  .direction-l,
-  .direction-r {
-    width: 46%; }
-  .timeline li .direction-l .flag:before {
-    right: -42px; }
-  .timeline li .direction-r .flag:before {
-    left: -42px; }
-}
-
 /* colour — all widths */
 .timeline li .direction-l .flag:before,
 .timeline li .direction-r .flag:before {
