@@ -191,8 +191,26 @@ h4 {
   .popover-item:first-child .popover-link:hover:after {
     border-bottom-color: #33C3F0; }
 }
-.header .three.columns {
-  width: 170px; }
-.header .nine.columns {
-  width: auto;
-  margin-left: 70px; }
+
+
+@media (min-width: 550px) {
+  .header .three.columns {
+    width: 170px; }
+  .header .nine.columns {
+    width: auto;
+    margin-left: 70px; }
+}
+
+  /* center the dot and arrow on the line */
+.timeline .flag-wrapper:before,
+.timeline .direction-l .flag:before,
+.timeline .direction-r .flag:before {
+  left: 50%;
+  margin-left: 0;
+  transform: translateX(-50%); }
+
+/* KAIST blue */
+.timeline .flag-wrapper:before {
+  border-color: #004191; }
+.timeline .time-wrapper .time {
+  color: #004191; }
