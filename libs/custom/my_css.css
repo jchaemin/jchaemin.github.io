@@ -214,3 +214,7 @@ h4 {
   border-color: #004191; }
 .timeline .time-wrapper .time {
   color: #004191; }
+
+  .header img {
+  width: 170px;
+  height: auto; }
