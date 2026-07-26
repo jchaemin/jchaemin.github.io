@@ -193,7 +193,7 @@ h4 {
 }
 
 
-@media (min-width: 550px) {
+@media (min-width: 800px) {
   .header .three.columns {
     width: 170px; }
   .header .nine.columns {
@@ -201,9 +201,9 @@ h4 {
     margin-left: 70px; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
   .main-description h1 {
-    word-spacing: 100vw; }
+    word-spacing: 500vw; }
 }
 
   /* center the dot and arrow on the line */
