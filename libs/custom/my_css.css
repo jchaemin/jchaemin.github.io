@@ -207,11 +207,6 @@ h4 {
 .timeline li .time-wrapper .time {
   color: #004191; }
 
-.timeline li .direction-l .flag:before {
-  right: -38px; }
-.timeline li .direction-r .flag:before {
-  left: -38px; }
-
   .header img {
   width: 170px;
   height: auto; }
