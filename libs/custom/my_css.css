@@ -206,14 +206,6 @@ h4 {
     word-spacing: 500vw; }
 }
 
-  /* center the dot and arrow on the line */
-.timeline .flag-wrapper:before,
-.timeline .direction-l .flag:before,
-.timeline .direction-r .flag:before {
-  left: 50%;
-  margin-left: 0;
-  transform: translateX(-50%); }
-
 /* KAIST blue */
 .timeline .flag-wrapper:before {
   border-color: #004191; }
