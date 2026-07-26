@@ -11,7 +11,7 @@ papers:
   - title: "In-Context Examples Suppress Scientific Knowledge Recall in LLMs"
     authors: "<b>Chaemin Jang</b>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim"
     venue: "COLM'26: Conference on Language Modeling. 2026."
-    paper_pdf: "/assets/publications/2026_knowledge_displacement/paper.pdf"
+    paper_pdf: "https://arxiv.org/abs/2604.27540"
     selected: y
 
   - title: "Tracking Economic Disparities in North Korea: Satellite Imagery Analysis Using AI with Policy Insights"
