@@ -201,7 +201,7 @@ h4 {
     margin-left: 70px; }
 }
 
-@media (max-width: 549px) {
+@media (max-width: 550px) {
   .main-description h1 {
     word-spacing: 100vw; }
 }
