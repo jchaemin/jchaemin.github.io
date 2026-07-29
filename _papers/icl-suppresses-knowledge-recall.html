@@ -19,7 +19,6 @@ permalink: /papers/icl-suppresses-knowledge-recall/
     border: 1px solid #eee;
     border-radius: 4px;
     padding: 2rem 2.2rem 2.2rem;
-    height: 100%;
   }
   .task-label {
     text-transform: uppercase;
@@ -44,18 +43,11 @@ permalink: /papers/icl-suppresses-knowledge-recall/
   .task-outcome { font-size: 1.2rem; margin-bottom: 0; }
   .task-outcome.know-lbl { color: #004191; }
   .task-outcome.fit-lbl { color: #1a8fb3; }
-  .task-sublabel {
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: .08rem;
-    font-weight: 600;
-    color: rgba(0,0,0,0.4);
-    margin: 1.2rem 0 0.5rem;
-  }
-  .task-sublabel:first-of-type { margin-top: 0; }
-  .task-row { display: flex; flex-wrap: wrap; align-items: stretch; }
-  .task-row .task-card { height: 100%; display: flex; flex-direction: column; }
-  .task-row .task-card .task-outcome { margin-top: auto; padding-top: 0.6rem; }
+  .task-question { font-size: 1.2rem; color: rgba(0,0,0,0.55); font-style: italic; margin-bottom: 1rem; }
+  .task-flex { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; }
+  .task-flex .columns { display: flex; }
+  .task-flex .task-card { flex: 1; display: flex; flex-direction: column; }
+  .task-flex .task-card .task-outcome { margin-top: auto; padding-top: 0.6rem; }
   .widget-caption { margin-top: 1.2rem; margin-bottom: 0; font-size: 1.2rem; color: rgba(0,0,0,0.45); font-style: italic; }
   .bib-pre {
     background: #fafafa;
@@ -202,62 +194,37 @@ permalink: /papers/icl-suppresses-knowledge-recall/
 <!-- ========== HOW A TASK LOOKS ========== -->
 <div class="docs-section" id="mechanism">
   <h4>How a Task Looks</h4>
-  <p>Example task from the Economics domain, shown zero-shot and 10-shot.</p>
+  <p>Example task from the Economics domain, shown zero-shot and few-shot.</p>
+  <p class="task-question">Q: What is the consumer surplus at the Cournot-Nash equilibrium?</p>
 
-  <div class="row task-row">
+  <div class="task-flex">
     <div class="six columns">
       <div class="task-card">
         <div class="task-label know-lbl">Zero-shot: correct</div>
-
-        <div class="task-sublabel">Prompt</div>
-        <pre class="task-pre">Two firms compete in a market under
-Cournot duopoly. Market data shows:
-when total output was 10 units, price
-was $130. When total output was 60
-units, price was $30. Each firm's cost
-is C(q) = 30q + 500.
-
-What is the consumer surplus at the
-Cournot-Nash equilibrium?</pre>
-
-        <div class="task-sublabel">Response</div>
-        <pre class="task-pre">Demand: P = 150 − 2Q (solved from data)
-q* = (a−c)/3b = 20,  Q* = 40,  P* = 70
-CS = ½(a−P*)Q* = 2(a−c)²/9b
-   = 1600  ✓</pre>
+        <pre class="task-pre">Step 1: Identify Cournot model
+  "Two firms, linear demand P = a − bQ"
+Step 2: Derive equilibrium
+  q* = (a−c)/3b = 20,  Q* = 40
+Step 3: Compute CS from the formula
+  CS = ½(a−P*)Q* = 2(a−c)²/9b
+     = 1600  ✓</pre>
         <p class="task-outcome know-lbl">derived from the Cournot equilibrium</p>
       </div>
     </div>
     <div class="six columns">
       <div class="task-card">
-        <div class="task-label fit-lbl">10-shot: wrong</div>
-
-        <div class="task-sublabel">Prompt (+10 examples)</div>
-        <pre class="task-pre">Ex 1: Q=10→P=$90, Q=50→P=$50,
-      MC=$20 ⇒ CS = 1422.2
-Ex 2: Q=10→P=$150, Q=50→P=$30,
-      MC=$30 ⇒ CS = 1666.7
-… 8 more examples …
-
-Two firms compete in a market under
-Cournot duopoly. Market data shows:
-when total output was 10 units, price
-was $130. When total output was 60
-units, price was $30. Each firm's cost
-is C(q) = 30q + 500.
-
-What is the consumer surplus?</pre>
-
-        <div class="task-sublabel">Response</div>
-        <pre class="task-pre">Fits a rough scaling pattern from the
-examples instead of deriving CS.
-CS ≈ 1522 in one trial, ≈ 1688 in
-another. (true value: 1600)  ✗</pre>
+        <div class="task-label fit-lbl">Few-shot: wrong</div>
+        <pre class="task-pre">Step 1: Fit pattern from examples
+  "CS scales roughly with market size"
+Step 2: Apply fitted rule
+  CS ≈ 1522 ... or 1688
+  (varies by trial)  ✗</pre>
         <p class="task-outcome fit-lbl">fitted heuristic, inconsistent across trials</p>
+
       </div>
     </div>
   </div>
-  <p class="widget-caption">Zero-shot derives it. 10-shot fits a rough rule that lands on a different wrong number each time. Prompt built in the paper's task format; not verbatim from the appendix.</p>
+  <p class="widget-caption">Zero-shot derives it. Few-shot fits a rough rule that lands on a different wrong number each time.</p>
 </div>
 
 <!-- ========== WHY RECALL IS EASY TO SUPPRESS ========== -->
