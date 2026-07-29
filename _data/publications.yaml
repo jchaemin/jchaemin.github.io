@@ -4,7 +4,7 @@ papers:
     authors: "<b>Chaemin Jang</b>, Dongman Lee, Jihee Kim"
     # venue: "EMNLP'26: Conference on Empirical Methods in Natural Language Processing. 2026."
     venue: "Under Review"
-    paper_pdf: "/assets/publications/2026_knows_does/paper.pdf"
+    paper_pdf: "https://arxiv.org/abs/2607.25292"
     selected: y
 
   - title: "In-Context Examples Suppress Scientific Knowledge Recall in LLMs"
