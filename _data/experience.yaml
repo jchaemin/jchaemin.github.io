@@ -13,7 +13,7 @@ experiences:
   category: "work"
 
 - place: "KAIST"
-  time: "2017 - 2024"
+  time: "2024"
   title: "B.S."
   subtitle: "School of Computing <br/> Minor in Business and Technology Management"
   category: "school"
@@ -23,3 +23,9 @@ experiences:
   title: "Founder"
   subtitle: "Designer fashion sharing platform <br/> Flutter, Django, MySQL"
   category: "work"
+
+- place: "USFK 8th Army"
+  time: "2020 - 2022"
+  title: "KATUSA"
+  subtitle: "Military Service"
+  category: "military"
