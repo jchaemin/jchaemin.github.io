@@ -6,13 +6,16 @@ permalink: /papers/icl-suppresses-knowledge-recall/
 
 <style>
   /* Small additions only — everything else inherits site styles */
-  .stat-block { text-align: center; margin-bottom: 2rem; }
+  .stat-block { text-align: center; }
+  .stat-flex { display: flex; flex-wrap: wrap; align-items: center; }
+  .stat-flex .stat-block { flex: 1; }
   .stat-block .stat-num { font-weight: 600; color: #004191; margin-bottom: 0; }
   .stat-block .stat-label {
     text-transform: uppercase;
     font-size: 1.1rem;
     letter-spacing: .1rem;
     color: rgba(0,0,0,0.5);
+    margin-bottom: 0;
   }
   .lede { font-size: 1.6rem; color: rgba(0,0,0,0.7); max-width: 62ch; }
   .task-card {
@@ -22,7 +25,7 @@ permalink: /papers/icl-suppresses-knowledge-recall/
   }
   .task-label {
     text-transform: uppercase;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     letter-spacing: .1rem;
     font-weight: 600;
     margin-bottom: 1rem;
@@ -34,21 +37,21 @@ permalink: /papers/icl-suppresses-knowledge-recall/
     border: 1px solid #eee;
     border-radius: 4px;
     padding: 1.5rem 1.8rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     white-space: pre-wrap;
     margin-bottom: 1.2rem;
     overflow-x: auto;
   }
-  .task-outcome { font-size: 1.2rem; margin-bottom: 0; }
+  .task-outcome { font-size: 1.4rem; margin-bottom: 0; }
   .task-outcome.know-lbl { color: #004191; }
   .task-outcome.fit-lbl { color: #1a8fb3; }
-  .task-question { font-size: 1.2rem; color: rgba(0,0,0,0.55); font-style: italic; margin-bottom: 1rem; }
+  .task-question { font-size: 1.5rem; color: rgba(0,0,0,0.55); font-style: italic; margin-bottom: 1rem; }
   .task-flex { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0; }
   .task-flex .columns { display: flex; }
   .task-flex .task-card { flex: 1; display: flex; flex-direction: column; }
   .task-flex .task-card .task-outcome { margin-top: auto; padding-top: 0.6rem; }
-  .widget-caption { margin-top: 1.2rem; margin-bottom: 0; font-size: 1.2rem; color: rgba(0,0,0,0.45); font-style: italic; }
+  .widget-caption { margin-top: 1.2rem; margin-bottom: 0; font-size: 1.5rem; color: rgba(0,0,0,0.45); font-style: italic; }
   .bib-pre {
     background: #fafafa;
     border: 1px solid #eee;
@@ -63,19 +66,19 @@ permalink: /papers/icl-suppresses-knowledge-recall/
 
   /* charts */
   .chart-wrap { margin: 1.4rem 0 0.6rem; }
-  .chart-svg { width: 100%; height: auto; display: block; }
+  .chart-svg { width: 100%; max-width: 460px; height: auto; display: block; }
   .chart-svg text { font-family: 'Raleway', Helvetica, sans-serif; }
   .chart-label { font-size: 12px; fill: #222; }
   .chart-val { font-size: 10.5px; fill: rgba(0,0,0,0.55); }
   .chart-delta { font-size: 12px; fill: #B30000; font-weight: 600; }
-  .chart-legend { font-size: 11px; fill: rgba(0,0,0,0.5); }
+  .chart-legend { font-size: 14px; fill: rgba(0,0,0,0.5); }
   .chart-title { font-size: 12.5px; fill: #222; font-weight: 600; }
   .chart-axis { font-size: 10px; fill: rgba(0,0,0,0.4); }
   .chart-model { font-size: 12px; fill: #222; font-weight: 600; }
-  .chart-caption { font-size: 1.2rem; color: rgba(0,0,0,0.5); margin-top: 0.6rem; }
+  .chart-caption { font-size: 1.5rem; color: rgba(0,0,0,0.5); margin-top: 0.6rem; }
 
   @media (max-width: 550px) {
-    .task-pre, .bib-pre { font-size: 1.1rem; padding: 1.4rem 1.6rem; }
+    .task-pre, .bib-pre { font-size: 1.3rem; padding: 1.4rem 1.6rem; }
     .lede { font-size: 1.45rem; }
   }
 </style>
@@ -100,7 +103,7 @@ permalink: /papers/icl-suppresses-knowledge-recall/
 
 <!-- ========== AT A GLANCE ========== -->
 <div class="docs-section" id="overview">
-  <div class="row">
+  <div class="stat-flex">
     <div class="three columns stat-block">
       <h3 class="stat-num">60</h3>
       <p class="stat-label">Tasks</p>
@@ -125,38 +128,38 @@ permalink: /papers/icl-suppresses-knowledge-recall/
   <h4>The Strategy Shift</h4>
   <p>Few-shot examples pull every domain toward pattern-fitting, whether or not it helps.</p>
   <div class="chart-wrap">
-    <svg class="chart-svg" viewBox="0 0 500 328" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Share of trials solved by recalling the formula, zero-shot vs 10-shot, by domain, with a 0 to 100 percent axis">
+    <svg class="chart-svg" viewBox="0 0 500 346" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Share of trials solved by recalling the formula, zero-shot vs 10-shot, by domain, with a 0 to 100 percent axis">
           <text x="0" y="16" class="chart-title">% of trials solved by recalling the formula (not fitting the examples)</text>
           <text x="0" y="36" xml:space="preserve" class="chart-legend"><tspan fill="#004191">■</tspan> 0-shot  <tspan fill="#33C3F0">■</tspan> 10-shot</text>
-          <line x1="112" y1="56" x2="432" y2="56" stroke="#ccc" stroke-width="1"/>
-          <text x="112.0" y="52" text-anchor="middle" class="chart-axis">0%</text><text x="192.0" y="52" text-anchor="middle" class="chart-axis">25%</text><text x="272.0" y="52" text-anchor="middle" class="chart-axis">50%</text><text x="352.0" y="52" text-anchor="middle" class="chart-axis">75%</text><text x="432.0" y="52" text-anchor="middle" class="chart-axis">100%</text>
-          <line x1="112.0" y1="56" x2="112.0" y2="324" stroke="#eee" stroke-width="1"/><line x1="192.0" y1="56" x2="192.0" y2="324" stroke="#eee" stroke-width="1"/><line x1="272.0" y1="56" x2="272.0" y2="324" stroke="#eee" stroke-width="1"/><line x1="352.0" y1="56" x2="352.0" y2="324" stroke="#eee" stroke-width="1"/><line x1="432.0" y1="56" x2="432.0" y2="324" stroke="#eee" stroke-width="1"/>
+          <line x1="112" y1="74" x2="432" y2="74" stroke="#ccc" stroke-width="1"/>
+          <text x="112.0" y="70" text-anchor="middle" class="chart-axis">0%</text><text x="192.0" y="70" text-anchor="middle" class="chart-axis">25%</text><text x="272.0" y="70" text-anchor="middle" class="chart-axis">50%</text><text x="352.0" y="70" text-anchor="middle" class="chart-axis">75%</text><text x="432.0" y="70" text-anchor="middle" class="chart-axis">100%</text>
+          <line x1="112.0" y1="74" x2="112.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="192.0" y1="74" x2="192.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="272.0" y1="74" x2="272.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="352.0" y1="74" x2="352.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="432.0" y1="74" x2="432.0" y2="342" stroke="#eee" stroke-width="1"/>
       
-        <text x="0" y="81" class="chart-label">Economics</text>
-        <rect x="112" y="70" width="320.0" height="13" fill="#004191"/>
-        <text x="438.0" y="81" class="chart-val">100.0%</text>
-        <rect x="112" y="86" width="257.0" height="13" fill="#33C3F0"/>
-        <text x="375.0" y="97" class="chart-val">80.3%</text>
-        <text x="0" y="131" class="chart-label">Geoscience</text>
-        <rect x="112" y="120" width="274.2" height="13" fill="#004191"/>
-        <text x="392.2" y="131" class="chart-val">85.7%</text>
-        <rect x="112" y="136" width="210.2" height="13" fill="#33C3F0"/>
-        <text x="328.2" y="147" class="chart-val">65.7%</text>
-        <text x="0" y="181" class="chart-label">Biology</text>
-        <rect x="112" y="170" width="281.0" height="13" fill="#004191"/>
-        <text x="399.0" y="181" class="chart-val">87.8%</text>
-        <rect x="112" y="186" width="239.0" height="13" fill="#33C3F0"/>
-        <text x="357.0" y="197" class="chart-val">74.7%</text>
-        <text x="0" y="231" class="chart-label">Chemistry</text>
-        <rect x="112" y="220" width="293.8" height="13" fill="#004191"/>
-        <text x="411.8" y="231" class="chart-val">91.8%</text>
-        <rect x="112" y="236" width="260.2" height="13" fill="#33C3F0"/>
-        <text x="378.2" y="247" class="chart-val">81.3%</text>
-        <text x="0" y="281" class="chart-label">Physics</text>
-        <rect x="112" y="270" width="319.4" height="13" fill="#004191"/>
-        <text x="437.4" y="281" class="chart-val">99.8%</text>
-        <rect x="112" y="286" width="300.2" height="13" fill="#33C3F0"/>
-        <text x="418.2" y="297" class="chart-val">93.8%</text>
+        <text x="0" y="99" class="chart-label">Economics</text>
+        <rect x="112" y="88" width="320.0" height="13" fill="#004191"/>
+        <text x="438.0" y="99" class="chart-val">100.0%</text>
+        <rect x="112" y="104" width="257.0" height="13" fill="#33C3F0"/>
+        <text x="375.0" y="115" class="chart-val">80.3%</text>
+        <text x="0" y="149" class="chart-label">Geoscience</text>
+        <rect x="112" y="138" width="274.2" height="13" fill="#004191"/>
+        <text x="392.2" y="149" class="chart-val">85.7%</text>
+        <rect x="112" y="154" width="210.2" height="13" fill="#33C3F0"/>
+        <text x="328.2" y="165" class="chart-val">65.7%</text>
+        <text x="0" y="199" class="chart-label">Biology</text>
+        <rect x="112" y="188" width="281.0" height="13" fill="#004191"/>
+        <text x="399.0" y="199" class="chart-val">87.8%</text>
+        <rect x="112" y="204" width="239.0" height="13" fill="#33C3F0"/>
+        <text x="357.0" y="215" class="chart-val">74.7%</text>
+        <text x="0" y="249" class="chart-label">Chemistry</text>
+        <rect x="112" y="238" width="293.8" height="13" fill="#004191"/>
+        <text x="411.8" y="249" class="chart-val">91.8%</text>
+        <rect x="112" y="254" width="260.2" height="13" fill="#33C3F0"/>
+        <text x="378.2" y="265" class="chart-val">81.3%</text>
+        <text x="0" y="299" class="chart-label">Physics</text>
+        <rect x="112" y="288" width="319.4" height="13" fill="#004191"/>
+        <text x="437.4" y="299" class="chart-val">99.8%</text>
+        <rect x="112" y="304" width="300.2" height="13" fill="#33C3F0"/>
+        <text x="418.2" y="315" class="chart-val">93.8%</text>
         </svg>
   </div>
   <p class="chart-caption">Same-size shift, opposite outcomes: Economics <span class="delta-neg">−15.7</span> accuracy pp, Geoscience <span class="delta-pos">+13.3</span> accuracy pp. Shown at 10-shot; the direction holds from k=1 through k=20.</p>
@@ -167,26 +170,26 @@ permalink: /papers/icl-suppresses-knowledge-recall/
   <h4>A Causal Check</h4>
   <p>Is this real, or just noisy CoT labels? A paired log-probability test on three open models says real.</p>
   <div class="chart-wrap">
-    <svg class="chart-svg" viewBox="0 0 560 262" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paired log-probability shift toward the example answer and away from the knowledge answer, three models">
-    <text x="280" y="16" text-anchor="middle" xml:space="preserve" class="chart-legend"><tspan fill="#33C3F0">■</tspan> Δℓ(y_emp): toward example answer  <tspan fill="#B30000">■</tspan> Δℓ(y_know): away from knowledge answer</text>
-    <line x1="280" y1="34" x2="280" y2="252" stroke="#ccc" stroke-width="1"/>
+                <svg class="chart-svg" viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paired log-probability shift toward the example answer and away from the knowledge answer, three models">
+        <text x="4.31034" y="13.7931" xml:space="preserve" class="chart-legend"><tspan fill="#33C3F0">■</tspan> Toward example answer  <tspan fill="#B30000">■</tspan> Away from knowledge answer</text>
+        <line x1="176.466" y1="44.8276" x2="176.466" y2="231.034" stroke="#ccc" stroke-width="0.862069"/>
     
-    <text x="280" y="38" text-anchor="middle" class="chart-model">Qwen2.5-7B</text>
-    <rect x="280" y="46" width="82.2" height="14" fill="#33C3F0"/>
-    <text x="368.2" y="57" class="chart-val">+1.37</text>
-    <rect x="178.0" y="64" width="102.0" height="14" fill="#B30000"/>
-    <text x="172.0" y="75" text-anchor="end" class="chart-val">-1.70</text>
-    <text x="280" y="116" text-anchor="middle" class="chart-model">Llama-3.1-8B</text>
-    <rect x="280" y="124" width="169.2" height="14" fill="#33C3F0"/>
-    <text x="455.2" y="135" class="chart-val">+2.82</text>
-    <rect x="196.6" y="142" width="83.4" height="14" fill="#B30000"/>
-    <text x="190.6" y="153" text-anchor="end" class="chart-val">-1.39</text>
-    <text x="280" y="194" text-anchor="middle" class="chart-model">Mistral-7B-v0.3</text>
-    <rect x="280" y="202" width="166.2" height="14" fill="#33C3F0"/>
-    <text x="452.2" y="213" class="chart-val">+2.77</text>
-    <rect x="226.6" y="220" width="53.4" height="14" fill="#B30000"/>
-    <text x="220.6" y="231" text-anchor="end" class="chart-val">-0.89</text>
-</svg>
+        <text x="176.466" y="46.5517" text-anchor="middle" class="chart-model">Qwen2.5-7B</text>
+        <rect x="176.466" y="53.4483" width="114.483" height="12.069" fill="#33C3F0"/>
+        <text x="296.121" y="62.931" class="chart-val">+1.37</text>
+        <rect x="34.4828" y="68.9655" width="141.983" height="12.069" fill="#B30000"/>
+        <text x="29.3103" y="78.4483" text-anchor="end" class="chart-val">-1.70</text>
+        <text x="176.466" y="113.793" text-anchor="middle" class="chart-model">Llama-3.1-8B</text>
+        <rect x="176.466" y="120.69" width="235.603" height="12.069" fill="#33C3F0"/>
+        <text x="417.241" y="130.172" class="chart-val">+2.82</text>
+        <rect x="60.3448" y="136.207" width="116.121" height="12.069" fill="#B30000"/>
+        <text x="55.1724" y="145.69" text-anchor="end" class="chart-val">-1.39</text>
+        <text x="176.466" y="181.034" text-anchor="middle" class="chart-model">Mistral-7B-v0.3</text>
+        <rect x="176.466" y="187.931" width="231.379" height="12.069" fill="#33C3F0"/>
+        <text x="413.017" y="197.414" class="chart-val">+2.77</text>
+        <rect x="102.155" y="203.448" width="74.3103" height="12.069" fill="#B30000"/>
+        <text x="96.9828" y="212.931" text-anchor="end" class="chart-val">-0.89</text>
+    </svg>
   </div>
   <p class="chart-caption">Probability mass moves toward the example answer <i>and</i> away from the knowledge answer, on the same input, every time.</p>
 </div>
