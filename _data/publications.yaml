@@ -2,8 +2,7 @@ papers:
 
   - title: "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
     authors: "<b>Chaemin Jang</b>, Dongman Lee, Jihee Kim"
-    # venue: "EMNLP'26: Conference on Empirical Methods in Natural Language Processing. 2026."
-    venue: "Under Review"
+    venue: "EMNLP Findings'26: Findings of the Association for Computational Linguistics: EMNLP. 2026."
     paper_pdf: "https://arxiv.org/abs/2607.25292"
     selected: y
 
