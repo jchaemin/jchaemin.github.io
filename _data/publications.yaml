@@ -1,5 +1,11 @@
 papers:
 
+  - title: "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction"
+    authors: "<b>Chaemin Jang</b>, Junsik Min, Jaewoo Choi, Donggyu Lee, Haiin Lee, Junyoung Park, Namhee Kim, Hyunwoo Kim, Jungwon Kim, Juho Kim, Nuri Kim, Jihee Kim"
+    venue: "Preprint"
+    paper_pdf: "https://arxiv.org/abs/2609.07573"
+    selected: y
+
   - title: "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
     authors: "<b>Chaemin Jang</b>, Dongman Lee, Jihee Kim"
     venue: "EMNLP Findings'26: Findings of the Association for Computational Linguistics: EMNLP. 2026."
@@ -13,13 +19,13 @@ papers:
     website: "/papers/icl-suppresses-knowledge-recall/"
     selected: y
 
-  - title: "Tracking Economic Disparities in North Korea: Satellite Imagery Analysis Using AI with Policy Insights"
-    authors: "Sumin Lee, Hyoshin Kim, Donghyun Ahn, Donggyu Lee, Jungwon Kim, Hyeok Yun, <b>Chaemin Jang</b>, Dongman Lee, Meeyoung Cha, Jihee Kim"
-    venue: "GoodIT'25: ACM International Conference on Information Technology for Social Good. 2025."
-    paper_pdf: "https://dl.acm.org/doi/10.1145/3748699.3749786"
-    selected: y
+  # - title: "Tracking Economic Disparities in North Korea: Satellite Imagery Analysis Using AI with Policy Insights"
+  #   authors: "Sumin Lee, Hyoshin Kim, Donghyun Ahn, Donggyu Lee, Jungwon Kim, Hyeok Yun, <b>Chaemin Jang</b>, Dongman Lee, Meeyoung Cha, Jihee Kim"
+  #   venue: "GoodIT'25: ACM International Conference on Information Technology for Social Good. 2025."
+  #   paper_pdf: "https://dl.acm.org/doi/10.1145/3748699.3749786"
+  #   selected: y
 
-  - title: "Performance Comparison of Alzheimer's Disease Recognition Between 2D and 3D PET and MRI Images"
-    authors: "Husnu Baris Baydargil, <b>Chaemin Jang</b>, Meeyoung Cha"
-    venue: "KCC'23: Korea Computer Congress. 2023."
-    selected: y
+  # - title: "Performance Comparison of Alzheimer's Disease Recognition Between 2D and 3D PET and MRI Images"
+  #   authors: "Husnu Baris Baydargil, <b>Chaemin Jang</b>, Meeyoung Cha"
+  #   venue: "KCC'23: Korea Computer Congress. 2023."
+  #   selected: y
