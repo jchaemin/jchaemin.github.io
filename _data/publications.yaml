@@ -2,7 +2,7 @@ papers:
 
   - title: "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction"
     authors: "<b>Chaemin Jang</b>, Junsik Min, Jaewoo Choi, Donggyu Lee, Haiin Lee, Junyoung Park, Namhee Kim, Hyunwoo Kim, Jungwon Kim, Juho Kim, Nuri Kim, Jihee Kim"
-    venue: "Preprint"
+    venue: "SocialAgent & UserSim @ NeurIPS 2026"
     paper_pdf: "https://arxiv.org/abs/2609.07573"
     selected: y
 
