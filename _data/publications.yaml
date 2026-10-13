@@ -1,5 +1,11 @@
 papers:
 
+  - title: "Learning a Fact Is Not Learning How to Retrieve It"
+    authors: "<b>Chaemin Jang</b>, Jihee Kim, Dongman Lee"
+    venue: "Preprint"
+    paper_pdf: "https://arxiv.org/abs/2610.03251"
+    selected: y
+
   - title: "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction"
     authors: "<b>Chaemin Jang</b>, Junsik Min, Jaewoo Choi, Donggyu Lee, Haiin Lee, Junyoung Park, Namhee Kim, Hyunwoo Kim, Jungwon Kim, Juho Kim, Nuri Kim, Jihee Kim"
     venue: "SocialAgent & UserSim @ NeurIPS 2026"
