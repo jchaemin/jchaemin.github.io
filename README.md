@@ -1,36 +1,20 @@
-# Martin Saveski's Website
+# Chaemin Jang — Personal research website
 
-## Updates guide
-Change one of the files in `_data`, unless you are changing the look of the website.
+Quiet, refined single-page personal research site. Light: near-white, charcoal, and restrained olive. Dark: graphite, ivory, and sage. Five first-author papers with full names and accurate status labels.
 
-Test changes with:
-```
-jekyll serve
-```
+## Publish on GitHub Pages
+1. Extract the ZIP.
+2. Upload **all files/folders inside** (not the ZIP) to the root of `jchaemin/jchaemin.github.io`.
+3. Keep `index.html` and `.nojekyll` in the root.
+4. GitHub Pages: Settings → Pages → Deploy from branch → `main` / `(root)`.
 
-Push to the ML web directory:
-```
-rm -rf public_html
-mkdir public_html
-```
-```
-./__deploy.sh
-```
+## Customize
+- Homepage and publications: `index.html`
+- Visual style and dark mode: `assets/site.css`
+- Photo: `assets/images/portrait.jpg`
+- CV: `assets/cv/cv.pdf` (the header CV link opens this exact file)
+- Existing COLM project page: `papers/icl-suppresses-knowledge-recall/` (preserved with separate CSS and JS).
 
-More info on the [Media Lab wiki](http://wiki.media.mit.edu/view/Necsys/WebPagePersonal).
+No npm, generator or framework needed.
 
-**Stanford links**
-- Use fetch!
-- [Basic WWW for Individual Users](https://uit.stanford.edu/service/web/centralhosting/howto_user)
-- [AFS File Transfer](https://uit.stanford.edu/service/afs/file-transfer/macintosh)
-
-
-## External Libraries
-- Framework: [Jekyll](http://jekyllrb.com/)
-- CSS
-  - [Skeleton](getskeleton.com)
-  - Tabs: [Skeleton Tabs](https://github.com/nathancahill/skeleton-tabs)
-  - Experience: [Timeline](https://codepen.io/NilsWe/pen/FemfK)
-  - Icons: [Font Awesome](http://fontawesome.io/)
-- JS
-  - [Jquery (3.1.1)](https://jquery.com/)
+Publication #03 is linked to https://arxiv.org/abs/2610.21256.

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" data-page="project">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>In-Context Examples Suppress Scientific Knowledge Recall in LLMs — Chaemin Jang</title>
+  <meta name="description" content="Chaemin Jang is an M.S. student at KAIST studying language-model knowledge, internal representations, and behavior.">
+  <meta name="author" content="Chaemin Jang">
+  <meta name="theme-color" content="#f7f8f4">
+  <link rel="canonical" href="https://jchaemin.github.io/papers/icl-suppresses-knowledge-recall/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Chaemin Jang">
+  <meta property="og:title" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs — Chaemin Jang">
+  <meta property="og:description" content="Chaemin Jang is an M.S. student at KAIST studying language-model knowledge, internal representations, and behavior.">
+  <meta property="og:url" content="https://jchaemin.github.io/papers/icl-suppresses-knowledge-recall/">
+  <meta property="og:image" content="https://jchaemin.github.io/assets/images/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="../../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="../../assets/js/theme-init.js"></script>
+  <link rel="stylesheet" href="../../assets/css/site.css">
+  <link rel="stylesheet" href="../../assets/css/project.css">
+  <script src="../../assets/js/site.js" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Chaemin Jang", "url": "https://jchaemin.github.io/", "jobTitle": "M.S. student", "affiliation": {"@type": "CollegeOrUniversity", "name": "KAIST"}, "sameAs": ["https://scholar.google.com/citations?user=Zeo31B4AAAAJ", "https://github.com/jchaemin", "https://www.linkedin.com/in/chaemin-jang-091365257"], "knowsAbout": ["Language models", "Interpretability", "Knowledge representation", "Model evaluation", "In-context learning", "Model behavior"]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="wordmark" href="../../index.html#home" aria-label="Chaemin Jang — Home"><span class="identity-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5 24L16 7L27 24M5 24L16 18L27 24"/></svg></span><span>Chaemin Jang<span class="brand-period">.</span></span></a>
+      <div class="nav-set">
+        <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+          <a href="../../index.html#home">Home</a>
+          <a href="../../index.html#research">Publications</a>
+          <a href="../../assets/cv/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        </nav>
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false" hidden>
+           <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 1v3m0 16v3M1 12h3m16 0h3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+           <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14a8.5 8.5 0 0 1-10.5-10.5A8.5 8.5 0 1 0 20.5 14Z"/></svg>
+        </button>
+      </div>
+    </header>
+    <main id="main-content"><div class="project-content">
+
+
+<!-- ========== PAPER HEADER ========== -->
+<div class="docs-section" id="paper-header">
+  <div class="title-subtitle">
+    <h1>In-Context Examples Suppress Scientific Knowledge Recall in LLMs</h1>
+    <h5>COLM'26: Conference on Language Modeling. 2026.</h5>
+  </div>
+
+  <p><b>Chaemin Jang</b>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim</p>
+  <p style="color: rgba(0,0,0,0.5)">KAIST &nbsp;·&nbsp; Shanghai Jiao Tong University</p>
+
+  <p class="lede" style="margin-top: 1.2rem;">Models recall the right formula on their own. Show them a few examples of it, and they stop deriving. They start pattern-fitting instead.</p>
+
+  <div class="paper-buttons" style="margin-top: 20px">
+    <a class="button" href="https://arxiv.org/abs/2604.27540">arXiv</a>
+    <a class="button" href="../../index.html#research">Back to Publications</a>
+  </div>
+</div>
+
+<!-- ========== AT A GLANCE ========== -->
+<div class="docs-section" id="overview">
+  <div class="stat-flex">
+    <div class="three columns stat-block">
+      <h3 class="stat-num">60</h3>
+      <p class="stat-label">Tasks</p>
+    </div>
+    <div class="three columns stat-block">
+      <h3 class="stat-num">5</h3>
+      <p class="stat-label">Domains</p>
+    </div>
+    <div class="three columns stat-block">
+      <h3 class="stat-num">6,000</h3>
+      <p class="stat-label">Trials</p>
+    </div>
+    <div class="three columns stat-block">
+      <h3 class="stat-num">4</h3>
+      <p class="stat-label">Models</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== THE STRATEGY SHIFT ========== -->
+<div class="docs-section" id="results">
+  <h4>The Strategy Shift</h4>
+  <p>Few-shot examples pull every domain toward pattern-fitting, whether or not it helps.</p>
+  <div class="chart-wrap">
+    <svg class="chart-svg" viewBox="0 0 500 346" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Share of trials solved by recalling the formula, zero-shot vs 10-shot, by domain, with a 0 to 100 percent axis">
+          <text x="0" y="16" class="chart-title">% of trials solved by recalling the formula (not fitting the examples)</text>
+          <text x="0" y="36" xml:space="preserve" class="chart-legend"><tspan fill="#004191">■</tspan> 0-shot  <tspan fill="#33C3F0">■</tspan> 10-shot</text>
+          <line x1="112" y1="74" x2="432" y2="74" stroke="#ccc" stroke-width="1"/>
+          <text x="112.0" y="70" text-anchor="middle" class="chart-axis">0%</text><text x="192.0" y="70" text-anchor="middle" class="chart-axis">25%</text><text x="272.0" y="70" text-anchor="middle" class="chart-axis">50%</text><text x="352.0" y="70" text-anchor="middle" class="chart-axis">75%</text><text x="432.0" y="70" text-anchor="middle" class="chart-axis">100%</text>
+          <line x1="112.0" y1="74" x2="112.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="192.0" y1="74" x2="192.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="272.0" y1="74" x2="272.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="352.0" y1="74" x2="352.0" y2="342" stroke="#eee" stroke-width="1"/><line x1="432.0" y1="74" x2="432.0" y2="342" stroke="#eee" stroke-width="1"/>
+      
+        <text x="0" y="99" class="chart-label">Economics</text>
+        <rect x="112" y="88" width="320.0" height="13" fill="#004191"/>
+        <text x="438.0" y="99" class="chart-val">100.0%</text>
+        <rect x="112" y="104" width="257.0" height="13" fill="#33C3F0"/>
+        <text x="375.0" y="115" class="chart-val">80.3%</text>
+        <text x="0" y="149" class="chart-label">Geoscience</text>
+        <rect x="112" y="138" width="274.2" height="13" fill="#004191"/>
+        <text x="392.2" y="149" class="chart-val">85.7%</text>
+        <rect x="112" y="154" width="210.2" height="13" fill="#33C3F0"/>
+        <text x="328.2" y="165" class="chart-val">65.7%</text>
+        <text x="0" y="199" class="chart-label">Biology</text>
+        <rect x="112" y="188" width="281.0" height="13" fill="#004191"/>
+        <text x="399.0" y="199" class="chart-val">87.8%</text>
+        <rect x="112" y="204" width="239.0" height="13" fill="#33C3F0"/>
+        <text x="357.0" y="215" class="chart-val">74.7%</text>
+        <text x="0" y="249" class="chart-label">Chemistry</text>
+        <rect x="112" y="238" width="293.8" height="13" fill="#004191"/>
+        <text x="411.8" y="249" class="chart-val">91.8%</text>
+        <rect x="112" y="254" width="260.2" height="13" fill="#33C3F0"/>
+        <text x="378.2" y="265" class="chart-val">81.3%</text>
+        <text x="0" y="299" class="chart-label">Physics</text>
+        <rect x="112" y="288" width="319.4" height="13" fill="#004191"/>
+        <text x="437.4" y="299" class="chart-val">99.8%</text>
+        <rect x="112" y="304" width="300.2" height="13" fill="#33C3F0"/>
+        <text x="418.2" y="315" class="chart-val">93.8%</text>
+        </svg>
+  </div>
+  <p class="chart-caption">Same-size shift, opposite outcomes: Economics <span class="delta-neg">−15.7</span> accuracy pp, Geoscience <span class="delta-pos">+13.3</span> accuracy pp. Shown at 10-shot; the direction holds from k=1 through k=20.</p>
+</div>
+
+<!-- ========== THE CAUSAL CHECK ========== -->
+<div class="docs-section" id="logit-gap">
+  <h4>A Causal Check</h4>
+  <p>Is this real, or just noisy CoT labels? A paired log-probability test on three open models says real.</p>
+  <div class="chart-wrap">
+                <svg class="chart-svg" viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paired log-probability shift toward the example answer and away from the knowledge answer, three models">
+        <text x="4.31034" y="13.7931" xml:space="preserve" class="chart-legend"><tspan fill="#33C3F0">■</tspan> Toward example answer  <tspan fill="#B30000">■</tspan> Away from knowledge answer</text>
+        <line x1="176.466" y1="44.8276" x2="176.466" y2="231.034" stroke="#ccc" stroke-width="0.862069"/>
+    
+        <text x="176.466" y="46.5517" text-anchor="middle" class="chart-model">Qwen2.5-7B</text>
+        <rect x="176.466" y="53.4483" width="114.483" height="12.069" fill="#33C3F0"/>
+        <text x="296.121" y="62.931" class="chart-val">+1.37</text>
+        <rect x="34.4828" y="68.9655" width="141.983" height="12.069" fill="#B30000"/>
+        <text x="29.3103" y="78.4483" text-anchor="end" class="chart-val">-1.70</text>
+        <text x="176.466" y="113.793" text-anchor="middle" class="chart-model">Llama-3.1-8B</text>
+        <rect x="176.466" y="120.69" width="235.603" height="12.069" fill="#33C3F0"/>
+        <text x="417.241" y="130.172" class="chart-val">+2.82</text>
+        <rect x="60.3448" y="136.207" width="116.121" height="12.069" fill="#B30000"/>
+        <text x="55.1724" y="145.69" text-anchor="end" class="chart-val">-1.39</text>
+        <text x="176.466" y="181.034" text-anchor="middle" class="chart-model">Mistral-7B-v0.3</text>
+        <rect x="176.466" y="187.931" width="231.379" height="12.069" fill="#33C3F0"/>
+        <text x="413.017" y="197.414" class="chart-val">+2.77</text>
+        <rect x="102.155" y="203.448" width="74.3103" height="12.069" fill="#B30000"/>
+        <text x="96.9828" y="212.931" text-anchor="end" class="chart-val">-0.89</text>
+    </svg>
+  </div>
+  <p class="chart-caption">Probability mass moves toward the example answer <i>and</i> away from the knowledge answer, on the same input, every time.</p>
+</div>
+
+<!-- ========== HOW A TASK LOOKS ========== -->
+<div class="docs-section" id="mechanism">
+  <h4>How a Task Looks</h4>
+  <p>Example task from the Economics domain, shown zero-shot and few-shot.</p>
+  <p class="task-question">Q: What is the consumer surplus at the Cournot-Nash equilibrium?</p>
+
+  <div class="task-flex">
+    <div class="six columns">
+      <div class="task-card">
+        <div class="task-label know-lbl">Zero-shot: correct</div>
+        <pre class="task-pre">Step 1: Identify Cournot model
+  "Two firms, linear demand P = a − bQ"
+Step 2: Derive equilibrium
+  q* = (a−c)/3b = 20,  Q* = 40
+Step 3: Compute CS from the formula
+  CS = ½(a−P*)Q* = 2(a−c)²/9b
+     = 1600  ✓</pre>
+        <p class="task-outcome know-lbl">derived from the Cournot equilibrium</p>
+      </div>
+    </div>
+    <div class="six columns">
+      <div class="task-card">
+        <div class="task-label fit-lbl">Few-shot: wrong</div>
+        <pre class="task-pre">Step 1: Fit pattern from examples
+  "CS scales roughly with market size"
+Step 2: Apply fitted rule
+  CS ≈ 1522 ... or 1688
+  (varies by trial)  ✗</pre>
+        <p class="task-outcome fit-lbl">fitted heuristic, inconsistent across trials</p>
+
+      </div>
+    </div>
+  </div>
+  <p class="widget-caption">Zero-shot derives it. Few-shot fits a rough rule that lands on a different wrong number each time.</p>
+</div>
+
+<!-- ========== WHY RECALL IS EASY TO SUPPRESS ========== -->
+<div class="docs-section" id="decoy">
+  <h4>Why Recall Is So Easy to Suppress</h4>
+  <p>Swap "price" for a meaningless code word. Keep the same math. Zero-shot accuracy: <b>55–88% → 3–14%</b>. The model isn't deriving the answer. It's recognizing keywords. That's why a few examples are enough to knock it off course.</p>
+</div>
+
+<!-- ========== FINDINGS ========== -->
+<div class="docs-section" id="findings">
+  <h4>What We Find</h4>
+  <p><b>Uniform direction.</b> Every domain loses 6–20pp of formula-based reasoning, even where accuracy barely moves.</p>
+  <p><b>Strong priors lose most.</b> Economics (88.3% prior) drops most; Geoscience (55.3% prior) looks best: a weak prior is just easy to beat, not improved on.</p>
+  <p><b>Recall is a keyword trigger.</b> Swap the vocabulary, keep the math. Accuracy collapses to single digits.</p>
+</div>
+
+<!-- ========== CITE ========== -->
+<div class="docs-section" id="cite">
+  <h4>Cite</h4>
+  <pre class="bib-pre" id="bibText">@inproceedings{jang2026incontext,
+  title     = {In-Context Examples Suppress Scientific Knowledge Recall in LLMs},
+  author    = {Jang, Chaemin and Park, Woojin and Yun, Hyeok and Lee, Dongman and Kim, Jihee},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year      = {2026}
+}</pre>
+  <div class="paper-buttons" style="margin-top: 10px">
+    <button class="button" type="button" data-copy-target="bibText">Copy BibTeX</button><span class="copy-status" role="status" aria-live="polite"></span>
+  </div>
+</div>
+
+
+</div></main>
+    <footer class="site-footer" id="contact">
+      <div class="footer-left"><span class="footer-caption">CONTACT / 2026</span><a href="mailto:jchaemin@gmail.com" class="footer-email">Let’s talk <span aria-hidden="true">↗</span></a></div>
+      <div class="footer-right"><a href="mailto:jchaemin@gmail.com">Email</a><a href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Scholar ↗</a><a href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub ↗</a><span>© 2026 Chaemin Jang</span></div>
+    </footer>
+  </div>
+</body>
+</html>
