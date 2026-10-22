@@ -1,0 +1,41 @@
+<svg aria-label="Share of trials solved by recalling the formula, zero-shot vs 10-shot, by domain, with a 0 to 100 percent axis" class="chart-svg" role="img" viewBox="0 0 500 346" xmlns="http://www.w3.org/2000/svg"><style>
+      text {font-family: Inter, Arial, sans-serif;}
+      .chart-title {font-size:12.5px;fill:#222;font-weight:600}
+      .chart-label {font-size:12px;fill:#222}
+      .chart-val {font-size:10.5px;fill:#626962}
+      .chart-legend {font-size:14px;fill:#626962}
+      .chart-axis {font-size:10px;fill:#777}
+      .chart-model {font-size:12px;fill:#222;font-weight:600}
+      .chart-delta {font-size:12px;fill:#B30000;font-weight:600}
+    </style>
+<text class="chart-title" x="0" y="16">% of trials solved by recalling the formula (not fitting the examples)</text>
+<text class="chart-legend" x="0" xml:space="preserve" y="36"><tspan fill="#004191">■</tspan> 0-shot  <tspan fill="#33C3F0">■</tspan> 10-shot</text>
+<line stroke="#ccc" stroke-width="1" x1="112" x2="432" y1="74" y2="74"></line>
+<text class="chart-axis" text-anchor="middle" x="112.0" y="70">0%</text><text class="chart-axis" text-anchor="middle" x="192.0" y="70">25%</text><text class="chart-axis" text-anchor="middle" x="272.0" y="70">50%</text><text class="chart-axis" text-anchor="middle" x="352.0" y="70">75%</text><text class="chart-axis" text-anchor="middle" x="432.0" y="70">100%</text>
+<line stroke="#eee" stroke-width="1" x1="112.0" x2="112.0" y1="74" y2="342"></line><line stroke="#eee" stroke-width="1" x1="192.0" x2="192.0" y1="74" y2="342"></line><line stroke="#eee" stroke-width="1" x1="272.0" x2="272.0" y1="74" y2="342"></line><line stroke="#eee" stroke-width="1" x1="352.0" x2="352.0" y1="74" y2="342"></line><line stroke="#eee" stroke-width="1" x1="432.0" x2="432.0" y1="74" y2="342"></line>
+<text class="chart-label" x="0" y="99">Economics</text>
+<rect fill="#004191" height="13" width="320.0" x="112" y="88"></rect>
+<text class="chart-val" x="438.0" y="99">100.0%</text>
+<rect fill="#33C3F0" height="13" width="257.0" x="112" y="104"></rect>
+<text class="chart-val" x="375.0" y="115">80.3%</text>
+<text class="chart-label" x="0" y="149">Geoscience</text>
+<rect fill="#004191" height="13" width="274.2" x="112" y="138"></rect>
+<text class="chart-val" x="392.2" y="149">85.7%</text>
+<rect fill="#33C3F0" height="13" width="210.2" x="112" y="154"></rect>
+<text class="chart-val" x="328.2" y="165">65.7%</text>
+<text class="chart-label" x="0" y="199">Biology</text>
+<rect fill="#004191" height="13" width="281.0" x="112" y="188"></rect>
+<text class="chart-val" x="399.0" y="199">87.8%</text>
+<rect fill="#33C3F0" height="13" width="239.0" x="112" y="204"></rect>
+<text class="chart-val" x="357.0" y="215">74.7%</text>
+<text class="chart-label" x="0" y="249">Chemistry</text>
+<rect fill="#004191" height="13" width="293.8" x="112" y="238"></rect>
+<text class="chart-val" x="411.8" y="249">91.8%</text>
+<rect fill="#33C3F0" height="13" width="260.2" x="112" y="254"></rect>
+<text class="chart-val" x="378.2" y="265">81.3%</text>
+<text class="chart-label" x="0" y="299">Physics</text>
+<rect fill="#004191" height="13" width="319.4" x="112" y="288"></rect>
+<text class="chart-val" x="437.4" y="299">99.8%</text>
+<rect fill="#33C3F0" height="13" width="300.2" x="112" y="304"></rect>
+<text class="chart-val" x="418.2" y="315">93.8%</text>
+</svg>

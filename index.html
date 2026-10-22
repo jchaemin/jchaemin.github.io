@@ -3,124 +3,138 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Chaemin Jang is a KAIST researcher studying how language models acquire, retrieve, and use knowledge.">
-  <meta name="author" content="Chaemin Jang">
-  <meta name="theme-color" content="#fcfcfb">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f8f8f6">
+  <meta name="description" content="Chaemin Jang is a researcher at KAIST studying what language models learn, remember, and produce. Publications, preprints, and CV.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Chaemin Jang — Research">
-  <meta property="og:description" content="Research on language-model knowledge, internal representations, and model behavior.">
+  <meta property="og:description" content="Research on knowledge, retrieval, and behavior in language models.">
   <meta property="og:image" content="https://jchaemin.github.io/assets/images/social-card.png">
-  <title>Chaemin Jang — Research</title>
+  <meta property="og:url" content="https://jchaemin.github.io/">
+  <meta property="og:image:alt" content="Chaemin Jang — KAIST research">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://jchaemin.github.io/">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/css/vignelli.css">
+  <title>Chaemin Jang — Research</title>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <nav class="nav wrap" aria-label="Primary navigation">
-      <a class="wordmark" href="#home">Chaemin Jang</a>
-      <div class="nav-actions">
-        <a class="nav-text" href="#research">Publications</a>
-        <a class="nav-text" href="mailto:jchaemin@gmail.com">Email</a>
-        <a class="cv-action" href="assets/cv/cv.pdf" target="_blank" rel="noopener noreferrer" aria-label="View CV PDF in a new tab">CV <span aria-hidden="true">↗</span></a>
-        <button class="theme-switch" type="button" id="theme-switch" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle dark mode">
-          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2.7V5m0 14v2.3M4.45 4.45l1.62 1.62m11.86 11.86 1.62 1.62M2.7 12H5m14 0h2.3M4.45 19.55l1.62-1.62M17.93 6.07l1.62-1.62"/></svg>
-          <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20.25 14.7A8.6 8.6 0 0 1 9.3 3.75 8.6 8.6 0 1 0 20.25 14.7Z"/></svg>
-        </button>
+<a class="skip-link" href="#publications">Skip to publications</a>
+<div class="site-shell" id="top">
+  <main>
+    <section class="hero" aria-labelledby="name">
+      <div class="identity">
+        <h1 id="name">CHAEMIN<br>JANG</h1>
+        <nav class="contact-links" aria-label="Research and contact"><a href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar">Google Scholar</a>
+<a href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GitHub</a>
+<a href="assets/cv/cv.pdf" aria-label="CV">CV</a>
+<a href="mailto:jchaemin@gmail.com" aria-label="Email">Email</a></nav>
       </div>
-    </nav>
-  </header>
-  <main id="main">
-    <section id="home" class="wrap hero" aria-labelledby="headline">
-      <div class="hero-copy">
-        <h1 id="headline">I study what language models know and how they use it.</h1>
-        <p class="intro">I’m <strong>Chaemin Jang</strong>, an M.S. student in the School of Computing at <strong>KAIST</strong>, co-advised by <strong>Jihee Kim</strong> and <strong>Dongman Lee</strong>. My work examines factual recall, internal judgments, and why a model’s knowledge does not always appear in its outputs.</p>
-        <p class="background-line">Previously, I worked on machine learning research and engineering at KAIST, IBS, and NSUSLAB.</p>
-        <div class="social" aria-label="Professional profiles">
-          <a href="mailto:jchaemin@gmail.com">Email <span aria-hidden="true">↗</span></a>
-          <a href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
-          <a href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-        </div>
+      <div class="intro">
+        <p class="lead">I study the gap between what language models learn and what they can actually use.</p>
+        <p class="bio">I am an M.S. student at the School of Computing, KAIST, co-advised by Jihee Kim and Dongman Lee. My work examines factual recall, internal representations, and how learned knowledge shapes model behavior.</p>
       </div>
-      <div class="portrait-wrap"><img src="assets/images/portrait.jpg" class="portrait" alt="Chaemin Jang" width="900" height="900" fetchpriority="high"></div>
+      <figure class="portrait">
+        <img src="assets/images/portrait.jpg" width="900" height="900" alt="Portrait of Chaemin Jang" fetchpriority="high">
+      </figure>
     </section>
-    <section id="research" class="wrap research" aria-labelledby="research-heading">
+    <section class="section publications" id="publications" aria-labelledby="publications-heading">
       <div class="section-heading">
-        <h2 id="research-heading">Publications</h2>
-        <span class="section-aside">Selected first-author work</span>
+        <h2 id="publications-heading">Selected publications</h2>
       </div>
-      <div class="paper-list">
-        <article class="paper">
-        <span class="paper-no" aria-hidden="true">01</span>
-        <div class="paper-main">
-          <h3>Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe</h3>
-          <p class="paper-authors"><strong>Chaemin Jang</strong>, Dongman Lee, Jihee Kim</p>
-          
-        </div>
-        <div class="paper-meta"><span class="paper-venue">Findings of EMNLP 2026</span><div class="paper-links"><a href="https://arxiv.org/abs/2607.25292" target="_blank" rel="noopener noreferrer">Paper ↗</a></div></div>
-      </article>
-<article class="paper">
-        <span class="paper-no" aria-hidden="true">02</span>
-        <div class="paper-main">
-          <h3>In-Context Examples Suppress Scientific Knowledge Recall in LLMs</h3>
-          <p class="paper-authors"><strong>Chaemin Jang</strong>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim</p>
-          
-        </div>
-        <div class="paper-meta"><span class="paper-venue">COLM 2026</span><div class="paper-links"><a href="https://arxiv.org/abs/2604.27540" target="_blank" rel="noopener noreferrer">Paper ↗</a> <a href="papers/icl-suppresses-knowledge-recall/">Project ↗</a></div></div>
-      </article>
-<article class="paper">
-        <span class="paper-no" aria-hidden="true">03</span>
-        <div class="paper-main">
-          <h3><a href="https://arxiv.org/abs/2610.21256" target="_blank" rel="noopener noreferrer">Isolating a Language Model’s Judgment with a Label-Free Subspace</a></h3>
-          <p class="paper-authors"><strong>Chaemin Jang</strong>, Donggyu Lee, Jeesoo Kim, Dongman Lee, Jihee Kim</p>
-          
-        </div>
-        <div class="paper-meta"><span class="paper-venue">Preprint</span><div class="paper-links"><a href="https://arxiv.org/abs/2610.21256" target="_blank" rel="noopener noreferrer">Paper ↗</a></div></div>
-      </article>
-<article class="paper">
-        <span class="paper-no" aria-hidden="true">04</span>
-        <div class="paper-main">
-          <h3>Learning a Fact Is Not Learning How to Retrieve It</h3>
-          <p class="paper-authors"><strong>Chaemin Jang</strong>, Jihee Kim, Dongman Lee</p>
-          
-        </div>
-        <div class="paper-meta"><span class="paper-venue">Preprint</span><div class="paper-links"><a href="https://arxiv.org/abs/2610.03251" target="_blank" rel="noopener noreferrer">Paper ↗</a></div></div>
-      </article>
-<article class="paper">
-        <span class="paper-no" aria-hidden="true">05</span>
-        <div class="paper-main">
-          <h3>From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction</h3>
-          <p class="paper-authors"><strong>Chaemin Jang</strong>, Junsik Min, Jaewoo Choi, Donggyu Lee, Haiin Lee, Junyoung Park, Namhee Kim, Hyunwoo Kim, Jungwon Kim, Juho Kim, Nuri Kim, Jihee Kim</p>
-          <p class="paper-note">Accepted at SocialAgent and UserSim Workshops, NeurIPS 2026</p>
-        </div>
-        <div class="paper-meta"><span class="paper-venue">Preprint</span><div class="paper-links"><a href="https://arxiv.org/abs/2609.07573" target="_blank" rel="noopener noreferrer">Paper ↗</a></div></div>
-      </article>
+      <div class="publication-list"><article class="paper" id="paper-01">
+          <div class="paper-index" aria-label="Publication 1 of 5">01</div>
+          <div class="paper-copy">
+            <h3><a href="https://arxiv.org/abs/2610.21256" target="_blank" rel="noopener noreferrer" >Isolating a Language Model’s Judgment with a Label-Free Subspace</a></h3>
+            <p class="paper-authors"><strong>Chaemin Jang</strong>, Donggyu Lee, Jeesoo Kim, Dongman Lee, Jihee Kim</p>
+            
+            
+          </div>
+          <p class="paper-venue">Preprint</p>
+        </article>
+<article class="paper" id="paper-02">
+          <div class="paper-index" aria-label="Publication 2 of 5">02</div>
+          <div class="paper-copy">
+            <h3><a href="https://arxiv.org/abs/2610.03251" target="_blank" rel="noopener noreferrer" >Learning a Fact Is Not Learning How to Retrieve It</a></h3>
+            <p class="paper-authors"><strong>Chaemin Jang</strong>, Jihee Kim, Dongman Lee</p>
+            
+            
+          </div>
+          <p class="paper-venue">Preprint</p>
+        </article>
+<article class="paper" id="paper-03">
+          <div class="paper-index" aria-label="Publication 3 of 5">03</div>
+          <div class="paper-copy">
+            <h3><a href="https://arxiv.org/abs/2609.07573" target="_blank" rel="noopener noreferrer" >From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction</a></h3>
+            <p class="paper-authors"><strong>Chaemin Jang</strong>, Junsik Min, Jaewoo Choi, Donggyu Lee, Haiin Lee, Junyoung Park, Namhee Kim, Hyunwoo Kim, Jungwon Kim, Juho Kim, Nuri Kim, Jihee Kim</p>
+            <p class="paper-note">Accepted at SocialAgent and UserSim workshops, NeurIPS 2026</p>
+            
+          </div>
+          <p class="paper-venue">Preprint</p>
+        </article>
+<article class="paper" id="paper-04">
+          <div class="paper-index" aria-label="Publication 4 of 5">04</div>
+          <div class="paper-copy">
+            <h3><a href="https://arxiv.org/abs/2607.25292" target="_blank" rel="noopener noreferrer" >Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe</a></h3>
+            <p class="paper-authors"><strong>Chaemin Jang</strong>, Dongman Lee, Jihee Kim</p>
+            
+            
+          </div>
+          <p class="paper-venue">Findings of EMNLP 2026</p>
+        </article>
+<article class="paper" id="paper-05">
+          <div class="paper-index" aria-label="Publication 5 of 5">05</div>
+          <div class="paper-copy">
+            <h3><a href="https://arxiv.org/abs/2604.27540" target="_blank" rel="noopener noreferrer" >In-Context Examples Suppress Scientific Knowledge Recall in LLMs</a></h3>
+            <p class="paper-authors"><strong>Chaemin Jang</strong>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim</p>
+            
+            <nav class="paper-resources" aria-label="Resources for In-Context Examples Suppress Scientific Knowledge Recall in LLMs"><a href="papers/icl-suppresses-knowledge-recall/" aria-label="View project page for In-Context Examples Suppress Scientific Knowledge Recall in LLMs">Project page</a></nav>
+          </div>
+          <p class="paper-venue">COLM 2026</p>
+        </article></div>
+    </section>
+    <section class="section background" aria-labelledby="background-heading">
+      <div class="section-heading">
+        <h2 id="background-heading">Experience</h2>
       </div>
+      <div class="experience-grid"><section class="experience-lane" aria-labelledby="experience-research">
+          <h3 class="experience-lane-title" id="experience-research">Research</h3>
+          <ol class="experience-entries"><li class="experience-entry is-current">
+              <div class="experience-date">2025—present</div>
+              <div class="experience-entry-content">
+                <h4 class="experience-org">KAIST</h4>
+                <p class="experience-role">Graduate research</p>
+                <p class="experience-detail">Language-model knowledge, internal representations, and evaluation</p>
+              </div>
+            </li><li class="experience-entry">
+              <div class="experience-date">2023—2024</div>
+              <div class="experience-entry-content">
+                <h4 class="experience-org">KAIST &amp; IBS</h4>
+                <p class="experience-role">Undergraduate research</p>
+                <p class="experience-detail">Graph learning and multimodal imaging</p>
+              </div>
+            </li></ol>
+        </section><section class="experience-lane" aria-labelledby="experience-industry">
+          <h3 class="experience-lane-title" id="experience-industry">Industry &amp; ventures</h3>
+          <ol class="experience-entries"><li class="experience-entry">
+              <div class="experience-date">2024</div>
+              <div class="experience-entry-content">
+                <h4 class="experience-org">NSUSLAB</h4>
+                <p class="experience-role">AI Engineer</p>
+                <p class="experience-detail">LLM-based translation and customer-inquiry tools</p>
+              </div>
+            </li><li class="experience-entry">
+              <div class="experience-date">2022</div>
+              <div class="experience-entry-content">
+                <h4 class="experience-org">OTDA</h4>
+                <p class="experience-role">Founder</p>
+                <p class="experience-detail">Designer fashion-sharing platform</p>
+              </div>
+            </li></ol>
+        </section></div>
     </section>
   </main>
-  <footer class="wrap site-footer"><div class="footer-rule" aria-hidden="true"></div><div class="footer-inner"><span>© 2026 Chaemin Jang</span><a href="mailto:jchaemin@gmail.com">jchaemin@gmail.com</a></div></footer>
-  <script>
-    (() => {
-      const root = document.documentElement;
-      const button = document.getElementById('theme-switch');
-      let theme = 'light';
-      try { theme = localStorage.getItem('cj-theme') || 'light'; } catch (_) {}
-      function update(next) {
-        root.dataset.theme = next;
-        button.setAttribute('aria-pressed', String(next === 'dark'));
-        button.setAttribute('aria-label', next === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-        const meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.content = next === 'dark' ? '#171918' : '#fcfcfb';
-      }
-      update(theme === 'dark' ? 'dark' : 'light');
-      button.addEventListener('click', () => {
-        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-        update(next);
-        try { localStorage.setItem('cj-theme', next); } catch (_) {}
-      });
-    })();
-  </script>
+  <footer class="site-footer"><span>© 2026 CHAEMIN JANG</span><a href="#top">BACK TO TOP ↑</a></footer>
+</div>
 </body>
 </html>

@@ -1,0 +1,106 @@
+[
+  {
+    "title": "Isolating a Language Model’s Judgment with a Label-Free Subspace",
+    "url": "https://arxiv.org/abs/2610.21256",
+    "authors": [
+      "Chaemin Jang",
+      "Donggyu Lee",
+      "Jeesoo Kim",
+      "Dongman Lee",
+      "Jihee Kim"
+    ],
+    "venue": "Preprint",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2610.21256",
+        "aria_label": "Read Isolating a Language Model's Judgment with a Label-Free Subspace"
+      }
+    ]
+  },
+  {
+    "title": "Learning a Fact Is Not Learning How to Retrieve It",
+    "url": "https://arxiv.org/abs/2610.03251",
+    "authors": [
+      "Chaemin Jang",
+      "Jihee Kim",
+      "Dongman Lee"
+    ],
+    "venue": "Preprint",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2610.03251",
+        "aria_label": "Read Learning a Fact Is Not Learning How to Retrieve It"
+      }
+    ]
+  },
+  {
+    "title": "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction",
+    "url": "https://arxiv.org/abs/2609.07573",
+    "authors": [
+      "Chaemin Jang",
+      "Junsik Min",
+      "Jaewoo Choi",
+      "Donggyu Lee",
+      "Haiin Lee",
+      "Junyoung Park",
+      "Namhee Kim",
+      "Hyunwoo Kim",
+      "Jungwon Kim",
+      "Juho Kim",
+      "Nuri Kim",
+      "Jihee Kim"
+    ],
+    "venue": "Preprint",
+    "note": "Accepted at SocialAgent and UserSim workshops, NeurIPS 2026",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2609.07573",
+        "aria_label": "Read From Simulated Citizens to Simulated Deliberation"
+      }
+    ]
+  },
+  {
+    "title": "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe",
+    "url": "https://arxiv.org/abs/2607.25292",
+    "authors": [
+      "Chaemin Jang",
+      "Dongman Lee",
+      "Jihee Kim"
+    ],
+    "venue": "Findings of EMNLP 2026",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2607.25292",
+        "aria_label": "Read Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
+      }
+    ]
+  },
+  {
+    "title": "In-Context Examples Suppress Scientific Knowledge Recall in LLMs",
+    "url": "https://arxiv.org/abs/2604.27540",
+    "authors": [
+      "Chaemin Jang",
+      "Woojin Park",
+      "Hyeok Yun",
+      "Dongman Lee",
+      "Jihee Kim"
+    ],
+    "venue": "COLM 2026",
+    "links": [
+      {
+        "label": "Paper",
+        "url": "https://arxiv.org/abs/2604.27540",
+        "aria_label": "Read In-Context Examples Suppress Scientific Knowledge Recall in LLMs"
+      },
+      {
+        "label": "Project",
+        "url": "papers/icl-suppresses-knowledge-recall/",
+        "aria_label": "View project page for In-Context Examples Suppress Scientific Knowledge Recall in LLMs"
+      }
+    ]
+  }
+]

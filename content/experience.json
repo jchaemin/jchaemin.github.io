@@ -1,0 +1,42 @@
+[
+  {
+    "date": "2025–present",
+    "organization": "KAIST",
+    "description": "Graduate research · Language-model knowledge, internal representations, and evaluation",
+    "role": "Graduate research",
+    "detail": "Language-model knowledge, internal representations, and evaluation",
+    "start_year": 2025,
+    "end_year": null,
+    "track": "research"
+  },
+  {
+    "date": "2024",
+    "organization": "NSUSLAB",
+    "description": "AI Engineer · LLM-based translation and customer-inquiry tools",
+    "role": "AI Engineer",
+    "detail": "LLM-based translation and customer-inquiry tools",
+    "start_year": 2024,
+    "end_year": 2024,
+    "track": "industry"
+  },
+  {
+    "date": "2023–2024",
+    "organization": "KAIST & IBS",
+    "description": "Undergraduate research · Graph learning and multimodal imaging",
+    "role": "Undergraduate research",
+    "detail": "Graph learning and multimodal imaging",
+    "start_year": 2023,
+    "end_year": 2024,
+    "track": "research"
+  },
+  {
+    "date": "2022",
+    "organization": "OTDA",
+    "description": "Founder · Designer fashion-sharing platform",
+    "role": "Founder",
+    "detail": "Designer fashion-sharing platform",
+    "start_year": 2022,
+    "end_year": 2022,
+    "track": "industry"
+  }
+]

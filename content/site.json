@@ -1,0 +1,14 @@
+{
+  "name": "Chaemin Jang",
+  "email": "jchaemin@gmail.com",
+  "lead": "I study the gap between what language models learn and what they can actually use.",
+  "bio": "I am an M.S. student at the School of Computing, KAIST, co-advised by Jihee Kim and Dongman Lee. My work examines factual recall, internal representations, and how learned knowledge shapes model behavior.",
+  "scholar_url": "https://scholar.google.com/citations?user=Zeo31B4AAAAJ",
+  "github_url": "https://github.com/jchaemin",
+  "footer_year": "2026",
+  "publications_year": "2026",
+  "featured_author": "Chaemin Jang",
+  "home_description": "Chaemin Jang is a researcher at KAIST studying what language models learn, remember, and produce. Publications, preprints, and CV.",
+  "og_description": "Research on knowledge, retrieval, and behavior in language models.",
+  "og_image": "https://jchaemin.github.io/assets/images/social-card.png"
+}
