@@ -50,28 +50,63 @@ def authors(names: list[str]) -> str:
     return ', '.join(f'<strong>{h(n)}</strong>' if n == featured else h(n) for n in names)
 
 
+def paper_title(title: str) -> str:
+    """Keep compound words intact without changing the title text."""
+    formatted = h(title)
+    for term in ('Label-Free', 'In-Context', 'Instruction-Tuned'):
+        formatted = formatted.replace(term, f'<span class="paper-phrase">{term}</span>')
+    return formatted
+
+
 def publications() -> str:
-    results = []
-    for i, paper in enumerate(papers, start=1):
-        link_list = []
-        for item in paper.get('links', []):
-            url = item['url']
-            if url.rstrip('/') == paper['url'].rstrip('/'):
+    """Group papers by research direction, retaining the original publication row.
+
+    Edit `research_area` in content/publications.json to change a paper's group.
+    The original JSON order is preserved within each group.
+    """
+    areas = (
+        ('internals', 'llm-internals', 'LLM Internals', 'How models store, retrieve, and use knowledge.'),
+        ('simulation', 'simulation', 'Simulation', 'How models reproduce distributions and human behavior.'),
+    )
+    valid = {area for area, _, _, _ in areas}
+    if unknown := [p['title'] for p in papers if p.get('research_area') not in valid]:
+        raise ValueError(f'Each paper needs a research_area: {unknown}')
+    total = len(papers)
+    sequence = 0
+    blocks = []
+    for area, group_id, title, tagline in areas:
+        rows = []
+        for paper in papers:
+            if paper['research_area'] != area:
                 continue
-            link_list.append(a(url, h('Project page' if item['label'].lower() == 'project' else item['label']), aria_label=item.get('aria_label', item['label'])))
-        extras = f'<nav class="paper-resources" aria-label="Resources for {h(paper["title"])}">{"".join(link_list)}</nav>' if link_list else ''
-        note = f'<p class="paper-note">{h(paper["note"])}</p>' if paper.get('note') else ''
-        results.append(f'''<article class="paper" id="paper-{i:02d}">
-          <div class="paper-index" aria-label="Publication {i} of {len(papers)}">{i:02d}</div>
-          <div class="paper-copy">
-            <h3>{a(paper['url'], h(paper['title']))}</h3>
-            <p class="paper-authors">{authors(paper['authors'])}</p>
-            {note}
-            {extras}
+            sequence += 1
+            links = []
+            for item in paper.get('links', []):
+                url = item['url']
+                if url.rstrip('/') == paper['url'].rstrip('/'):
+                    continue
+                label = 'Project page' if item['label'].lower() == 'project' else item['label']
+                links.append(a(url, h(label), aria_label=item.get('aria_label', item['label'])))
+            extras = f'<nav class="paper-resources" aria-label="Resources for {h(paper["title"])}">{"".join(links)}</nav>' if links else ''
+            note = f'<p class="paper-note">{h(paper["note"])}</p>' if paper.get('note') else ''
+            rows.append(f'''<article class="paper" id="paper-{sequence:02d}">
+              <div class="paper-index" aria-label="Publication {sequence} of {total}">{sequence:02d}</div>
+              <div class="paper-copy">
+                <h4>{a(paper['url'], paper_title(paper['title']))}</h4>
+                <p class="paper-authors">{authors(paper['authors'])}</p>
+                {note}
+                {extras}
+              </div>
+              <p class="paper-venue">{h(paper['venue'])}</p>
+            </article>''')
+        blocks.append(f'''<section class="research-group" id="{group_id}" aria-labelledby="{group_id}-heading">
+          <div class="research-group-heading">
+            <h3 id="{group_id}-heading">{h(title)}</h3>
+            <p>{h(tagline)}</p>
           </div>
-          <p class="paper-venue">{h(paper['venue'])}</p>
-        </article>''')
-    return '\n'.join(results)
+          <div class="publication-list">{''.join(rows)}</div>
+        </section>''')
+    return ''.join(blocks)
 
 
 def history() -> str:
@@ -157,7 +192,7 @@ def render() -> str:
       <div class="section-heading">
         <h2 id="publications-heading">Selected publications</h2>
       </div>
-      <div class="publication-list">{publications()}</div>
+      {publications()}
     </section>
     <section class="section background" aria-labelledby="background-heading">
       <div class="section-heading">

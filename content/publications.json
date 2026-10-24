@@ -16,7 +16,8 @@
         "url": "https://arxiv.org/abs/2610.21256",
         "aria_label": "Read Isolating a Language Model's Judgment with a Label-Free Subspace"
       }
-    ]
+    ],
+    "research_area": "internals"
   },
   {
     "title": "Learning a Fact Is Not Learning How to Retrieve It",
@@ -33,7 +34,8 @@
         "url": "https://arxiv.org/abs/2610.03251",
         "aria_label": "Read Learning a Fact Is Not Learning How to Retrieve It"
       }
-    ]
+    ],
+    "research_area": "internals"
   },
   {
     "title": "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction",
@@ -60,7 +62,8 @@
         "url": "https://arxiv.org/abs/2609.07573",
         "aria_label": "Read From Simulated Citizens to Simulated Deliberation"
       }
-    ]
+    ],
+    "research_area": "simulation"
   },
   {
     "title": "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe",
@@ -77,7 +80,8 @@
         "url": "https://arxiv.org/abs/2607.25292",
         "aria_label": "Read Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
       }
-    ]
+    ],
+    "research_area": "simulation"
   },
   {
     "title": "In-Context Examples Suppress Scientific Knowledge Recall in LLMs",
@@ -101,6 +105,7 @@
         "url": "papers/icl-suppresses-knowledge-recall/",
         "aria_label": "View project page for In-Context Examples Suppress Scientific Knowledge Recall in LLMs"
       }
-    ]
+    ],
+    "research_area": "internals"
   }
 ]
