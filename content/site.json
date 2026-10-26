@@ -1,8 +1,9 @@
 {
   "name": "Chaemin Jang",
+  "title": "M.S. Student, KAIST School of Computing",
   "email": "jchaemin@gmail.com",
   "lead": "I study the gap between what language models learn and what they can actually use.",
-  "bio": "I am an M.S. student at the School of Computing, KAIST, co-advised by Jihee Kim and Dongman Lee. My work examines factual recall, internal representations, and how learned knowledge shapes model behavior.",
+  "bio": "I’m an M.S. student at KAIST, co-advised by Jihee Kim and Dongman Lee.",
   "scholar_url": "https://scholar.google.com/citations?user=Zeo31B4AAAAJ",
   "github_url": "https://github.com/jchaemin",
   "footer_year": "2026",
@@ -10,5 +11,33 @@
   "featured_author": "Chaemin Jang",
   "home_description": "Chaemin Jang is a researcher at KAIST studying what language models learn, remember, and produce. Publications, preprints, and CV.",
   "og_description": "Research on knowledge, retrieval, and behavior in language models.",
-  "og_image": "https://jchaemin.github.io/assets/images/social-card.png"
+  "og_image": "https://jchaemin.github.io/assets/images/social-card.png",
+  "split": "My papers keep finding the same split. A model knows something, whether a fact, a formula, a distribution, or its own judgment, and yet does not act on it. I study where that gap comes from, how to measure it, and when it can be closed.",
+  "profiles": [
+    {
+      "label": "Email",
+      "url": "mailto:jchaemin@gmail.com"
+    },
+    {
+      "label": "Scholar",
+      "url": "https://scholar.google.com/citations?user=Zeo31B4AAAAJ"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/jchaemin"
+    },
+    {
+      "label": "X",
+      "url": "https://x.com/wkdcoals"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/chaemin-jang-091365257/"
+    },
+    {
+      "label": "CV",
+      "url": "assets/cv/cv.pdf"
+    }
+  ],
+  "_profiles_help": "Links in the top bar, in this order. Fill in a url to show it; leave it empty to hide it. Add any other {label, url} you like."
 }

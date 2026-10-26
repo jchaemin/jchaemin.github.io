@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fcfcfa">
+  <meta name="description" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs. COLM 2026 research project by Chaemin Jang and collaborators.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs — Chaemin Jang">
+  <title>In-Context Examples Suppress Scientific Knowledge Recall — Chaemin Jang</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css"><link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="../../assets/css/project.css">
+</head>
+<body id="top" class="project-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="page-width">
+    <nav class="project-return" aria-label="Return to homepage"><a href="../../">← All research</a></nav>
+    <section class="section-grid project-intro" aria-labelledby="project-heading">
+      <aside class="section-rail">
+        <p class="rail-label">COLM 2026</p>
+        <p class="rail-small">Conference on Language Modeling</p>
+      </aside>
+      <div class="section-main">
+        
+        <h1 id="project-heading">In-Context Examples Suppress Scientific Knowledge Recall in LLMs</h1>
+        <p class="project-authors"><strong>Chaemin Jang</strong>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim</p>
+        <p class="project-affiliations">KAIST · Shanghai Jiao Tong University</p>
+        <p class="project-summary">Models recall the right formula on their own. Show them a few examples of it, and they stop deriving. They start pattern-fitting instead.</p>
+        <div class="project-links"><a href="https://arxiv.org/abs/2604.27540" target="_blank" rel="noopener noreferrer">Read the paper ↗</a></div>
+      </div>
+    </section>
+    <section class="section-grid project-panel" aria-label="Study at a glance">
+      <div class="section-rail"><p class="rail-label">At a glance</p></div>
+      <div class="section-main"><div class="stat-row">
+        <div class="stat-item"><strong>60</strong><span>Tasks</span></div>
+        <div class="stat-item"><strong>5</strong><span>Domains</span></div>
+        <div class="stat-item"><strong>6,000</strong><span>Trials</span></div>
+        <div class="stat-item"><strong>4</strong><span>Models</span></div>
+      </div></div>
+    </section>
+    <section class="section-grid project-panel" id="strategy-shift" aria-labelledby="strategy-heading">
+      <div class="section-rail"><p class="rail-label">Main result</p></div>
+      <div class="section-main">
+        <h2 id="strategy-heading">The strategy shift</h2>
+        <p>Few-shot examples pull every domain toward pattern-fitting, whether or not it helps.</p>
+        
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="causal-check" aria-labelledby="causal-heading">
+      <div class="section-rail"><p class="rail-label">Validation</p></div>
+      <div class="section-main">
+        <h2 id="causal-heading">A causal check</h2>
+        <p>Is this real, or just noisy chain-of-thought labels? A paired log-probability test on three open models says real.</p>
+        
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="example-task" aria-labelledby="example-heading">
+      <div class="section-rail"><p class="rail-label">Example</p></div>
+      <div class="section-main">
+        <h2 id="example-heading">How a task looks</h2>
+        <p>Example task from the economics domain, shown zero-shot and few-shot. What is the consumer surplus at the Cournot-Nash equilibrium?</p>
+        <div class="example-grid">
+          <div class="example-card"><h3>Zero-shot: correct</h3><pre>Step 1: Identify Cournot model
+  “Two firms, linear demand P = a − bQ”
+Step 2: Derive equilibrium
+  q* = (a−c)/3b = 20, Q* = 40
+Step 3: Compute CS from the formula
+  CS = ½(a−P*)Q* = 2(a−c)²/9b
+     = 1600 ✓</pre><p class="small-caption">Derived from the Cournot equilibrium</p></div>
+          <div class="example-card"><h3>Few-shot: wrong</h3><pre>Step 1: Fit pattern from examples
+  “CS scales roughly with market size”
+Step 2: Apply fitted rule
+  CS ≈ 1522 ... or 1688
+  (varies by trial) ✕</pre><p class="small-caption">Fitted heuristic, inconsistent across trials</p></div>
+        </div>
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="suppression" aria-labelledby="suppression-heading">
+      <div class="section-rail"><p class="rail-label">Interpretation</p></div>
+      <div class="section-main"><h2 id="suppression-heading">Why recall is so easy to suppress</h2><p>Swap “price” for a meaningless code word. Keep the same math. Zero-shot accuracy: 55–88% → 3–14%. The model isn't deriving the answer. It's recognizing keywords. That's why a few examples are enough to knock it off course.</p></div>
+    </section>
+    <section class="section-grid project-panel" id="findings" aria-labelledby="findings-heading">
+      <div class="section-rail"><p class="rail-label">Takeaways</p></div>
+      <div class="section-main"><h2 id="findings-heading">What we find</h2>
+        <ul class="project-findings">
+          <li><strong>Uniform direction.</strong> Every domain loses 6–20pp of formula-based reasoning, even where accuracy barely moves.</li>
+          <li><strong>Strong priors lose most.</strong> Economics (88.3% prior) drops most; Geoscience (55.3% prior) looks best: a weak prior is just easy to beat, not improved on.</li>
+          <li><strong>Recall is a keyword trigger.</strong> Swap the vocabulary, keep the math. Accuracy collapses to single digits.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="citation" aria-labelledby="citation-heading">
+      <div class="section-rail"><p class="rail-label">Reference</p></div>
+      <div class="section-main"><h2 id="citation-heading">Citation</h2>
+        <pre id="bibtex" class="bibtex">@inproceedings{jang2026incontext,
+  title     = {In-Context Examples Suppress Scientific Knowledge Recall in LLMs},
+  author    = {Jang, Chaemin and Park, Woojin and Yun, Hyeok and Lee, Dongman and Kim, Jihee},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year      = {2026}
+}</pre>
+        <button type="button" class="copy-button" id="copy-bibtex">Copy BibTeX</button><span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+  </main>
+<footer class="site-footer">
+    <div class="page-width footer-inner">
+      <span>© 2026 Chaemin Jang</span>
+      <a class="back-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    const copyButton = document.getElementById('copy-bibtex');
+    copyButton.addEventListener('click', async () => {
+      const status = document.getElementById('copy-status');
+      const citation = document.getElementById('bibtex').textContent;
+      try {
+        await navigator.clipboard.writeText(citation);
+        status.textContent = 'Copied.';
+      } catch (_) {
+        status.textContent = 'Please select and copy the text above.';
+      }
+    });
+  </script>
+</body>
+</html>

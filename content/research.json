@@ -1,0 +1,184 @@
+{
+  "_about": "Optional per-paper extras, keyed by arXiv id (or title slug). 'line' = homepage TL;DR. 'summary' = the paragraph on the Research page. Other keys are unused drafts.",
+  "2607.25292": {
+    "knows": "The spread of answers a survey population would give. Asked once, it describes that distribution accurately.",
+    "does": "Collapses to a single answer. The same persona gives the same answer on more than half of a public-opinion benchmark.",
+    "evidence": {
+      "type": "bars",
+      "caption": "Error against human survey data, relative to persona aggregation.",
+      "unit": "relative error",
+      "max": 1,
+      "rows": [
+        {
+          "label": "Persona aggregation",
+          "value": 1.0,
+          "text": "baseline",
+          "tone": "base"
+        },
+        {
+          "label": "Prompt-Perturbed Argyle",
+          "value": 0.79,
+          "text": "−21%",
+          "tone": "good"
+        },
+        {
+          "label": "Describe the distribution in one call",
+          "value": 0.48,
+          "text": "less than half",
+          "tone": "good"
+        }
+      ]
+    },
+    "can": "describe how a population would answer",
+    "cannot": "give every persona the same answer",
+    "line": "Describes a distribution it cannot sample from.",
+    "say": "I can tell you how a whole population would answer!",
+    "but": "...but ask me again and again, and I give the same answer.",
+    "featured": true,
+    "demo": {
+      "label": "Poll 10 people",
+      "prompt": "Answer as 10 different voters: do you support the new transit tax?",
+      "thinks": "About 6 in 10 would say yes, 4 in 10 no.",
+      "says": "Yes. Yes. Yes. Yes. Yes. Yes. Yes. Yes. Yes. Yes."
+    },
+    "summary": "Silicon sampling treats each model call as an independent survey respondent, but instruction-tuned models collapse to one answer: the same persona gives the same answer on more than half of a public-opinion benchmark. Asking the model to describe the distribution in a single call more than halves error against human survey data, and Prompt-Perturbed Argyle cuts error by 21% when per-persona answers are needed."
+  },
+  "2604.27540": {
+    "knows": "The scientific formula that generated the data, which it recalls when asked without examples.",
+    "does": "Fits patterns in the in-context examples instead, even when those examples were generated from that same formula.",
+    "evidence": {
+      "type": "stats",
+      "caption": "Latent structure recovery across scientific domains. The shift away from knowledge held in every domain.",
+      "rows": [
+        {
+          "value": "60",
+          "label": "tasks"
+        },
+        {
+          "value": "5",
+          "label": "domains"
+        },
+        {
+          "value": "6,000",
+          "label": "trials"
+        },
+        {
+          "value": "4",
+          "label": "models"
+        }
+      ]
+    },
+    "can": "recall the right formula",
+    "cannot": "abandon it after a few examples",
+    "line": "Drops the formula it knows once examples appear.",
+    "say": "I know the formula behind this data!",
+    "but": "...but show me a few examples, and I just copy their pattern.",
+    "featured": true,
+    "demo": {
+      "label": "Show it examples",
+      "prompt": "Here are 10 solved examples. Now: consumer surplus at the Cournot equilibrium?",
+      "thinks": "CS = 2(a−c)²/9b = 1600.",
+      "says": "Following the examples' pattern… roughly 1522. Or 1688?"
+    },
+    "summary": "In-context examples make models rely less on scientific formulas they can already recall, shifting them toward fitting patterns in the examples, even when the examples come from that same formula. The shift holds across 60 latent-structure tasks in five domains, whether accuracy falls, holds, or appears to rise."
+  },
+  "2610.21256": {
+    "knows": "Its judgment of correctness, entailment and safety, readable from its hidden states.",
+    "does": "Fails to express it when the instruction changes. Negating the question pushes a standard probe to chance.",
+    "evidence": {
+      "type": "bars",
+      "caption": "AUROC under a negated question. Removing the label-free expression subspace recovers the judgment.",
+      "unit": "AUROC",
+      "min": 0.4,
+      "max": 1,
+      "chance": 0.5,
+      "pairs": [
+        {
+          "label": "Entailment",
+          "before": 0.504,
+          "after": 0.825
+        },
+        {
+          "label": "Safety",
+          "before": 0.48,
+          "after": 0.891
+        }
+      ]
+    },
+    "can": "hold a judgment in its hidden states",
+    "cannot": "fail to say it once the question flips",
+    "line": "Keeps its judgment after it can no longer express it.",
+    "say": "Deep inside, I know whether this is true!",
+    "but": "...but flip the question, and I can't say it anymore.",
+    "featured": true,
+    "demo": {
+      "label": "Flip the question",
+      "prompt": "Is this answer incorrect?  (Same answer as before, question negated.)",
+      "thinks": "The answer is correct.",
+      "says": "Yes, it is incorrect."
+    },
+    "summary": "When instructions change, the differences in a model’s hidden states concentrate in a low-dimensional expression subspace that can be found without labels. Removing it isolates the model’s judgment, which stays reliable under new instructions: with a negated question, AUROC rises from 0.504 to 0.825 for entailment and from 0.480 to 0.891 for safety."
+  },
+  "2610.03251": {
+    "knows": "A new fact, learned from plain statements, which it retrieves when asked in that same form.",
+    "does": "Fails to retrieve it through other request forms, unless it practised those forms on earlier facts.",
+    "evidence": {
+      "type": "setup",
+      "caption": "Two models learn the same new facts as statements. They differ only in what came before.",
+      "rows": [
+        {
+          "label": "Earlier facts seen in 5 request forms",
+          "result": "Retrieves through other forms",
+          "tone": "good"
+        },
+        {
+          "label": "Earlier facts seen only as statements",
+          "result": "Retrieves only from statements",
+          "tone": "bad"
+        }
+      ],
+      "note": "Steering the hidden state before the answer turns retrieval on or off, across facts and relations."
+    },
+    "can": "learn a new fact",
+    "cannot": "fail to retrieve it when asked another way",
+    "line": "Learns a fact, but retrieves it only the way it was taught to be asked.",
+    "say": "I just learned a new fact!",
+    "but": "...but ask me a different way, and I can't find it.",
+    "demo": {
+      "label": "Ask it differently",
+      "prompt": "Learned: “The capital of Velmora is Duran.”  Now asked: “Velmora, capital:”",
+      "thinks": "Duran.",
+      "says": "I'm not sure."
+    },
+    "featured": true,
+    "summary": "We separate learning a fact from learning to retrieve it. Two models learn the same new facts as plain statements; the one that earlier saw facts in five request forms can retrieve the new facts through other phrasings. Steering the hidden state just before the answer can turn retrieval on or off, across facts and relations."
+  },
+  "2609.07573": {
+    "knows": "How to deliberate: agents exchange arguments, respond to one another, and change position.",
+    "does": "Not what a real public does. Opinions are too concentrated, and positions shift even when agents cannot see each other.",
+    "evidence": {
+      "type": "checks",
+      "caption": "Six LLMs against national surveys, controlled experiments, and the 2017 Shin-Kori deliberative poll.",
+      "rows": [
+        {
+          "label": "Generate deliberative discussion",
+          "ok": true
+        },
+        {
+          "label": "Represent public opinion",
+          "ok": false
+        },
+        {
+          "label": "Reproduce opinion change from interaction",
+          "ok": false
+        }
+      ]
+    },
+    "can": "argue like a citizen",
+    "cannot": "fail to change its mind like one",
+    "line": "Deliberates convincingly, but not the way a real public does.",
+    "say": "I can argue like a real citizen!",
+    "but": "...but I don't change my mind like one.",
+    "summary": "Simulating a deliberating public needs agents whose opinions reflect a population and change through discussion. Across six LLMs, national surveys, controlled experiments and the 2017 Shin-Kori deliberative poll, agents argue convincingly but represent opinion too narrowly, and change positions even when they cannot see each other."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "_about": "The two research directions. 'intro' and 'questions' appear on the Research page; 'line' on the homepage panel.",
+  "overview": "My research looks at language models from two sides. From the inside: what a model has learned, how that knowledge is stored and retrieved, and what stops it from being used. From the outside: how faithfully models can stand in for people, as survey respondents, personas, and participants in public deliberation.",
+  "topics": {
+    "internals": {
+      "name": "LLM Internals",
+      "look": "Looking inside the model",
+      "line": "How models store, retrieve, and use what they learn.",
+      "intro": "Language models often hold more than they show. I study what is stored inside a model, how it is retrieved, and what gets in the way of using it, whether that is the phrasing of a request, the examples in a prompt, or the instruction itself. The work combines controlled training setups with probing and steering of hidden states.",
+      "questions": [
+        "When does a learned fact become retrievable, and through which phrasings?",
+        "Why do in-context examples push aside knowledge the model already has?",
+        "Can we read a model’s judgment separately from how it is asked to express it?"
+      ]
+    },
+    "simulation": {
+      "name": "Simulation",
+      "look": "The model playing people",
+      "line": "How models reproduce populations, opinions, and human behavior.",
+      "intro": "Language models are increasingly used to stand in for people. I test when that works by measuring simulated respondents and simulated deliberation against real survey and deliberative-poll data, and I look for methods that bring simulations closer to the populations they claim to represent.",
+      "questions": [
+        "Do simulated respondents reproduce the spread of opinions in a real population?",
+        "Does simulated deliberation change minds the way real discussion does?"
+      ]
+    }
+  }
+}
