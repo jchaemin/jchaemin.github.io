@@ -106,7 +106,10 @@ main { width: min(100% - 32px, 760px); margin: 0 auto; padding: 32px 0 48px; }
 .tabs [aria-selected="true"] .num { color: var(--acc); }
 
 .scene { display: grid; grid-template-columns: 1.35fr 1fr; align-items: center; gap: 24px; padding: 20px 24px 22px; }
-.scene[hidden] { display: none; }
+/* all scenes share one grid cell, so the panel keeps the height of the tallest topic */
+.scenes { display: grid; }
+.scenes > .scene { grid-area: 1 / 1; }
+.scenes > .scene[hidden] { display: grid; visibility: hidden; }
 .scene svg { display: block; width: 100%; height: auto; image-rendering: pixelated; background:
   linear-gradient(var(--grid) .5px, transparent .5px) 0 0 / 10% 20%, linear-gradient(90deg, var(--grid) .5px, transparent .5px) 0 0 / 10% 20%; }
 .look { font: 400 10px/1.4 var(--tiny); color: var(--low); }

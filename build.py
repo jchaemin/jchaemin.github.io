@@ -409,7 +409,7 @@ def topic_panel(ps) -> str:
           </div>
         </div>
       </div>""" for i, (k, t) in enumerate(TOPICS.items()))
-    return f'<div class="tabs" role="tablist" aria-label="Research topics" style="--n:{len(TOPICS)}">{tabs}</div>{scenes}'
+    return f'<div class="tabs" role="tablist" aria-label="Research topics" style="--n:{len(TOPICS)}">{tabs}</div><div class="scenes">{scenes}</div>'
 
 
 def see_link(k, n):
