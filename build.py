@@ -658,7 +658,8 @@ def render() -> str:
       <h1>Chaemin Jang</h1>
       <p class="role">M.S. Student · KAIST School of Computing</p>
       <p>Advised by Jihee Kim and Dongman Lee. I study language models from three sides:
-      what happens inside them, how well they stand in for people, and what they can measure where data is scarce. <a class="more" href="research/">Research overview →</a></p>
+      what happens inside them, how well they stand in for people, and what they can measure where data is scarce.</p>
+      <p class="start-wrap"><a class="start" href="research/"><span class="tri" aria-hidden="true"></span>PRESS START<span class="sub">RESEARCH OVERVIEW</span></a></p>
     </div>
   </section>
 

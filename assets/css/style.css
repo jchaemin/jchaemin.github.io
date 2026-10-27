@@ -293,6 +293,21 @@ body > main > footer { display: flex; justify-content: space-between; flex-wrap:
   .y { padding: 14px 0 2px; }
   .pub { grid-template-columns: 1fr; row-gap: 6px; }
 }
+/* "Press start" link to the research overview */
+.start-wrap { margin-top: 14px; }
+.start {
+  display: inline-flex; align-items: center; gap: 10px; padding: 9px 12px;
+  font: 400 12px/1 var(--tiny); color: var(--ink); background: var(--paper);
+  box-shadow: inset 0 0 0 2px var(--ink), 4px 4px 0 0 var(--line);
+  transition: transform .1s steps(2), box-shadow .1s steps(2);
+}
+.start .sub { font-size: 10px; color: var(--low); }
+.start .tri { width: 0; height: 0; border-left: 8px solid var(--acc); border-top: 6px solid transparent; border-bottom: 6px solid transparent; animation: press 1s steps(1) infinite; }
+@keyframes press { 50% { opacity: 0; } }
+.start:hover { background: var(--ink); color: #fff; }
+.start:hover .sub { color: #c9c9cf; }
+.start:active { transform: translate(2px, 2px); box-shadow: inset 0 0 0 2px var(--ink); }
+
 /* Now, news, projects ----------------------------------------------------------- */
 .now { margin-top: 40px; padding: 14px 20px 16px; }
 .now h2 { margin: 0 0 10px; }
