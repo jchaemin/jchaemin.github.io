@@ -103,7 +103,7 @@ main { width: min(100% - 32px, 760px); margin: 0 auto; padding: 32px 0 48px; }
 .tabs .num { color: var(--low); }
 .tabs [aria-selected="true"] .num { color: var(--acc); }
 
-.scene { display: grid; grid-template-columns: 1.35fr 1fr; align-items: center; align-content: start; gap: 24px; padding: 20px 24px 22px; }
+.scene { display: grid; grid-template-columns: 1.35fr 1fr; align-items: start; align-content: start; gap: 24px; padding: 20px 24px 22px; }
 /* all scenes share one grid cell, so the panel keeps the height of the tallest topic */
 .scenes { display: grid; }
 .scenes > .scene { grid-area: 1 / 1; }
