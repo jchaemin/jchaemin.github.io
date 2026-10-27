@@ -15,6 +15,11 @@
         "label": "Paper",
         "url": "https://arxiv.org/abs/2610.21256",
         "aria_label": "Read Isolating a Language Model's Judgment with a Label-Free Subspace"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/jchaemin/isolated-judgment",
+        "aria_label": "Code for Isolating a Language Model’s Judgment with a Label-Free Subspace"
       }
     ],
     "research_area": "internals"
@@ -33,6 +38,11 @@
         "label": "Paper",
         "url": "https://arxiv.org/abs/2610.03251",
         "aria_label": "Read Learning a Fact Is Not Learning How to Retrieve It"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/jchaemin/learning-retrieval",
+        "aria_label": "Code for Learning a Fact Is Not Learning How to Retrieve It"
       }
     ],
     "research_area": "internals"
@@ -61,6 +71,11 @@
         "label": "Paper",
         "url": "https://arxiv.org/abs/2609.07573",
         "aria_label": "Read From Simulated Citizens to Simulated Deliberation"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/jchaemin/simulated-deliberation",
+        "aria_label": "Code for From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction"
       }
     ],
     "research_area": "simulation"
@@ -79,6 +94,11 @@
         "label": "Paper",
         "url": "https://arxiv.org/abs/2607.25292",
         "aria_label": "Read Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/jchaemin/instruct-sampling-collapse",
+        "aria_label": "Code for Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe"
       }
     ],
     "research_area": "simulation"

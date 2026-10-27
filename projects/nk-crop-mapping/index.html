@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f6f4">
+  <meta name="description" content="10 m crop maps of the Hwanghae provinces for 2019–2025, built without field labels and checked against official statistics.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mapping North Korean Agriculture from Satellite Imagery · Chaemin Jang">
+  <meta property="og:description" content="10 m crop maps of the Hwanghae provinces for 2019–2025, built without field labels and checked against official statistics.">
+  <meta property="og:image" content="https://jchaemin.github.io/assets/images/social-card-v2.png">
+  <meta property="og:url" content="https://jchaemin.github.io/projects/nk-crop-mapping/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://jchaemin.github.io/projects/nk-crop-mapping/">
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Mapping North Korean Agriculture from Satellite Imagery · Chaemin Jang</title>
+</head>
+<body class="research-page">
+<main>
+  <header class="top">
+    <p class="logo"><a href="../../">CHAEMIN<span>.</span>JANG</a></p>
+    <nav aria-label="Profiles"><a class="btn" href="mailto:jchaemin@gmail.com">Email</a><a class="btn" href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a><a class="btn" href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://x.com/wkdcoals" target="_blank" rel="noopener noreferrer">X</a><a class="btn" href="https://www.linkedin.com/in/chaeminjang/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="btn" href="../../assets/cv/cv.pdf">CV</a></nav>
+  </header>
+
+  <p class="crumb"><a href="../../#proj-h"><span class="arrow">←</span> PROJECTS</a></p>
+  <section class="overview project-head">
+    <p class="look"><a href="../../research/#satellite"><span class="nw">SATELLITE &amp;</span><br><span class="nw">LOW-RESOURCE</span></a></p>
+    <h1 class="ptitle">Mapping North Korean Agriculture from Satellite Imagery</h1>
+    <div class="psum"><p>Commissioned by the Ministry of Unification, with Prof. David Lobell and Prof. Jennifer Burney at Stanford. North Korea has no public field labels, so standard crop mapping cannot be trained there.</p><p>We combine two crop classifiers trained in other countries, keep the pixels where they agree, and self-train a small transformer on those labels. It maps rice, maize and wheat/barley at 10 m resolution across North and South Hwanghae for 2019–2025, and the area estimates are checked against official statistics.</p></div>
+    <dl class="facts px"><dt>Funding</dt><dd>Ministry of Unification · with Stanford University</dd><dt>Period</dt><dd>2026</dd><dt>Team</dt><dd>Prof. Jihee Kim (PI, KAIST), with Prof. David Lobell and Prof. Jennifer Burney (Stanford)</dd><dt>My role</dt><dd>Crop classification, area estimation and county-level analysis.</dd></dl>
+    
+  </section>
+  <section class="direction">
+    <figure class="pfig px"><img src="../../assets/images/projects/nk-crop-method.png" alt="Four-step method: two models guess, keep where both agree, train our model, map every field" loading="lazy"><figcaption>Method: two existing classifiers label North Korean pixels, we keep only where they agree, train a small transformer on those labels, and map all cropland at 10 m.</figcaption></figure>
+    <div class="psec"><h3 class="papers-h">WHY IT IS HARD</h3><p>There are no public field labels for North Korea, so a crop classifier cannot be trained there directly, and models trained in other countries transfer imperfectly.</p></div><div class="psec"><h3 class="papers-h">WHAT WE DID</h3><ul><li>Two existing classifiers, one trained in China and one in the US and France, label Sentinel-2 pixels</li><li>We keep the pixels where both agree as training labels</li><li>A small transformer is trained on those labels and refined by self-training</li><li>The model maps rice, maize and wheat/barley at 10 m across North and South Hwanghae, 2019–2025</li></ul></div><div class="psec"><h3 class="papers-h">HOW WE CHECK IT</h3><p>With no field ground truth, accuracy is measured as agreement with independent estimates: national statistics, the Rural Development Administration, and other published crop maps.</p></div>
+    
+  </section>
+
+  <footer><span>&copy; 2026 Chaemin Jang</span></footer>
+</main>
+</body>
+</html>

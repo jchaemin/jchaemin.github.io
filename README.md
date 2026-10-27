@@ -36,6 +36,16 @@ order; an empty `url` hides it. X and LinkedIn are already there, blank:
 Built from `content/topics.json` (overview, and per topic: intro and questions) and each
 paper's `summary` in `research.json`. Papers appear under their `research_area` automatically.
 
+## Now, news and projects
+- `content/now.json`: the NOW box on the homepage (`updated` + 3–5 short `items`).
+- `content/news.json`: newest first. Each item has `date` (`YYYY-MM`), `kind`
+  (`accepted`, `preprint`, `talk` or `visit`), a bold `head`, an optional `title` and `url`.
+  Items dated after the build month get a SOON badge automatically, so rebuild once the event has passed.
+  On screens 1200px and wider the news list sits in a sticky side column; below that it is a scroll box under NOW.
+- `content/projects.json`: funded projects. Each gets a page at `projects/<slug>/` with `summary`,
+  `sections` (heading + paras/bullets), optional `image`, `links`, `team`, `role` and related `papers` (arXiv ids).
+  `topic` ties a project to a research topic; topics with projects show a "Show its N projects" button.
+
 ## Other content
 - `content/site.json`: name, links, intro text
 - `content/experience.json`: roles. Each one becomes a save slot and a block on the timeline (`track` picks the lane: `research` or `industry`; `end_year: null` marks the current role). A new organization can get its own 10×10 icon in `EXP_ICONS` in `build.py`; otherwise it shows the robot.

@@ -1,6 +1,6 @@
 {
-  "_about": "The two research directions. 'intro' and 'questions' appear on the Research page; 'line' on the homepage panel.",
-  "overview": "My research looks at language models from two sides. From the inside: what a model has learned, how that knowledge is stored and retrieved, and what stops it from being used. From the outside: how faithfully models can stand in for people, as survey respondents, personas, and participants in public deliberation.",
+  "_about": "The two research directions. 'intro' and 'questions' appear on the Research page; 'line' on the homepage panel. Optional 'lines' sets where a long name breaks in tabs and tags.",
+  "overview": "My research looks at language models from three sides. From the inside: what a model has learned, how that knowledge is stored and retrieved, and what stops it from being used. From the outside: how faithfully models can stand in for people, as survey respondents, personas, and participants in public deliberation. And in the field: how models can measure places where ground-truth data is scarce.",
   "topics": {
     "internals": {
       "name": "LLM Internals",
@@ -21,6 +21,20 @@
       "questions": [
         "Do simulated respondents reproduce the spread of opinions in a real population?",
         "Does simulated deliberation change minds the way real discussion does?"
+      ]
+    },
+    "satellite": {
+      "name": "Satellite & Low-Resource",
+      "look": "The model reading the ground",
+      "line": "How models measure places that lack data.",
+      "intro": "Many places that matter for policy have little reliable data. I build methods that read satellite imagery without field labels, combining existing classifiers and self-training, and validate the resulting maps against official statistics.",
+      "questions": [
+        "Can crops be mapped where no field labels exist?",
+        "How far can models trained elsewhere transfer to a new region?"
+      ],
+      "lines": [
+        "Satellite &",
+        "Low-Resource"
       ]
     }
   }

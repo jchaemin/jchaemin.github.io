@@ -6,6 +6,9 @@ Content lives in content/:
   publications.json  paper metadata (title, authors, venue, links)
   research.json      per paper: what the model knows, what it does, evidence
   experience.json    roles
+  now.json           "Now" lines on the homepage
+  news.json          dated news items
+  projects.json      funded projects, each tied to a topic
 Run:  python3 build.py      (standard library only)
 """
 from __future__ import annotations
@@ -27,6 +30,9 @@ site = load("site.json")
 papers = load("publications.json")
 research = load("research.json")
 experience = load("experience.json")
+now = load("now.json")
+news = load("news.json")["items"]
+projects = load("projects.json")["items"]
 ME = site["featured_author"]
 
 def fonts(prefix: str = "") -> str:
@@ -342,11 +348,54 @@ def scene_simulation() -> str:
     return "".join(out)
 
 
+FIELD_ROWS = [  # crop parcels seen from above; letters pick a fill
+    "aaabbbccaab", "aaabbbccaab", "ddaabbbccdd", "ddaabbbccdd", "cccddaaabbb", "cccddaaabbb",
+]
+FIELD_CLS = {"a": "t2", "b": "acc", "c": "t1", "d": "node"}
+
+
+def scene_satellite() -> str:
+    out = [llm_rects(4, 15)]                  # the same robot, small, reading the map
+    # a satellite in orbit, top left: body + two panels
+    sx, sy = 30, 2
+    out.append(px_rect(sx, sy + 1, 4, 3, "ink"))
+    for dx in (-6, 5):
+        out.append(px_rect(sx + dx, sy + 1, 5, 3, "t3"))
+        out.append(px_rect(sx + dx + 2, sy + 1, 1, 3, "wire"))
+    # its scan beam down to the fields
+    for t in range(1, 9):
+        out.append(px_rect(sx + 1 + t * 2, sy + 4 + t * 2, 2, 1, "beam", f"--d:{t * .12:.2f}s"))
+    # a patchwork of fields, bottom right, 3x3 px per parcel
+    fx, fy = 44, 20
+    for y, row in enumerate(FIELD_ROWS):
+        for x, c in enumerate(row):
+            out.append(px_rect(fx + x * 3, fy + y * 3, 3, 3, FIELD_CLS[c] + " field", f"--d:{(x + y) * .08:.2f}s"))
+    out.append(px_rect(fx - 1, fy - 1, len(FIELD_ROWS[0]) * 3 + 2, 1, "ink"))
+    out.append(px_rect(fx - 1, fy + len(FIELD_ROWS) * 3, len(FIELD_ROWS[0]) * 3 + 2, 1, "ink"))
+    out.append(px_rect(fx - 1, fy - 1, 1, len(FIELD_ROWS) * 3 + 2, "ink"))
+    out.append(px_rect(fx + len(FIELD_ROWS[0]) * 3, fy - 1, 1, len(FIELD_ROWS) * 3 + 2, "ink"))
+    # dotted line from the robot to the map
+    for t in range(1, 7):
+        out.append(px_rect(26 + t * 3, 30, 1, 1, "wire lead"))
+    out.append(typing(16, 10))
+    return "".join(out)
+
+
+def tname(t, upper=False):
+    """Topic name; 'lines' in topics.json sets where a long name breaks."""
+    parts = t.get("lines") or [t["name"]]
+    return "<br>".join(f'<span class="nw">{h(x.upper() if upper else x)}</span>' for x in parts)
+
+
+def project_count(k):
+    return sum(pr.get("topic") == k for pr in projects)
+
+
 def topic_panel(ps) -> str:
     counts = {k: sum(topic_of(p) == k for p in ps) for k in TOPICS}
     tabs = "".join(
         f'<button type="button" role="tab" id="tab-{k}" aria-controls="scene-{k}" aria-selected="{str(i == 0).lower()}" data-topic="{k}">'
-        f'<span class="num">{i + 1:02d}</span>{h(t["name"])}</button>'
+        f'<span class="num">{i + 1:02d}</span><span>{tname(t)}</span></button>'
         for i, (k, t) in enumerate(TOPICS.items()))
     scenes = "".join(f"""
       <div class="scene" id="scene-{k}" role="tabpanel" aria-labelledby="tab-{k}"{'' if i == 0 else ' hidden'}>
@@ -356,11 +405,87 @@ def topic_panel(ps) -> str:
           <p class="what">{h(t['line'])}</p>
           <div class="actions">
             <a class="act primary" href="research/#{k}">Read about this direction →</a>
-            <a class="act see" href="#pubs-h" data-topic="{k}">Show its {counts[k]} paper{'s' if counts[k] != 1 else ''} ↓</a>
+            {see_link(k, counts[k])}
           </div>
         </div>
       </div>""" for i, (k, t) in enumerate(TOPICS.items()))
-    return f'<div class="tabs" role="tablist" aria-label="Research topics">{tabs}</div>{scenes}'
+    return f'<div class="tabs" role="tablist" aria-label="Research topics" style="--n:{len(TOPICS)}">{tabs}</div>{scenes}'
+
+
+def see_link(k, n):
+    out = []
+    if n:
+        out.append(f'<a class="act see" href="#pubs-h" data-topic="{k}">Show its {n} paper{"s" if n != 1 else ""} ↓</a>')
+    m = project_count(k)
+    if m:
+        out.append(f'<a class="act" href="#proj-h">Show its {m} project{"s" if m != 1 else ""} ↓</a>')
+    return "".join(out)
+
+
+# Now, news, projects -----------------------------------------------------------------
+def now_block() -> str:
+    items = "".join(f"<li>{h(t)}</li>" for t in now["items"])
+    return f"""
+  <section class="now px" aria-labelledby="now-h">
+    <h2 id="now-h"><span>NOW</span><small>UPDATED {h(now['updated'].upper())}</small></h2>
+    <ul>{items}</ul>
+  </section>"""
+
+
+def month_label(d):
+    y, m = d.split("-")
+    return f'{["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][int(m) - 1]} {y}'
+
+
+NEWS_ICONS = {  # 8x8 pixel icons per news kind; X = ink, A = accent
+    "accepted": ["........", "......AA", ".....AA.", "A...AA..", "AA.AA...", ".AAA....", "..A.....", "........"],
+    "preprint": ["XXXXX...", "X...XX..", "X.XXXXX.", "X.....X.", "X.XXX.X.", "X.....X.", "X.XXX.X.", "XXXXXXX."],
+    "talk":     [".XXXXXX.", "X......X", "X.A.A.AX", "X......X", ".XXXXXX.", "...X....", "..X.....", "........"],
+    "visit":    ["...XX...", "..XAAX..", "..XAAX..", "...XX...", "...XX...", "..X..X..", ".X....X.", "XXXXXXXX"],
+}
+NEWS_LABEL = {"accepted": "ACCEPTED", "preprint": "PREPRINT", "talk": "TALK", "visit": "VISIT"}
+
+
+def news_block(today: str, prefix: str = "") -> str:
+    def row(n):
+        kind = n.get("kind", "talk")
+        soon = n["date"] > today
+        title = h(n.get("title", ""))
+        if n.get("url") and title:
+            title = f'<a href="{h(rel(n["url"], prefix))}"{ext(n["url"])}>{title}</a>'
+        badge = f'<span class="nk {kind}{" soon" if soon else ""}">{"SOON" if soon else NEWS_LABEL.get(kind, kind.upper())}</span>'
+        ico = sprite(NEWS_ICONS.get(kind, NEWS_ICONS["talk"]), {"X": "#1c1c22", "A": "#13a374"}, "nico")
+        return (f'<li class="n-{kind}"><span class="nicon">{ico}</span><div>'
+                f'<p class="nmeta"><time datetime="{h(n["date"])}">{month_label(n["date"])}</time>{badge}</p>'
+                f'<p class="nhead">{h(n["head"])}</p>'
+                + (f'<p class="ntitle">{title}</p>' if title else "") + '</div></li>')
+    rows = "".join(row(n) for n in news)
+    return f"""
+  <section class="side" aria-labelledby="news-h">
+    <h2 id="news-h"><span>NEWS</span><small class="count">{len(news)} ITEMS · SCROLL</small></h2>
+    <div class="news px"><ol tabindex="0" aria-label="News, newest first">{rows}</ol></div>
+  </section>"""
+
+
+def projects_block() -> str:
+    def card(pr):
+        t = TOPICS.get(pr.get("topic"), {"name": ""})
+        title = f'<a href="projects/{h(pr["slug"])}/">{h(pr["title"])}</a>'
+        return f"""
+      <li class="proj">
+        <span class="tag">{tname(t, upper=True)}</span>
+        <div>
+          <h3>{title}</h3>
+          <p class="who">{h(pr["partner"])} · {h(pr["period"])}</p>
+          <p class="line">{h(pr["line"])}</p>
+          <div class="links"><a href="projects/{h(pr["slug"])}/">Details</a></div>
+        </div>
+      </li>"""
+    return f"""
+  <section aria-labelledby="proj-h">
+    <h2 id="proj-h"><span>PROJECTS</span><small class="count">{len(projects)} FUNDED</small></h2>
+    <ol class="projs px">{"".join(card(pr) for pr in projects)}</ol>
+  </section>"""
 
 
 EXP_ICONS = {  # 10x10 pixel icons for the save slots; X = ink. Add one per organization (fallback: robot).
@@ -465,7 +590,9 @@ SCRIPT = r"""
 </script>"""
 
 
-SCENES = {"internals": lambda: scene_internals(), "simulation": lambda: scene_simulation()}
+SCENES = {"internals": lambda: scene_internals(), "simulation": lambda: scene_simulation(),
+          "satellite": lambda: scene_satellite()}
+TODAY = __import__("datetime").date.today().strftime("%Y-%m")
 
 
 def rel(url: str, prefix: str) -> str:
@@ -515,10 +642,11 @@ def footer() -> str:
 def render() -> str:
     ps = order(papers)
     filters = '<button type="button" data-topic="all" aria-pressed="true">ALL</button>' + "".join(
-        f'<button type="button" data-topic="{k}" aria-pressed="false">{h(t["name"].upper())}</button>' for k, t in TOPICS.items())
+        f'<button type="button" data-topic="{k}" aria-pressed="false">{h(t["name"].upper())}</button>' for k, t in TOPICS.items()
+        if any(topic_of(p) == k for p in ps))
     return head(site["name"], site["home_description"], "") + f"""
 <body>
-<main>
+<main class="home">
 {top_bar()}
 
   <section class="intro" aria-label="Introduction">
@@ -529,10 +657,13 @@ def render() -> str:
     <div>
       <h1>Chaemin Jang</h1>
       <p class="role">M.S. Student · KAIST School of Computing</p>
-      <p>Advised by Jihee Kim and Dongman Lee. I study language models from two sides:
-      what happens inside them, and how well they stand in for people. <a class="more" href="research/">Research overview →</a></p>
+      <p>Advised by Jihee Kim and Dongman Lee. I study language models from three sides:
+      what happens inside them, how well they stand in for people, and what they can measure where data is scarce. <a class="more" href="research/">Research overview →</a></p>
     </div>
   </section>
+
+{now_block()}
+{news_block(TODAY)}
 
   <section class="topics px" aria-label="Research topics">{topic_panel(ps)}</section>
 
@@ -541,6 +672,8 @@ def render() -> str:
     <div class="filters" role="group" aria-label="Filter by topic">{filters}</div>
     <div class="pubs px">{publications(ps)}</div>
   </section>
+
+{projects_block()}
 
   <section aria-labelledby="log-h">
     <h2 id="log-h"><span>EXPERIENCE</span></h2>
@@ -578,6 +711,27 @@ def research_paper(p: dict, prefix: str) -> str:
         </article>"""
 
 
+def research_papers(mine, pre):
+    if not mine:
+        return ""
+    return f'<h3 class="papers-h">PAPERS <small>{len(mine)}</small></h3>' + "".join(research_paper(p, pre) for p in mine)
+
+
+def research_projects(k):
+    mine = [pr for pr in projects if pr.get("topic") == k]
+    if not mine:
+        return ""
+    rows = "".join(f"""
+        <article class="rpaper">
+          <p class="meta"><span class="tag">PROJECT</span><span class="yr">{h(pr['period'])}</span></p>
+          <h4>{h(pr['title'])}</h4>
+          <p class="who">{h(pr['partner'])}</p>
+          <p class="summary">{h(pr['line'])}</p>
+          <p class="btns"><a class="btn primary" href="../projects/{h(pr['slug'])}/">Project details</a></p>
+        </article>""" for pr in mine)
+    return f'<h3 class="papers-h">PROJECTS <small>{len(mine)}</small></h3>{rows}'
+
+
 def render_research() -> str:
     ps = order(papers)
     pre = "../"
@@ -599,8 +753,8 @@ def render_research() -> str:
       </div>
     </div>
     <div class="questions"><h3>QUESTIONS</h3><ol>{qs}</ol></div>
-    <h3 class="papers-h">PAPERS <small>{len(mine)}</small></h3>
-    {''.join(research_paper(p, pre) for p in mine)}
+    {research_papers(mine, pre)}
+    {research_projects(k)}
   </section>""")
     return head(f"Research · {site['name']}", topics_data["overview"], "research/", pre) + f"""
 <body class="research-page">
@@ -614,6 +768,56 @@ def render_research() -> str:
     <nav class="toc" aria-label="Directions">{toc}</nav>
   </section>
 {''.join(sections)}
+
+{footer()}
+</main>
+</body>
+</html>
+"""
+
+
+def render_project_page(pr: dict) -> str:
+    pre = "../../"
+    t = TOPICS.get(pr.get("topic"), {"name": ""})
+    paras = "".join(f"<p>{h(x)}</p>" for x in pr.get("summary", [pr["line"]]))
+    facts = [("Funding", pr["partner"]), ("Period", pr["period"])]
+    if pr.get("team"):
+        facts.append(("Team", pr["team"]))
+    if pr.get("role"):
+        facts.append(("My role", pr["role"]))
+    dl = "".join(f"<dt>{h(a)}</dt><dd>{h(b)}</dd>" for a, b in facts)
+    btns = "".join(f'<a class="btn" href="{h(l["url"])}"{ext(l["url"])}>{h(l["label"])}</a>' for l in pr.get("links", []))
+    related = [p for p in order(papers) if arxiv_id(p) in pr.get("papers", [])]
+    rel_html = (f'<h3 class="papers-h">RELATED PAPERS <small>{len(related)}</small></h3>'
+                + "".join(research_paper(p, pre) for p in related)) if related else ""
+    img = pr.get("image")
+    fig = (f'<figure class="pfig px"><img src="{pre}{h(img["src"])}" alt="{h(img["alt"])}" loading="lazy">'
+           f'<figcaption>{h(img.get("caption", ""))}</figcaption></figure>') if img else ""
+    secs = []
+    for sec in pr.get("sections", []):
+        body = "".join(f"<p>{h(x)}</p>" for x in sec.get("paras", []))
+        if sec.get("bullets"):
+            body += "<ul>" + "".join(f"<li>{h(b)}</li>" for b in sec["bullets"]) + "</ul>"
+        secs.append(f'<div class="psec"><h3 class="papers-h">{h(sec["heading"].upper())}</h3>{body}</div>')
+    secs_html = "".join(secs)
+    return head(f"{pr['title']} · {site['name']}", pr["line"], f"projects/{pr['slug']}/", pre) + f"""
+<body class="research-page">
+<main>
+{top_bar(pre)}
+
+  <p class="crumb"><a href="../../#proj-h"><span class="arrow">←</span> PROJECTS</a></p>
+  <section class="overview project-head">
+    <p class="look"><a href="../../research/#{h(pr['topic'])}">{tname(t, upper=True)}</a></p>
+    <h1 class="ptitle">{h(pr['title'])}</h1>
+    <div class="psum">{paras}</div>
+    <dl class="facts px">{dl}</dl>
+    {f'<p class="btns">{btns}</p>' if btns else ""}
+  </section>
+  <section class="direction">
+    {fig}
+    {secs_html}
+    {rel_html}
+  </section>
 
 {footer()}
 </main>
@@ -647,4 +851,8 @@ if __name__ == "__main__":
     (ROOT / "research").mkdir(exist_ok=True)
     (ROOT / "research" / "index.html").write_text(render_research(), encoding="utf-8")
     build_project()
+    for pr in projects:
+        d = ROOT / "projects" / pr["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(render_project_page(pr), encoding="utf-8")
     print("Built index.html, research/index.html and papers/icl-suppresses-knowledge-recall/index.html")

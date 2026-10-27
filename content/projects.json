@@ -1,0 +1,116 @@
+{
+  "_about": "Funded projects. Each gets a page at projects/<slug>/. 'topic' is a key in topics.json. 'links' and 'papers' (arXiv ids) are optional.",
+  "items": [
+    {
+      "slug": "sbs-dforum-2026",
+      "title": "Human–AI Deliberation for SBS D-Forum 2026",
+      "partner": "SBS · with KAIST KIXLAB",
+      "period": "2026",
+      "topic": "simulation",
+      "line": "Simulated 10,000 citizens deliberating in 1,000 rooms on polarizing issues, for SBS D-Forum 2026.",
+      "summary": [
+        "For SBS D-Forum 2026, we built a mini-public of LLM agents to explore how public opinion forms on polarizing issues. Ten thousand personas grounded in Korean survey data deliberate in 1,000 rooms of ten.",
+        "We compare models, and measure the diversity of arguments and how minority opinions shift over the discussion. The results are presented at the forum's KAIST session."
+      ],
+      "team": "Prof. Juho Kim (KAIST KIXLAB), Prof. Nuri Kim, and Prof. Jihee Kim (KAIST EconAI)",
+      "role": "Coordinated the EconAI side and ran the multi-model simulations.",
+      "links": [
+        {
+          "label": "SBS D-Forum 2026",
+          "url": "https://sdf.or.kr/2026/ko"
+        }
+      ],
+      "papers": [
+        "2609.07573"
+      ],
+      "sections": [
+        {
+          "heading": "What we built",
+          "bullets": [
+            "10,000 personas grounded in Korean survey data, deliberating in 1,000 rooms of ten",
+            "Four policy agendas, including AI profit sharing and data sharing across public institutions",
+            "Controlled conditions: reference material from a moderator, and agents spreading misinformation",
+            "Several LLMs compared on the same rooms"
+          ]
+        },
+        {
+          "heading": "What we measure",
+          "bullets": [
+            "Whether rooms polarize, converge, or flip their majority",
+            "How minority opinions shift over the discussion",
+            "How diverse the arguments are"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "ai-science-hub",
+      "title": "AI-Agent-Based Social Simulation: Validation and Alignment with Human Behavior",
+      "partner": "Ministry of Science and ICT · AI-Science Hub",
+      "period": "2026",
+      "topic": "simulation",
+      "line": "Building and validating an LLM-agent social simulation framework against human deliberation data.",
+      "summary": [
+        "A 2026 AI-Science Hub project funded by the Ministry of Science and ICT. We build a framework for social simulation with LLM agents, then compare and validate it against human social behavior, including data from real deliberative polls.",
+        "The goal is simulations that are reproducible and whose populations can be checked against the people they stand in for."
+      ],
+      "team": "Prof. Jihee Kim (PI), with Prof. Nuri Kim and Prof. Joseph Seering",
+      "role": "Simulation experiments and analysis.",
+      "papers": [
+        "2609.07573"
+      ],
+      "sections": [
+        {
+          "heading": "Approach",
+          "bullets": [
+            "A common framework for running social simulations with LLM agents",
+            "Validation against human data, including real deliberative polls",
+            "Reproducibility: the same simulation should give the same population-level answer"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nk-crop-mapping",
+      "title": "Mapping North Korean Agriculture from Satellite Imagery",
+      "partner": "Ministry of Unification · with Stanford University",
+      "period": "2026",
+      "topic": "satellite",
+      "line": "10 m crop maps of the Hwanghae provinces for 2019–2025, built without field labels and checked against official statistics.",
+      "summary": [
+        "Commissioned by the Ministry of Unification, with Prof. David Lobell and Prof. Jennifer Burney at Stanford. North Korea has no public field labels, so standard crop mapping cannot be trained there.",
+        "We combine two crop classifiers trained in other countries, keep the pixels where they agree, and self-train a small transformer on those labels. It maps rice, maize and wheat/barley at 10 m resolution across North and South Hwanghae for 2019–2025, and the area estimates are checked against official statistics."
+      ],
+      "team": "Prof. Jihee Kim (PI, KAIST), with Prof. David Lobell and Prof. Jennifer Burney (Stanford)",
+      "role": "Crop classification, area estimation and county-level analysis.",
+      "image": {
+        "src": "assets/images/projects/nk-crop-method.png",
+        "alt": "Four-step method: two models guess, keep where both agree, train our model, map every field",
+        "caption": "Method: two existing classifiers label North Korean pixels, we keep only where they agree, train a small transformer on those labels, and map all cropland at 10 m."
+      },
+      "sections": [
+        {
+          "heading": "Why it is hard",
+          "paras": [
+            "There are no public field labels for North Korea, so a crop classifier cannot be trained there directly, and models trained in other countries transfer imperfectly."
+          ]
+        },
+        {
+          "heading": "What we did",
+          "bullets": [
+            "Two existing classifiers, one trained in China and one in the US and France, label Sentinel-2 pixels",
+            "We keep the pixels where both agree as training labels",
+            "A small transformer is trained on those labels and refined by self-training",
+            "The model maps rice, maize and wheat/barley at 10 m across North and South Hwanghae, 2019–2025"
+          ]
+        },
+        {
+          "heading": "How we check it",
+          "paras": [
+            "With no field ground truth, accuracy is measured as agreement with independent estimates: national statistics, the Rural Development Administration, and other published crop maps."
+          ]
+        }
+      ]
+    }
+  ]
+}
