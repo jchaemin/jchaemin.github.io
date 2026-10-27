@@ -77,15 +77,13 @@ main { width: min(100% - 32px, 760px); margin: 0 auto; padding: 32px 0 48px; }
 .btn.primary:hover { background: #33333c; }
 
 /* Intro ---------------------------------------------------------------------- */
-.intro { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: center; margin-top: 64px; }
+.intro { display: grid; grid-template-columns: auto 1fr; gap: 24px; align-items: start; margin-top: 64px; }
 .avatar { position: relative; width: 112px; height: 112px; padding: 0; overflow: hidden; cursor: default; }
 .avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .avatar .sprite { position: absolute; inset: 0; width: 100%; height: 100%; padding: 12px; background: var(--paper); opacity: 0; transition: opacity .15s steps(2); }
 .avatar:hover .sprite { opacity: 1; }
 .intro h1 { font: 400 16px/1.2 var(--tiny); }
 .intro .role { margin-top: 6px; font: 400 11px/1.4 var(--tiny); color: var(--acc); max-width: none; }
-.intro .more { color: var(--ink); white-space: nowrap; text-decoration: underline 1px var(--line); text-underline-offset: 3px; }
-.intro .more:hover { text-decoration-color: var(--ink); }
 .intro p { margin-top: 8px; max-width: 34em; color: var(--mid); font-size: 15.5px; line-height: 1.6; text-wrap: pretty; }
 .intro em { font-style: normal; color: var(--ink); font-weight: 560; }
 .sprite { display: block; width: 96px; height: 96px; image-rendering: pixelated; }
