@@ -11,7 +11,7 @@
   "featured_author": "Chaemin Jang",
   "home_description": "M.S. student at KAIST School of Computing, researching LLM internals and simulation.",
   "og_description": "Research on knowledge, retrieval, and behavior in language models.",
-  "og_image": "https://jchaemin.github.io/assets/images/social-card-v2.png",
+  "og_image": "https://chaeminjang.com/assets/images/social-card-v2.png",
   "split": "My papers keep finding the same split. A model knows something, whether a fact, a formula, a distribution, or its own judgment, and yet does not act on it. I study where that gap comes from, how to measure it, and when it can be closed.",
   "profiles": [
     {

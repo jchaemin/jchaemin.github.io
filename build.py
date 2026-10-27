@@ -606,7 +606,7 @@ def profile_nav(prefix: str = "") -> str:
 
 
 def head(title: str, desc: str, path: str, prefix: str = "") -> str:
-    url = "https://jchaemin.github.io/" + path
+    url = "https://chaeminjang.com/" + path
     return f"""<!doctype html>
 <html lang="en">
 <head>
