@@ -183,8 +183,13 @@ h2 small { font: 400 10px/1 var(--tiny); color: var(--low); }
 .pub .who { margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--mid); }
 .pub .who b { color: var(--ink); font-weight: 560; }
 .pub .note { margin-top: 2px; font-size: 13px; color: var(--acc); }
-.award { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 6px; font-size: 13px; font-weight: 560; color: var(--ink); }
-.award .ak { padding: 3px 5px; font: 400 9px/1 var(--tiny); color: #fff; background: var(--acc); }
+.award { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; margin-top: 8px; }
+.award .aw-ico { width: 28px; height: 18px; flex: none; }
+.award .ak { position: relative; overflow: hidden; padding: 4px 7px 3px; font: 400 9px/1 var(--tiny); letter-spacing: .06em; color: #fff; background: var(--acc); box-shadow: 2px 2px 0 var(--ink); }
+.award .ak::after { content: ""; position: absolute; top: 0; bottom: 0; left: -45%; width: 35%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .7), transparent); transform: skewX(-20deg); animation: aw-sweep 3.6s ease-in-out infinite; }
+.award .at { margin-left: 10px; font: 400 10px/1.5 var(--tiny); color: var(--ink); }
+@keyframes aw-sweep { 0%, 55% { left: -45%; } 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .award .ak::after { display: none; } }
 .pub:target h3 { background: linear-gradient(transparent 60%, #dff5ec 60%); }
 
 .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 6px; font: 400 10px/1.6 var(--tiny); }

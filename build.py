@@ -13,6 +13,7 @@ Run:  python3 build.py      (standard library only)
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import re
@@ -35,9 +36,15 @@ news = load("news.json")["items"]
 projects = load("projects.json")["items"]
 ME = site["featured_author"]
 
+def css(prefix: str, name: str) -> str:
+    """Stylesheet link with a content hash, so browsers never keep a stale copy after a deploy."""
+    v = hashlib.md5((ROOT / "assets" / "css" / name).read_bytes()).hexdigest()[:8]
+    return f'<link rel="stylesheet" href="{prefix}assets/css/{name}?v={v}">'
+
+
 def fonts(prefix: str = "") -> str:
     return (f'<link rel="preload" href="{prefix}assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>'
-            f'<link rel="stylesheet" href="{prefix}assets/css/fonts.css">')
+            + css(prefix, "fonts.css"))
 
 
 def h(value) -> str:
@@ -215,9 +222,18 @@ def short_venue(p: dict) -> str:
     return v
 
 
+SPOTLIGHT = [  # a stage light on a stand (X) throwing its beam (A) onto the badge to its right
+    "............AA", "..........AAAA", ".XXX....AAAAAA", "XXXXXAAAAAAAAA", "XXXXXAAAAAAAAA",
+    ".XXX....AAAAAA", "..X.......AAAA", "..X.........AA", ".XXX.........."]
+
+
 def award_line(p: dict) -> str:
     a = p.get("award")
-    return f'<p class="award"><span class="ak">{h(a["label"])}</span>{h(a["text"])}</p>' if a else ""
+    if not a:
+        return ""
+    ico = sprite(SPOTLIGHT, {"X": "#1c1c22", "A": "#b9e8d5"}, "aw-ico")
+    return (f'<p class="award">{ico}<span class="ak">{h(a["label"])}</span>'
+            f'<span class="at">{h(a["text"])}</span></p>')
 
 
 def title_html(p: dict) -> str:
@@ -243,7 +259,7 @@ def pub_row(p: dict) -> str:
     kind = "preprint" if is_preprint(p) else "published"
     return f"""
         <li class="pub" id="p-{h(k)}" data-kind="{kind}" data-topic="{topic_of(p)}">
-          <span class="tag {kind}">{h(short_venue(p))}</span>
+          <span class="tag {kind}">{"<br>".join(h(x) for x in short_venue(p).split(chr(10)))}</span>
           <div>
             <h3>{title_html(p)}</h3>
             <p class="who">{authors(p)}</p>
@@ -632,7 +648,7 @@ def head(title: str, desc: str, path: str, prefix: str = "") -> str:
   <link rel="canonical" href="{url}">
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
   {fonts(prefix)}
-  <link rel="stylesheet" href="{prefix}assets/css/style.css">
+  {css(prefix, "style.css")}
   <title>{h(title)}</title>
 </head>"""
 
@@ -713,7 +729,7 @@ def research_paper(p: dict, prefix: str) -> str:
     kind = "preprint" if is_preprint(p) else "published"
     return f"""
         <article class="rpaper">
-          <p class="meta"><span class="tag {kind}">{h(short_venue(p))}</span><span class="yr">{year_of(p)}</span></p>
+          <p class="meta"><span class="tag {kind}">{h(short_venue(p).replace(chr(10), " · "))}</span><span class="yr">{year_of(p)}</span></p>
           <h4>{nb(p['title'])}</h4>
           <p class="who">{authors(p)}</p>
           {award_line(p)}{note}{summary}
@@ -843,7 +859,7 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     """A paper page (content/<src> -> papers/<slug>/), restyled. Figures whose image is missing are left out."""
     source = (CONTENT / src).read_text(encoding="utf-8")
     page = source.replace('<link rel="stylesheet" href="../../assets/css/site.css">',
-                          fonts('../../') + '<link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="../../assets/css/project.css">')
+                          fonts('../../') + css('../../', "style.css") + css('../../', "project.css"))
     page = page.replace('<body id="top">', '<body id="top" class="project-page">')
     page = page.replace('<meta name="color-scheme" content="light">', '<meta name="color-scheme" content="light dark">')
 

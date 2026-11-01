@@ -77,8 +77,7 @@
       "Nuri Kim",
       "Jihee Kim"
     ],
-    "venue": "Preprint",
-    "note": "Accepted at SocialAgent and UserSim workshops, NeurIPS 2026",
+    "venue": "SocialAgent and UserSim Workshops @ NeurIPS 2026",
     "links": [
       {
         "label": "Paper",
@@ -94,8 +93,9 @@
     "research_area": "simulation",
     "award": {
       "label": "SPOTLIGHT",
-      "text": "UserSim workshop, NeurIPS 2026"
-    }
+      "text": "UserSim @ NeurIPS 2026"
+    },
+    "venue_short": "NeurIPS\nSocialAgent\nUserSim"
   },
   {
     "title": "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe",
