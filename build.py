@@ -130,7 +130,7 @@ LLM = [  # the robot at 16px, for small placements; same shape as LLM_HI
     "..OOOOOOOOOOOO..",
 ]
 LLM_COLORS = {"O": "#1c1c22", "L": "#ececf0", "d": "#24242b", "Z": "#3fe0a6", "A": "#13a374", "E": "#13a374"}
-LLM_CLS = {"O": "ink", "L": "shell", "d": "ink", "Z": "eye", "A": "acc", "E": "acc"}
+LLM_CLS = {"O": "ink", "L": "shell", "d": "screen", "Z": "eye", "A": "acc", "E": "acc"}
 
 
 def _rr(x, y, x0, y0, x1, y1, r):
@@ -580,6 +580,10 @@ def experience_block() -> str:
 SCAN = r"""
 <script>
 (() => {
+  document.querySelector('.theme')?.addEventListener('click', () => {
+    const d = document.documentElement, t = d.dataset.theme === 'dark' ? 'light' : 'dark';
+    d.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (_) {}
+  });
   // The grid is a map: cells light up where the pointer passes, like pixels being classified
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
   const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
@@ -673,9 +677,16 @@ def rel(url: str, prefix: str) -> str:
     return url if re.match(r"^(https?:|mailto:|#|/)", url) else prefix + url
 
 
+THEME_INIT = "<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(_){}</script>"
+SUN = ["...A....", ".A.A.A..", "..AAA...", "AAAAAAA.", "..AAA...", ".A.A.A..", "...A....", "........"]
+MOON = ["..XXX...", ".XX.....", "XX......", "XX......", "XX......", ".XX.....", "..XXX...", "........"]
+
+
 def profile_nav(prefix: str = "") -> str:
     items = [l for l in site.get("profiles", []) if l.get("url")]
-    return "".join(f'<a class="btn" href="{h(rel(l["url"], prefix))}"{ext(l["url"])}>{h(l["label"])}</a>' for l in items)
+    toggle = (f'<button type="button" class="btn theme" aria-label="Switch day and night">'
+              f'{sprite(SUN, {"A": "#13a374"}, "sun")}{sprite(MOON, {"X": "#ececf1"}, "moon")}</button>')
+    return "".join(f'<a class="btn" href="{h(rel(l["url"], prefix))}"{ext(l["url"])}>{h(l["label"])}</a>' for l in items) + toggle
 
 
 def head(title: str, desc: str, path: str, prefix: str = "") -> str:
@@ -697,6 +708,7 @@ def head(title: str, desc: str, path: str, prefix: str = "") -> str:
   <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
   {fonts(prefix)}
   {css(prefix, "style.css")}
+  {THEME_INIT}
   <title>{h(title)}</title>
 </head>"""
 
@@ -916,6 +928,7 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     page = page.replace('<body id="top">', '<body id="top" class="project-page">')
     page = page.replace("</body>", SCAN + "\n</body>")
     page = page.replace('<meta name="color-scheme" content="light">', '<meta name="color-scheme" content="light dark">')
+    page = page.replace("</head>", THEME_INIT + "\n</head>", 1)
 
     def keep_figure(m):
         src = re.search(r'src="\.\./\.\./([^"]+)"', m.group(0))

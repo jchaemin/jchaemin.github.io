@@ -14,14 +14,15 @@
   <link rel="canonical" href="https://chaeminjang.com/projects/sbs-dforum-2026/">
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css?v=51014ee0">
-  <link rel="stylesheet" href="../../assets/css/style.css?v=237e3bea">
+  <link rel="stylesheet" href="../../assets/css/style.css?v=66321744">
+  <script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(_){}</script>
   <title>Human–AI Deliberation for SBS D-Forum 2026 · Chaemin Jang</title>
 </head>
 <body class="research-page">
 <main>
   <header class="top">
     <p class="logo"><a href="../../">CHAEMIN<span>.</span>JANG</a></p>
-    <nav aria-label="Profiles"><a class="btn" href="mailto:jchaemin@gmail.com">Email</a><a class="btn" href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a><a class="btn" href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://x.com/wkdcoals" target="_blank" rel="noopener noreferrer">X</a><a class="btn" href="https://www.linkedin.com/in/chaeminjang/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="btn" href="../../assets/cv/cv.pdf">CV</a></nav>
+    <nav aria-label="Profiles"><a class="btn" href="mailto:jchaemin@gmail.com">Email</a><a class="btn" href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a><a class="btn" href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://x.com/wkdcoals" target="_blank" rel="noopener noreferrer">X</a><a class="btn" href="https://www.linkedin.com/in/chaeminjang/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a class="btn" href="../../assets/cv/cv.pdf">CV</a><button type="button" class="btn theme" aria-label="Switch day and night"><svg class="sprite sun" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="1" height="1" fill="#13a374"/><rect x="1" y="1" width="1" height="1" fill="#13a374"/><rect x="3" y="1" width="1" height="1" fill="#13a374"/><rect x="5" y="1" width="1" height="1" fill="#13a374"/><rect x="2" y="2" width="1" height="1" fill="#13a374"/><rect x="3" y="2" width="1" height="1" fill="#13a374"/><rect x="4" y="2" width="1" height="1" fill="#13a374"/><rect x="0" y="3" width="1" height="1" fill="#13a374"/><rect x="1" y="3" width="1" height="1" fill="#13a374"/><rect x="2" y="3" width="1" height="1" fill="#13a374"/><rect x="3" y="3" width="1" height="1" fill="#13a374"/><rect x="4" y="3" width="1" height="1" fill="#13a374"/><rect x="5" y="3" width="1" height="1" fill="#13a374"/><rect x="6" y="3" width="1" height="1" fill="#13a374"/><rect x="2" y="4" width="1" height="1" fill="#13a374"/><rect x="3" y="4" width="1" height="1" fill="#13a374"/><rect x="4" y="4" width="1" height="1" fill="#13a374"/><rect x="1" y="5" width="1" height="1" fill="#13a374"/><rect x="3" y="5" width="1" height="1" fill="#13a374"/><rect x="5" y="5" width="1" height="1" fill="#13a374"/><rect x="3" y="6" width="1" height="1" fill="#13a374"/></svg><svg class="sprite moon" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="2" y="0" width="1" height="1" fill="#ececf1"/><rect x="3" y="0" width="1" height="1" fill="#ececf1"/><rect x="4" y="0" width="1" height="1" fill="#ececf1"/><rect x="1" y="1" width="1" height="1" fill="#ececf1"/><rect x="2" y="1" width="1" height="1" fill="#ececf1"/><rect x="0" y="2" width="1" height="1" fill="#ececf1"/><rect x="1" y="2" width="1" height="1" fill="#ececf1"/><rect x="0" y="3" width="1" height="1" fill="#ececf1"/><rect x="1" y="3" width="1" height="1" fill="#ececf1"/><rect x="0" y="4" width="1" height="1" fill="#ececf1"/><rect x="1" y="4" width="1" height="1" fill="#ececf1"/><rect x="1" y="5" width="1" height="1" fill="#ececf1"/><rect x="2" y="5" width="1" height="1" fill="#ececf1"/><rect x="2" y="6" width="1" height="1" fill="#ececf1"/><rect x="3" y="6" width="1" height="1" fill="#ececf1"/><rect x="4" y="6" width="1" height="1" fill="#ececf1"/></svg></button></nav>
   </header>
 
   <p class="crumb"><a href="../../#proj-h"><span class="arrow">←</span> PROJECTS</a></p>
@@ -50,6 +51,10 @@
 
 <script>
 (() => {
+  document.querySelector('.theme')?.addEventListener('click', () => {
+    const d = document.documentElement, t = d.dataset.theme === 'dark' ? 'light' : 'dark';
+    d.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (_) {}
+  });
   // The grid is a map: cells light up where the pointer passes, like pixels being classified
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
   const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);

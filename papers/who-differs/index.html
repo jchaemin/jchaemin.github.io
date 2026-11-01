@@ -10,7 +10,8 @@
   <meta property="og:title" content="Who Differs, and How Many? — Chaemin Jang">
   <title>Who Differs, and How Many? — Chaemin Jang</title>
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css?v=51014ee0"><link rel="stylesheet" href="../../assets/css/style.css?v=237e3bea"><link rel="stylesheet" href="../../assets/css/project.css?v=61c8cc69">
+  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css?v=51014ee0"><link rel="stylesheet" href="../../assets/css/style.css?v=66321744"><link rel="stylesheet" href="../../assets/css/project.css?v=61c8cc69">
+<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(_){}</script>
 </head>
 <body id="top" class="project-page">
   <a class="skip-link" href="#main">Skip to content</a>
@@ -96,6 +97,10 @@
 
 <script>
 (() => {
+  document.querySelector('.theme')?.addEventListener('click', () => {
+    const d = document.documentElement, t = d.dataset.theme === 'dark' ? 'light' : 'dark';
+    d.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (_) {}
+  });
   // The grid is a map: cells light up where the pointer passes, like pixels being classified
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
   const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
