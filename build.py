@@ -917,7 +917,10 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     page = page.replace('<body id="top">', '<body id="top" class="project-page">')
     page = page.replace("</body>", SCAN + "\n</body>")
     page = page.replace('<meta name="color-scheme" content="light">', '<meta name="color-scheme" content="light dark">')
-    page = page.replace("</head>", THEME_INIT + "\n</head>", 1)
+    url = f"https://chaeminjang.com/papers/{slug}/"
+    social = (f'  <meta property="og:url" content="{url}">\n  <meta property="og:image" content="{h(site["og_image"])}">\n'
+              f'  <meta name="twitter:card" content="summary_large_image">\n  <link rel="canonical" href="{url}">\n')
+    page = page.replace("</head>", social + THEME_INIT + "\n</head>", 1)
 
     def keep_figure(m):
         src = re.search(r'src="\.\./\.\./([^"]+)"', m.group(0))
@@ -968,4 +971,8 @@ if __name__ == "__main__":
         d = ROOT / "projects" / pr["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(render_project_page(pr), encoding="utf-8")
-    print("Built index.html, research/index.html and papers/*/index.html")
+    pages = ["", "research/"] + [f"projects/{pr['slug']}/" for pr in projects] + [f"papers/{slug}/" for slug in PAPER_PAGES.values()]
+    (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                                      + "".join(f"  <url><loc>https://chaeminjang.com/{p}</loc></url>\n" for p in pages) + "</urlset>\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://chaeminjang.com/sitemap.xml\n", encoding="utf-8")
+    print("Built index.html, research/index.html, papers/*/index.html, sitemap.xml")
