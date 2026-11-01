@@ -183,6 +183,8 @@ h2 small { font: 400 10px/1 var(--tiny); color: var(--low); }
 .pub .who { margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--mid); }
 .pub .who b { color: var(--ink); font-weight: 560; }
 .pub .note { margin-top: 2px; font-size: 13px; color: var(--acc); }
+.award { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-top: 6px; font-size: 13px; font-weight: 560; color: var(--ink); }
+.award .ak { padding: 3px 5px; font: 400 9px/1 var(--tiny); color: #fff; background: var(--acc); }
 .pub:target h3 { background: linear-gradient(transparent 60%, #dff5ec 60%); }
 
 .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 6px; font: 400 10px/1.6 var(--tiny); }

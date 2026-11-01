@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#fcfcfa">
+  <meta name="description" content="Who Differs, and How Many? Assessing Language Models’ Potential to Complement Opinion Surveys. Abstract, World Bank Better Data for Better Lives conference 2026. Chaemin Jang and Jihee Kim.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Who Differs, and How Many? — Chaemin Jang">
+  <title>Who Differs, and How Many? — Chaemin Jang</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css"><link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="../../assets/css/project.css">
+</head>
+<body id="top" class="project-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main" class="page-width">
+    <nav class="project-return" aria-label="Return to homepage"><a href="../../">← All research</a></nav>
+    <section class="section-grid project-intro" aria-labelledby="project-heading">
+      <aside class="section-rail">
+        <p class="rail-label">World Bank 2026</p>
+        <p class="rail-small">Better Data for Better Lives: Innovations in Survey Measurement in the Age of AI</p>
+      </aside>
+      <div class="section-main">
+        <h1 id="project-heading">Who Differs, and How Many? Assessing Language Models’ Potential to Complement Opinion Surveys</h1>
+        <p class="project-authors"><strong>Chaemin Jang</strong>, Jihee Kim</p>
+        <p class="project-affiliations">KAIST</p>
+        <p class="project-summary">We test 22 language models on US and African opinion surveys: not only whether they get each group’s percentages right, but whether they predict which groups differ, and by how much.</p>
+      </div>
+    </section>
+    <section class="section-grid project-panel" aria-label="Study at a glance">
+      <div class="section-rail"><p class="rail-label">At a glance</p></div>
+      <div class="section-main"><div class="stat-row">
+        <div class="stat-item"><strong>22</strong><span>Language models</span></div>
+        <div class="stat-item"><strong>4</strong><span>Survey programmes</span></div>
+        <div class="stat-item"><strong>9</strong><span>Countries</span></div>
+        <div class="stat-item"><strong>46</strong><span>New GSS 2024 questions</span></div>
+      </div></div>
+    </section>
+    <section class="section-grid project-panel" id="question" aria-labelledby="question-heading">
+      <div class="section-rail"><p class="rail-label">Motivation</p></div>
+      <div class="section-main">
+        <h2 id="question-heading">The question</h2>
+        <p>Survey data are often too sparse to estimate opinion reliably within demographic groups. Even when a survey gives a precise national estimate, estimates for particular age groups, education levels, or other demographic categories may rely on only a small number of respondents. Collecting larger samples is costly, particularly in settings where regular, large-scale surveys are difficult to conduct, as in many African countries.</p>
+        <p>Language models have been proposed as a low-cost way to estimate opinions for groups that are sparsely represented in surveys. To assess this potential, we ask what information they can reliably provide. We examine not only how accurately they predict the share of people holding an opinion, but also how well they capture differences across groups. A model might get the percentages wrong for both younger and older people, for example, yet correctly predict that support is higher among the young.</p>
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="data" aria-labelledby="data-heading">
+      <div class="section-rail"><p class="rail-label">Method</p></div>
+      <div class="section-main">
+        <h2 id="data-heading">Data and analysis</h2>
+        <p>We evaluate 22 language models against four survey programmes: Pew’s American Trends Panel through OpinionQA, Pew Global Attitudes, Afrobarometer Round 9, and the 2024 General Social Survey. The data cover the United States and Ghana, Kenya, Malawi, Nigeria, South Africa, Uganda, Zambia and Zimbabwe. This coverage allows us to assess whether performance extends beyond US surveys to African settings. The GSS was released after the models’ training cutoffs and contains 46 questions not asked in earlier waves. These features provide a check against reliance on previously published survey responses.</p>
+        <p>Our sample includes 13 open-weight models with 0.5 to 72 billion parameters and nine frontier models from the Claude, Gemini, GPT and Grok families. To obtain population shares, we use the probabilities a model assigns to answer letters or ask it to report percentages directly. To assess what the models add beyond simple alternatives, we compare their predictions with the average response pattern on other questions with the same number of options, a text model using question wording, and the previous survey wave for repeated items. For the second task, we examine group differences by party, age, education and religiosity in the United States, and by urban or rural residence, gender, age and education in Africa. We randomize answer order and measure agreement between predicted and observed group differences using rank correlations. We report 95% confidence intervals obtained by resampling whole questions.</p>
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="findings" aria-labelledby="findings-heading">
+      <div class="section-rail"><p class="rail-label">Results</p></div>
+      <div class="section-main">
+        <h2 id="findings-heading">What we find</h2>
+        <p>For population shares, model performance depends strongly on how predictions are obtained. Estimates based on answer-letter probabilities perform worse than the average-response benchmark in 37 of 38 model and survey combinations. By contrast, asking for percentages directly produces more accurate estimates. Under this approach, the two strongest frontier models outperform the benchmark in all four survey programmes, with confidence intervals for every gain above zero. Performance under direct elicitation also improves with model scale.</p>
+        <p>Turning to group differences, model predictions track observed variation across groups. Both frontier models outperform Llama 70B and the text benchmark in each dataset, with confidence intervals for all paired differences above zero.</p>
+        <div class="result-table-wrap">
+          <table class="result-table">
+            <caption>Rank correlation between predicted and observed group differences, with 95% CI. GSS 2024 (new): the 46 questions not asked in earlier waves.</caption>
+            <thead><tr><th scope="col">Model</th><th scope="col">OpinionQA</th><th scope="col">GSS 2024 (new)</th><th scope="col">Africa (within country)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Claude Opus</th><td>0.64 <span>[0.58, 0.70]</span></td><td>0.80 <span>[0.72, 0.86]</span></td><td>0.52 <span>[0.40, 0.62]</span></td></tr>
+              <tr><th scope="row">Gemini Flash</th><td>0.68 <span>[0.61, 0.73]</span></td><td>0.79 <span>[0.70, 0.85]</span></td><td>0.48 <span>[0.37, 0.58]</span></td></tr>
+              <tr><th scope="row">Llama 70B</th><td>0.49</td><td>0.57</td><td>0.24</td></tr>
+              <tr><th scope="row">Text benchmark</th><td>0.21</td><td>0.11</td><td>0.06</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="project-findings">
+          <li><strong>Not from memorized polls.</strong> Excluding every GSS topic with a documented pre-2024 poll, the correlations remain between 0.70 and 0.76.</li>
+          <li><strong>Gap sizes, not just rankings.</strong> Frontier models also approximate the size of the group gaps, whereas open-weight 70B models exaggerate them by a factor of 1.4 to 2.</li>
+          <li><strong>African settings.</strong> Within-country correlations are about 0.3 lower than on the new GSS questions for both frontier models. The difference from OpinionQA is small once we account for the greater sampling noise in African subgroup estimates.</li>
+          <li><strong>Across countries.</strong> Frontier models also predict differences across countries, with a correlation of 0.57 [0.52, 0.61], compared with 0.40 for a text model that includes country identity.</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section-grid project-panel" id="implications" aria-labelledby="implications-heading">
+      <div class="section-rail"><p class="rail-label">Implications</p></div>
+      <div class="section-main">
+        <h2 id="implications-heading">A different role for language models</h2>
+        <p>Our findings suggest a different role for language models in survey research. Rather than treating model-generated responses as substitutes for survey respondents, researchers may be able to use model predictions of demographic differences to improve estimates for groups with limited survey data. This approach could be particularly valuable in African settings, where expanding survey samples can be costly and model predictions could help make better use of the data already collected. The critical next step is to test whether combining model predictions with small survey samples yields more accurate estimates than using those samples alone.</p>
+      </div>
+    </section>
+  </main>
+<footer class="site-footer">
+    <div class="page-width footer-inner">
+      <span>© 2026 Chaemin Jang</span>
+      <a class="back-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -34,7 +34,20 @@
 .project-page .copy-status { margin-left: 10px; color: var(--low); font-size: 12.5px; }
 .project-page .site-footer { width: min(100% - 48px, 720px); margin: 64px auto 0; padding: 16px 0 48px; border-top: 1px solid var(--line); color: var(--low); font-size: 13px; }
 .project-page .footer-inner { display: flex; justify-content: space-between; }
+.project-page .section-main > p + p { margin-top: 10px; }
+.project-page .result-table-wrap { margin-top: 14px; overflow-x: auto; }
+.project-page .result-table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.project-page .result-table caption { caption-side: top; text-align: left; padding-bottom: 8px; color: var(--mid); font-size: 12.5px; }
+.project-page .result-table th, .project-page .result-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line); }
+.project-page .result-table thead th { color: var(--mid); font-weight: 500; font-size: 12.5px; border-bottom: 2px solid var(--ink); }
+.project-page .result-table tbody th { font-weight: 560; color: var(--ink); white-space: nowrap; }
+.project-page .result-table td span { color: var(--low); font-size: 12px; white-space: nowrap; }
+.project-page .result-table + .project-findings, .project-page .result-table-wrap + .project-findings { margin-top: 16px; }
 @media (max-width: 640px) {
+  .project-page .result-table { font-size: 12.5px; }
+  .project-page .result-table th, .project-page .result-table td { padding: 7px 5px; }
+  .project-page .result-table td span { display: block; font-size: 11px; }
+  .project-page .result-table tbody th { white-space: normal; }
   .project-page .project-return { padding-top: 40px; }
   .project-page h1 { font-size: 22px; }
   .project-page .stat-row { grid-template-columns: 1fr 1fr; }

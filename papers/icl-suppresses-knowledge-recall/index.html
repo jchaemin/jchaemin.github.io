@@ -90,18 +90,6 @@ Step 2: Apply fitted rule
         </ul>
       </div>
     </section>
-    <section class="section-grid project-panel" id="citation" aria-labelledby="citation-heading">
-      <div class="section-rail"><p class="rail-label">Reference</p></div>
-      <div class="section-main"><h2 id="citation-heading">Citation</h2>
-        <pre id="bibtex" class="bibtex">@inproceedings{jang2026incontext,
-  title     = {In-Context Examples Suppress Scientific Knowledge Recall in LLMs},
-  author    = {Jang, Chaemin and Park, Woojin and Yun, Hyeok and Lee, Dongman and Kim, Jihee},
-  booktitle = {Conference on Language Modeling (COLM)},
-  year      = {2026}
-}</pre>
-        <button type="button" class="copy-button" id="copy-bibtex">Copy BibTeX</button><span class="copy-status" id="copy-status" role="status" aria-live="polite"></span>
-      </div>
-    </section>
   </main>
 <footer class="site-footer">
     <div class="page-width footer-inner">
@@ -109,19 +97,5 @@ Step 2: Apply fitted rule
       <a class="back-top" href="#top">Back to top ↑</a>
     </div>
   </footer>
-
-  <script>
-    const copyButton = document.getElementById('copy-bibtex');
-    copyButton.addEventListener('click', async () => {
-      const status = document.getElementById('copy-status');
-      const citation = document.getElementById('bibtex').textContent;
-      try {
-        await navigator.clipboard.writeText(citation);
-        status.textContent = 'Copied.';
-      } catch (_) {
-        status.textContent = 'Please select and copy the text above.';
-      }
-    });
-  </script>
 </body>
 </html>

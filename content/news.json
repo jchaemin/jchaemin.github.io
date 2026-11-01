@@ -4,9 +4,30 @@
     {
       "date": "2026-12",
       "kind": "talk",
-      "head": "Presenting at NeurIPS 2026 workshops in Paris and Atlanta",
+      "head": "Presenting at NeurIPS 2026 workshops in Paris (spotlight) and Atlanta",
       "title": "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction",
       "url": "https://arxiv.org/abs/2609.07573"
+    },
+    {
+      "date": "2026-12",
+      "kind": "talk",
+      "head": "Presenting at the World Bank survey measurement conference in Washington, D.C.",
+      "title": "Who Differs, and How Many? Assessing Language Models’ Potential to Complement Opinion Surveys",
+      "url": "papers/who-differs/"
+    },
+    {
+      "date": "2026-11",
+      "kind": "accepted",
+      "head": "Spotlight at the NeurIPS 2026 UserSim workshop",
+      "title": "From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction",
+      "url": "https://arxiv.org/abs/2609.07573"
+    },
+    {
+      "date": "2026-11",
+      "kind": "accepted",
+      "head": "Accepted at the World Bank conference on survey measurement in the age of AI",
+      "title": "Who Differs, and How Many? Assessing Language Models’ Potential to Complement Opinion Surveys",
+      "url": "papers/who-differs/"
     },
     {
       "date": "2026-11",

@@ -79,7 +79,7 @@ def is_preprint(p: dict) -> bool:
 
 def order(ps):
     """Published first, then preprints; newest first within each."""
-    return sorted(ps, key=lambda p: (-year_of(p), -float(arxiv_id(p) or 0)))
+    return sorted(ps, key=lambda p: (-year_of(p), -float(arxiv_id(p) or p.get("sort_key", 0))))
 
 
 # Sprites ----------------------------------------------------------------------------
@@ -215,17 +215,26 @@ def short_venue(p: dict) -> str:
     return v
 
 
+def award_line(p: dict) -> str:
+    a = p.get("award")
+    return f'<p class="award"><span class="ak">{h(a["label"])}</span>{h(a["text"])}</p>' if a else ""
+
+
+def title_html(p: dict) -> str:
+    return f'<a href="{h(p["url"])}"{ext(p["url"])}>{nb(p["title"])}</a>' if p.get("url") else nb(p["title"])
+
+
 def pub_row(p: dict) -> str:
     k = key_of(p)
     aid = arxiv_id(p)
     r = research.get(k, {})
-    links = [f'<a href="{h(p["url"])}"{ext(p["url"])}>{"arXiv" if aid else "Paper"}</a>']
+    links = [f'<a href="{h(p["url"])}"{ext(p["url"])}>{p.get("url_label") or ("arXiv" if aid else "Paper")}</a>'] if p.get("url") else []
     if aid:
         links.append(f'<a href="https://arxiv.org/pdf/{aid}"{ext("https://")}>PDF</a>')
     for i in p.get("links", []):
         if i["label"].lower() == "project":
             links.append(f'<a href="{h(i["url"])}">Project</a>')
-        elif i["url"].rstrip("/") != p["url"].rstrip("/") and i["label"].lower() not in ("paper",):
+        elif i["url"].rstrip("/") != p.get("url", "").rstrip("/") and i["label"].lower() not in ("paper",):
             links.append(f'<a href="{h(i["url"])}"{ext(i["url"])}>{h(i["label"])}</a>')
     tldr_btn = (f'<button type="button" class="tldr" aria-expanded="false" aria-controls="t-{h(k)}">TL;DR</button>'
                 if r.get("line") else "")
@@ -236,9 +245,9 @@ def pub_row(p: dict) -> str:
         <li class="pub" id="p-{h(k)}" data-kind="{kind}" data-topic="{topic_of(p)}">
           <span class="tag {kind}">{h(short_venue(p))}</span>
           <div>
-            <h3><a href="{h(p['url'])}"{ext(p['url'])}>{nb(p['title'])}</a></h3>
+            <h3>{title_html(p)}</h3>
             <p class="who">{authors(p)}</p>
-            {note}
+            {award_line(p)}{note}
             <div class="links">{''.join(links)}{tldr_btn}</div>
             {tldr}
           </div>
@@ -693,7 +702,7 @@ def research_paper(p: dict, prefix: str) -> str:
     k = key_of(p)
     aid = arxiv_id(p)
     r = research.get(k, {})
-    links = [f'<a class="btn primary" href="{h(p["url"])}"{ext(p["url"])}>Read paper</a>']
+    links = [f'<a class="btn primary" href="{h(rel(p["url"], prefix))}"{ext(p["url"])}>Read {"abstract" if p.get("url_label") == "Abstract" else "paper"}</a>'] if p.get("url") else []
     if aid:
         links.append(f'<a class="btn" href="https://arxiv.org/pdf/{aid}"{ext("https://")}>PDF</a>')
     for i in p.get("links", []):
@@ -707,7 +716,7 @@ def research_paper(p: dict, prefix: str) -> str:
           <p class="meta"><span class="tag {kind}">{h(short_venue(p))}</span><span class="yr">{year_of(p)}</span></p>
           <h4>{nb(p['title'])}</h4>
           <p class="who">{authors(p)}</p>
-          {note}{summary}
+          {award_line(p)}{note}{summary}
           <p class="btns">{''.join(links)}</p>
         </article>"""
 
@@ -827,9 +836,12 @@ def render_project_page(pr: dict) -> str:
 """
 
 
-def build_project() -> None:
-    """The COLM project article, restyled. Figures whose image is missing are left out."""
-    source = (CONTENT / "project-page.html").read_text(encoding="utf-8")
+PAPER_PAGES = {"project-page.html": "icl-suppresses-knowledge-recall", "paper-who-differs.html": "who-differs"}
+
+
+def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-knowledge-recall") -> None:
+    """A paper page (content/<src> -> papers/<slug>/), restyled. Figures whose image is missing are left out."""
+    source = (CONTENT / src).read_text(encoding="utf-8")
     page = source.replace('<link rel="stylesheet" href="../../assets/css/site.css">',
                           fonts('../../') + '<link rel="stylesheet" href="../../assets/css/style.css"><link rel="stylesheet" href="../../assets/css/project.css">')
     page = page.replace('<body id="top">', '<body id="top" class="project-page">')
@@ -839,7 +851,7 @@ def build_project() -> None:
         src = re.search(r'src="\.\./\.\./([^"]+)"', m.group(0))
         return m.group(0) if src and (ROOT / src.group(1)).exists() else ""
     page = re.sub(r'<figure class="project-figure">.*?</figure>', keep_figure, page, flags=re.S)
-    dest = ROOT / "papers" / "icl-suppresses-knowledge-recall" / "index.html"
+    dest = ROOT / "papers" / slug / "index.html"
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(page, encoding="utf-8")
 
@@ -851,9 +863,10 @@ if __name__ == "__main__":
     (ROOT / "index.html").write_text(render(), encoding="utf-8")
     (ROOT / "research").mkdir(exist_ok=True)
     (ROOT / "research" / "index.html").write_text(render_research(), encoding="utf-8")
-    build_project()
+    for src, slug in PAPER_PAGES.items():
+        build_project(src, slug)
     for pr in projects:
         d = ROOT / "projects" / pr["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(render_project_page(pr), encoding="utf-8")
-    print("Built index.html, research/index.html and papers/icl-suppresses-knowledge-recall/index.html")
+    print("Built index.html, research/index.html and papers/*/index.html")

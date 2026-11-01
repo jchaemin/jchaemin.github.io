@@ -1,5 +1,18 @@
 [
   {
+    "title": "Who Differs, and How Many? Assessing Language Models’ Potential to Complement Opinion Surveys",
+    "authors": [
+      "Chaemin Jang",
+      "Jihee Kim"
+    ],
+    "venue": "Better Data for Better Lives: Innovations in Survey Measurement in the Age of AI (World Bank) 2026",
+    "venue_short": "World Bank",
+    "research_area": "simulation",
+    "url": "papers/who-differs/",
+    "url_label": "Abstract",
+    "sort_key": 2610.16
+  },
+  {
     "title": "Isolating a Language Model’s Judgment with a Label-Free Subspace",
     "url": "https://arxiv.org/abs/2610.21256",
     "authors": [
@@ -78,7 +91,11 @@
         "aria_label": "Code for From Simulated Citizens to Simulated Deliberation: Challenges in Representation and Interaction"
       }
     ],
-    "research_area": "simulation"
+    "research_area": "simulation",
+    "award": {
+      "label": "SPOTLIGHT",
+      "text": "UserSim workshop, NeurIPS 2026"
+    }
   },
   {
     "title": "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe",
