@@ -580,6 +580,37 @@ def experience_block() -> str:
 SCRIPT = r"""
 <script>
 (() => {
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Section titles arrive the way a language model writes: token by token, behind a cursor
+  if (!calm && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; io.unobserve(e.target);
+      const el = e.target, text = el.dataset.full, toks = text.match(/.{1,3}/g);
+      let i = 0; el.textContent = ''; el.classList.add('streaming');
+      const tick = () => {
+        if (i >= toks.length) { el.classList.remove('streaming'); return; }
+        const t = document.createElement('b'); t.textContent = toks[i++]; el.append(t);
+        setTimeout(tick, 70 + Math.random() * 90);
+      };
+      tick();
+    }), { threshold: 1 });
+    document.querySelectorAll('main > section > h2 > span:first-child').forEach(el => {
+      el.dataset.full = el.textContent; el.setAttribute('aria-label', el.textContent); el.textContent = ''; io.observe(el);
+    });
+  }
+
+  // The grid is a map: cells light up where the pointer passes, like pixels being classified
+  if (!calm && matchMedia('(hover: hover)').matches) {
+    const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
+    let last = '';
+    addEventListener('pointermove', e => {
+      const x = Math.floor((e.pageX) / 32) * 32, y = Math.floor((e.pageY) / 32) * 32, key = x + ',' + y;
+      if (key === last) return; last = key;
+      const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
+      layer.append(c); setTimeout(() => c.remove(), 1200);
+    }, { passive: true });
+  }
   // Topic scenes: two ways of looking at the same model
   const tabs = [...document.querySelectorAll('.tabs [role=tab]')];
   const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };

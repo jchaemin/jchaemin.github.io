@@ -29,6 +29,7 @@
 * { box-sizing: border-box; }
 html { background: var(--bg); -webkit-text-size-adjust: 100%; scroll-padding-top: 24px; scroll-behavior: smooth; }
 body {
+  position: relative;
   margin: 0;
   color: var(--ink);
   font: 400 15px/1.6 var(--sans);
@@ -408,6 +409,17 @@ body > main > footer { display: flex; justify-content: space-between; flex-wrap:
 /* Topic marks in the direction tabs */
 .tabs button .ticon { width: 18px; height: 18px; flex: none; }
 .tabs button[aria-selected="true"] .ticon rect[fill="#1c1c22"] { fill: #fff; }
+
+/* Section titles stream in like model output */
+h2 > span.streaming::after { content: ""; display: inline-block; width: .6em; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--acc); animation: blink .5s steps(2) infinite; }
+h2 > span b { font-weight: inherit; animation: tok .4s steps(2); }
+@keyframes tok { from { background: #c9f0df; } to { background: transparent; } }
+
+/* Pointer scan on the background grid */
+.scan { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+body > main { position: relative; z-index: 1; }
+.scan i { position: absolute; width: 31px; height: 31px; margin: 1px 0 0 1px; background: #13a374; opacity: .18; animation: scan 1.2s steps(6) forwards; }
+@keyframes scan { to { opacity: 0; } }
 
 /* 404 */
 main.lost { max-width: 1140px; margin: 0 auto; padding: 32px 20px 80px; }
