@@ -101,8 +101,6 @@ main { width: min(100% - 32px, 760px); margin: 0 auto; padding: 32px 0 48px; }
 .tabs button + button { border-left: 2px solid var(--ink); }
 .tabs button:hover { color: var(--ink); background: var(--tint); }
 .tabs button[aria-selected="true"] { background: var(--ink); color: #fff; }
-.tabs .num { color: var(--low); }
-.tabs [aria-selected="true"] .num { color: var(--acc); }
 
 .scene { display: grid; grid-template-columns: 1.35fr 1fr; align-items: start; align-content: start; gap: 24px; padding: 20px 24px 22px; }
 /* all scenes share one grid cell, so the panel keeps the height of the tallest topic */
