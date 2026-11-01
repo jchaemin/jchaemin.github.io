@@ -1,5 +1,5 @@
 {
-  "_about": "Newest first. date = YYYY-MM. kind = accepted | preprint | talk | visit. 'head' is the bold line, 'title' the paper or project. Items dated after the build month are tagged SOON.",
+  "_about": "Newest first. date = YYYY-MM. kind = accepted | talk | visit (no news items for new preprints). 'head' is the bold line, 'title' the paper or project. Items dated after the build month are tagged SOON.",
   "items": [
     {
       "date": "2026-12",
@@ -42,20 +42,6 @@
       "head": "Presented at EMNLP 2026",
       "title": "Instruction-Tuned Language Models Cannot Sample from Distributions They Can Describe",
       "url": "https://arxiv.org/abs/2607.25292"
-    },
-    {
-      "date": "2026-10",
-      "kind": "preprint",
-      "head": "New preprint",
-      "title": "Isolating a Language Model’s Judgment with a Label-Free Subspace",
-      "url": "https://arxiv.org/abs/2610.21256"
-    },
-    {
-      "date": "2026-10",
-      "kind": "preprint",
-      "head": "New preprint",
-      "title": "Learning a Fact Is Not Learning How to Retrieve It",
-      "url": "https://arxiv.org/abs/2610.03251"
     },
     {
       "date": "2026-10",
