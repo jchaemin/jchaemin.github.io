@@ -406,6 +406,17 @@ def scene_satellite() -> str:
     return "".join(out)
 
 
+TOPIC_ICONS = {  # 9x9 pixel marks, one per research direction; X = ink, A = accent. Shown in the direction tabs.
+    "internals": [".....A...", "....XXX..", ".XXXXXXX.", ".X.....X.", "XX.A.A.XX", ".X.....X.", ".X.XXX.X.", ".XXXXXXX.", "........."],
+    "simulation": ["XXXXX....", "X...X....", "XXXXX....", ".X.......", "....AAAAA", "....A...A", "....AAAAA", ".......A.", "........."],
+    "satellite": ["....X....", "...XXX...", "XX.XXX.XX", "XXXXXXXXX", "XX.XXX.XX", "...XXX...", "....X....", "...A.A...", "..A...A.."],
+}
+
+
+def ticon(k: str) -> str:
+    return sprite(TOPIC_ICONS[k], {"X": "#1c1c22", "A": "#13a374"}, "ticon") if k in TOPIC_ICONS else ""
+
+
 def tname(t, upper=False):
     """Topic name; 'lines' in topics.json sets where a long name breaks."""
     parts = t.get("lines") or [t["name"]]
@@ -420,7 +431,7 @@ def topic_panel(ps) -> str:
     counts = {k: sum(topic_of(p) == k for p in ps) for k in TOPICS}
     tabs = "".join(
         f'<button type="button" role="tab" id="tab-{k}" aria-controls="scene-{k}" aria-selected="{str(i == 0).lower()}" data-topic="{k}">'
-        f'<span class="num">{i + 1:02d}</span><span>{tname(t)}</span></button>'
+        f'<span class="num">{i + 1:02d}</span>{ticon(k)}<span>{tname(t)}</span></button>'
         for i, (k, t) in enumerate(TOPICS.items()))
     scenes = "".join(f"""
       <div class="scene" id="scene-{k}" role="tabpanel" aria-labelledby="tab-{k}"{'' if i == 0 else ' hidden'}>
