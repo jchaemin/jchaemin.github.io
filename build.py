@@ -577,6 +577,23 @@ def experience_block() -> str:
     </div>"""
 
 
+SCAN = r"""
+<script>
+(() => {
+  // The grid is a map: cells light up where the pointer passes, like pixels being classified
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+  const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
+  let last = '';
+  addEventListener('pointermove', e => {
+    const x = Math.floor(e.pageX / 32) * 32, y = Math.floor(e.pageY / 32) * 32, key = x + ',' + y;
+    if (key === last) return; last = key;
+    const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
+    layer.append(c); setTimeout(() => c.remove(), 1200);
+  }, { passive: true });
+})();
+</script>"""
+
+
 SCRIPT = r"""
 <script>
 (() => {
@@ -600,17 +617,6 @@ SCRIPT = r"""
     });
   }
 
-  // The grid is a map: cells light up where the pointer passes, like pixels being classified
-  if (!calm && matchMedia('(hover: hover)').matches) {
-    const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
-    let last = '';
-    addEventListener('pointermove', e => {
-      const x = Math.floor((e.pageX) / 32) * 32, y = Math.floor((e.pageY) / 32) * 32, key = x + ',' + y;
-      if (key === last) return; last = key;
-      const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
-      layer.append(c); setTimeout(() => c.remove(), 1200);
-    }, { passive: true });
-  }
   // Topic scenes: two ways of looking at the same model
   const tabs = [...document.querySelectorAll('.tabs [role=tab]')];
   const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };
@@ -753,6 +759,7 @@ def render() -> str:
 {footer()}
 </main>
 {SCRIPT}
+{SCAN}
 </body>
 </html>
 """
@@ -841,6 +848,7 @@ def render_research() -> str:
 
 {footer()}
 </main>
+{SCAN}
 </body>
 </html>
 """
@@ -891,6 +899,7 @@ def render_project_page(pr: dict) -> str:
 
 {footer()}
 </main>
+{SCAN}
 </body>
 </html>
 """
@@ -905,6 +914,7 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     page = source.replace('<link rel="stylesheet" href="../../assets/css/site.css">',
                           fonts('../../') + css('../../', "style.css") + css('../../', "project.css"))
     page = page.replace('<body id="top">', '<body id="top" class="project-page">')
+    page = page.replace("</body>", SCAN + "\n</body>")
     page = page.replace('<meta name="color-scheme" content="light">', '<meta name="color-scheme" content="light dark">')
 
     def keep_figure(m):
@@ -936,6 +946,7 @@ def render_404() -> str:
   const t = setInterval(() => {{ n -= 1; c.textContent = n; if (n === 0) {{ clearInterval(t); c.parentElement.textContent = 'INSERT COIN'; }} }}, 1000);
 }})();
 </script>
+{SCAN}
 </body>
 </html>
 """

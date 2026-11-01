@@ -247,17 +247,6 @@
     });
   }
 
-  // The grid is a map: cells light up where the pointer passes, like pixels being classified
-  if (!calm && matchMedia('(hover: hover)').matches) {
-    const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
-    let last = '';
-    addEventListener('pointermove', e => {
-      const x = Math.floor((e.pageX) / 32) * 32, y = Math.floor((e.pageY) / 32) * 32, key = x + ',' + y;
-      if (key === last) return; last = key;
-      const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
-      layer.append(c); setTimeout(() => c.remove(), 1200);
-    }, { passive: true });
-  }
   // Topic scenes: two ways of looking at the same model
   const tabs = [...document.querySelectorAll('.tabs [role=tab]')];
   const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };
@@ -300,6 +289,21 @@
   }
   filters.forEach(f => f.addEventListener('click', () => filter(f.dataset.topic)));
   document.querySelectorAll('.see').forEach(a => a.addEventListener('click', () => filter(a.dataset.topic)));
+})();
+</script>
+
+<script>
+(() => {
+  // The grid is a map: cells light up where the pointer passes, like pixels being classified
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+  const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
+  let last = '';
+  addEventListener('pointermove', e => {
+    const x = Math.floor(e.pageX / 32) * 32, y = Math.floor(e.pageY / 32) * 32, key = x + ',' + y;
+    if (key === last) return; last = key;
+    const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
+    layer.append(c); setTimeout(() => c.remove(), 1200);
+  }, { passive: true });
 })();
 </script>
 </body>
