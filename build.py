@@ -661,7 +661,9 @@ def top_bar(prefix: str = "") -> str:
 
 
 def footer() -> str:
-    return f'  <footer><span>&copy; {h(site["footer_year"])} {h(site["name"])}</span></footer>'
+    me = sprite(ME_SPRITE, ME_COLORS, "foot-me")
+    return (f'  <footer><span>&copy; {h(site["footer_year"])} {h(site["name"])}</span>'
+            f'<a class="to-top" href="#" aria-label="Back to top">{me}<span>CONTINUE?</span><b aria-hidden="true">&#9650;</b></a></footer>')
 
 
 def render() -> str:
@@ -872,11 +874,37 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     dest.write_text(page, encoding="utf-8")
 
 
+def render_404() -> str:
+    """Served by GitHub Pages for any missing path, so every link is root-absolute."""
+    return head("Game over — " + site["name"], "This page does not exist.", "404.html", "/") + f"""
+<body>
+<main class="lost">
+{top_bar("/")}
+  <section class="over px" aria-labelledby="over-h">
+    {sprite(ME_SPRITE, ME_COLORS, "over-me")}
+    <h1 id="over-h">GAME OVER</h1>
+    <p class="why">404 · this page does not exist</p>
+    <p class="cont-q">CONTINUE? <span id="count">9</span></p>
+    <p><a class="start" href="/"><span class="tri" aria-hidden="true"></span>PRESS START<span class="sub">BACK TO HOME</span></a></p>
+  </section>
+</main>
+<script>
+(() => {{
+  const c = document.getElementById('count'); let n = 9;
+  const t = setInterval(() => {{ n -= 1; c.textContent = n; if (n === 0) {{ clearInterval(t); c.parentElement.textContent = 'INSERT COIN'; }} }}, 1000);
+}})();
+</script>
+</body>
+</html>
+"""
+
+
 if __name__ == "__main__":
     unknown = [k for k in research if not k.startswith("_") and k not in {key_of(p) for p in papers}]
     if unknown:
         print(f"note: research.json has entries with no matching paper: {unknown}")
     (ROOT / "index.html").write_text(render(), encoding="utf-8")
+    (ROOT / "404.html").write_text(render_404(), encoding="utf-8")
     (ROOT / "research").mkdir(exist_ok=True)
     (ROOT / "research" / "index.html").write_text(render_research(), encoding="utf-8")
     for src, slug in PAPER_PAGES.items():
