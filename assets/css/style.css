@@ -382,6 +382,8 @@ body > main > footer { display: flex; justify-content: space-between; flex-wrap:
 @media (max-width: 620px) {
   .top nav { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; gap: 4px 6px; }
   .top nav .btn { justify-content: center; padding: 0 6px; }
+  .top { position: relative; }
+  .top nav .theme { position: absolute; top: -4px; right: 0; width: 34px; margin: 0; }
   .tabs { grid-template-columns: 1fr; }
   .tabs button + button { border-left: 0; border-top: 2px solid var(--ink); }
   .tabs button br { display: none; }

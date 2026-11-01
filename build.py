@@ -6,7 +6,7 @@ Content lives in content/:
   publications.json  paper metadata (title, authors, venue, links)
   research.json      per paper: what the model knows, what it does, evidence
   experience.json    roles
-  now.json           "Now" lines on the homepage
+  now.json           "Now" lines (not shown on the homepage since 2026-11; kept for reuse)
   news.json          dated news items
   projects.json      funded projects, each tied to a topic
 Run:  python3 build.py      (standard library only)
@@ -31,7 +31,6 @@ site = load("site.json")
 papers = load("publications.json")
 research = load("research.json")
 experience = load("experience.json")
-now = load("now.json")
 news = load("news.json")["items"]
 projects = load("projects.json")["items"]
 ME = site["featured_author"]
@@ -459,15 +458,6 @@ def see_link(k, n):
 
 
 # Now, news, projects -----------------------------------------------------------------
-def now_block() -> str:
-    items = "".join(f"<li>{h(t)}</li>" for t in now["items"])
-    return f"""
-  <section class="now px" aria-labelledby="now-h">
-    <h2 id="now-h"><span>NOW</span><small>UPDATED {h(now['updated'].upper())}</small></h2>
-    <ul>{items}</ul>
-  </section>"""
-
-
 def month_label(d):
     y, m = d.split("-")
     return f'{["JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"][int(m) - 1]} {y}'
@@ -498,7 +488,7 @@ def news_block(today: str, prefix: str = "") -> str:
     rows = "".join(row(n) for n in news)
     return f"""
   <section class="side" aria-labelledby="news-h">
-    <h2 id="news-h"><span>NEWS</span><small class="count">{len(news)} ITEMS · SCROLL</small></h2>
+    <h2 id="news-h"><span>NEWS</span></h2>
     <div class="news px"><ol tabindex="0" aria-label="News, newest first">{rows}</ol></div>
   </section>"""
 
@@ -750,7 +740,6 @@ def render() -> str:
     </div>
   </section>
 
-{now_block()}
 {news_block(TODAY)}
 
   <section class="topics px" aria-label="Research topics">{topic_panel(ps)}</section>
