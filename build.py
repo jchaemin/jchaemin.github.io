@@ -16,6 +16,8 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import math
+import os
 import re
 from pathlib import Path
 
@@ -405,7 +407,7 @@ def scene_satellite() -> str:
     return "".join(out)
 
 
-TOPIC_ICONS = {  # 9x9 pixel marks, one per research direction; X = ink, A = accent. Shown in the direction tabs.
+TOPIC_ICONS = {  # 9x9 pixel marks, one per research direction; X = ink, A = accent. Shown on the hero keywords and signposts.
     "internals": [".....A...", "....XXX..", ".XXXXXXX.", ".X.....X.", "XX.A.A.XX", ".X.....X.", ".X.XXX.X.", ".XXXXXXX.", "........."],
     "simulation": ["XXXXX....", "X...X....", "XXXXX....", ".X.......", "....AAAAA", "....A...A", "....AAAAA", ".......A.", "........."],
     "satellite": ["....X....", "...XXX...", "XX.XXX.XX", "XXXXXXXXX", "XX.XXX.XX", "...XXX...", "....X....", "...A.A...", "..A...A.."],
@@ -424,37 +426,6 @@ def tname(t, upper=False):
 
 def project_count(k):
     return sum(pr.get("topic") == k for pr in projects)
-
-
-def topic_panel(ps) -> str:
-    counts = {k: sum(topic_of(p) == k for p in ps) for k in TOPICS}
-    tabs = "".join(
-        f'<button type="button" role="tab" id="tab-{k}" aria-controls="scene-{k}" aria-selected="{str(i == 0).lower()}" data-topic="{k}">'
-        f'{ticon(k)}<span>{tname(t)}</span></button>'
-        for i, (k, t) in enumerate(TOPICS.items()))
-    scenes = "".join(f"""
-      <div class="scene" id="scene-{k}" role="tabpanel" aria-labelledby="tab-{k}"{'' if i == 0 else ' hidden'}>
-        <svg viewBox="0 0 80 40" shape-rendering="crispEdges" role="img" aria-label="{h(t['look'])}">{SCENES[k]()}</svg>
-        <div class="caption">
-          <p class="look">{h(t['look'])}</p>
-          <p class="what">{h(t['line'])}</p>
-          <div class="actions">
-            <a class="act primary" href="research/#{k}">Read about this direction →</a>
-            {see_link(k, counts[k])}
-          </div>
-        </div>
-      </div>""" for i, (k, t) in enumerate(TOPICS.items()))
-    return f'<div class="tabs" role="tablist" aria-label="Research topics" style="--n:{len(TOPICS)}">{tabs}</div><div class="scenes">{scenes}</div>'
-
-
-def see_link(k, n):
-    out = []
-    if n:
-        out.append(f'<a class="act see" href="#pubs-h" data-topic="{k}">Show its {n} paper{"s" if n != 1 else ""} ↓</a>')
-    m = project_count(k)
-    if m:
-        out.append(f'<a class="act" href="#proj-h">Show its {m} project{"s" if m != 1 else ""} ↓</a>')
-    return "".join(out)
 
 
 # Now, news, projects -----------------------------------------------------------------
@@ -611,20 +582,26 @@ SCRIPT = r"""
     });
   }
 
-  // Topic scenes: two ways of looking at the same model
-  const tabs = [...document.querySelectorAll('.tabs [role=tab]')];
-  const play = el => { el.classList.remove('play'); void el.offsetWidth; el.classList.add('play'); };
-  function pick(k) {
-    tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.topic === k));
-    document.querySelectorAll('.scene').forEach(s => { const on = s.id === 'scene-' + k; s.hidden = !on; if (on) play(s); });
+
+  // Hero: the three words and the three places pick the same direction; the player walks there, a dialogue box opens beside it, a second click closes it
+  const picks = [...document.querySelectorAll('.zone, .kw')], player = document.querySelector('.player');
+  function choose(k, first) {
+    picks.forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
+    document.querySelectorAll('.zcap').forEach(c => c.hidden = c.dataset.k !== k);
+    const bb = document.querySelector('.bubble');
+    if (bb) bb.dataset.k = k || '';
+    document.querySelectorAll('.zscene').forEach(s => s.classList.toggle('dim', !!k && s.dataset.k !== k));
+    document.querySelector('.map-hero')?.classList.toggle('picked', !!k);
+    const z = k && document.querySelector(`.zone[data-k="${k}"]`);
+    if (player && z) {
+      player.style.setProperty('--px', z.style.getPropertyValue('--x'));
+      if (!first) { player.classList.add('walking'); setTimeout(() => player.classList.remove('walking'), 1100); }
+      const m = document.querySelector('.map');
+      if (m.scrollWidth > m.clientWidth) m.scrollTo({ left: parseFloat(z.style.getPropertyValue('--x')) / 100 * m.scrollWidth - m.clientWidth / 2, behavior: first ? 'auto' : 'smooth' });
+    }
   }
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => pick(t.dataset.topic));
-    t.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const n = tabs[(i + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length]; n.focus(); pick(n.dataset.topic); }
-    });
-  });
-  play(document.querySelector('.scene:not([hidden])'));
+  let cur = null;
+  picks.forEach(b => b.addEventListener('click', () => { cur = cur === b.dataset.k ? null : b.dataset.k; choose(cur); }));
 
   // Experience: timeline blocks and save slots highlight each other
   const pair = k => [...document.querySelectorAll(`.blk[data-k="${k}"], .slot[data-k="${k}"]`)];
@@ -716,6 +693,55 @@ def footer() -> str:
             f'<a class="to-top" href="#" aria-label="Back to top">{me}<span>CONTINUE?</span><b aria-hidden="true">&#9650;</b></a></footer>')
 
 
+ZONE = {"internals": "INSIDE", "simulation": "PEOPLE", "satellite": "FIELD"}
+
+
+def avatar() -> str:
+    return f"""<figure class="avatar px" title="Hover for the pixel version">
+      <img src="assets/images/portrait-square.jpg" width="320" height="320" alt="Chaemin Jang">
+      {sprite(ME_SPRITE, ME_COLORS, "me-sprite")}
+    </figure>"""
+
+
+def zone_caption(k, counts) -> str:
+    t = TOPICS[k]
+    return (f'<div class="zcap" data-k="{k}" hidden><p class="look">{h(t["look"])}</p>'
+            f'<p class="what">{h(t["line"])}</p><div class="actions"><a class="act primary" href="research/#{k}">Read more →</a>'
+            + (f'<a class="act see" href="#pubs-h" data-topic="{k}">{counts[k]} paper{"s" if counts[k] != 1 else ""} ↓</a>' if counts[k] else "")
+            + (f'<a class="act" href="#proj-h">{project_count(k)} project{"s" if project_count(k) != 1 else ""} ↓</a>' if project_count(k) else "")
+            + '</div></div>')
+
+
+def hero(ps) -> str:
+    """Name and one-line statement on top; below it a pixel world with one place per research direction."""
+    counts = {k: sum(topic_of(p) == k for p in ps) for k in TOPICS}
+    start = '<p class="start-wrap"><a class="start" href="research/"><span class="tri" aria-hidden="true"></span>PRESS START<span class="sub">RESEARCH OVERVIEW</span></a></p>'
+    W = 300
+    g = [f'<svg class="pano" viewBox="0 14 {W} 70" shape-rendering="crispEdges" aria-hidden="true"><rect width="{W}" height="96" class="sky"/>']
+    for cx, cy in ((96, 20), (190, 16), (284, 22)):
+        g.append(f'<rect x="{cx}" y="{cy}" width="14" height="3" class="cloud"/><rect x="{cx + 3}" y="{cy - 2}" width="7" height="2" class="cloud"/>')
+    for x in range(W):
+        hh = int(6 + 4 * math.sin(x / 23) + 3 * math.sin(x / 9))
+        g.append(f'<rect x="{x}" y="{70 - hh}" width="1" height="{hh}" class="hill"/>')
+    g.append(f'<rect x="0" y="70" width="{W}" height="26" class="ground"/>')
+    g += [f'<rect x="{x}" y="78" width="3" height="1" class="path"/>' for x in range(0, W, 6)]
+    for i, k in enumerate(TOPICS):
+        sw = {"internals": 78, "simulation": 94, "satellite": 90}[k]; sh = sw / 2
+        g.append(f'<svg class="zscene" data-k="{k}" x="{52 + i * 100 - sw / 2:.1f}" y="{69 - sh * 0.975:.1f}" width="{sw}" height="{sh}" viewBox="0 0 80 40">{SCENES[k]()}</svg>')
+    g.append('<rect x="244" y="69" width="44" height="2" class="soil"/>')
+    g.append("</svg>")
+    zones = "".join(f'<button type="button" class="zone" data-k="{k}" style="--x:{(52 + i * 100) / W * 100:.2f}%" aria-pressed="false">'
+                    f'<span class="board">{ticon(k)}{ZONE[k]}</span><span class="post"></span></button>' for i, k in enumerate(TOPICS))
+    kw = {k: f'<button type="button" class="kw" data-k="{k}" aria-pressed="false">{ticon(k)}{w}</button>'
+          for k, w in (("internals", "inside"), ("simulation", "people"), ("satellite", "field"))}
+    return f"""  <section class="hero map-hero" aria-label="Introduction">
+    <div class="hello"><div class="who">{avatar()}<div><h1>Chaemin Jang</h1><p class="role">M.S. Student · KAIST School of Computing</p><p class="adv">Advised by Jihee Kim and Dongman Lee.</p></div></div>
+      <p class="big">I study language models from the <span class="nw">{kw["internals"]},</span> as stand-ins for <span class="nw">{kw["simulation"]},</span> and out in the <span class="nw">{kw["satellite"]}.</span></p>{start}</div>
+    <div class="world"><div class="map"><div class="inner">{"".join(g)}<span class="player">{sprite(ME_SPRITE, ME_COLORS, "pl")}</span>{zones}</div></div><div class="zcaps bubble">{"".join(zone_caption(k, counts) for k in TOPICS)}</div></div>
+    <p class="map-hint" aria-hidden="true">◀ SWIPE THE MAP ▶</p>
+  </section>"""
+
+
 def render() -> str:
     ps = order(papers)
     filters = '<button type="button" data-topic="all" aria-pressed="true">ALL</button>' + "".join(
@@ -726,23 +752,9 @@ def render() -> str:
 <main class="home">
 {top_bar()}
 
-  <section class="intro" aria-label="Introduction">
-    <figure class="avatar px" title="Hover for the pixel version">
-      <img src="assets/images/portrait-square.jpg" width="320" height="320" alt="Chaemin Jang">
-      {sprite(ME_SPRITE, ME_COLORS, "me-sprite")}
-    </figure>
-    <div>
-      <h1>Chaemin Jang</h1>
-      <p class="role">M.S. Student · KAIST School of Computing</p>
-      <p>Advised by Jihee Kim and Dongman Lee. I study language models from three sides:
-      what happens inside them, how well they stand in for people, and what they can measure where data is scarce.</p>
-      <p class="start-wrap"><a class="start" href="research/"><span class="tri" aria-hidden="true"></span>PRESS START<span class="sub">RESEARCH OVERVIEW</span></a></p>
-    </div>
-  </section>
+{hero(ps)}
 
 {news_block(TODAY)}
-
-  <section class="topics px" aria-label="Research topics">{topic_panel(ps)}</section>
 
   <section aria-labelledby="pubs-h">
     <h2 id="pubs-h"><span>PUBLICATIONS</span><small class="count">{len(ps)} PAPERS</small></h2>
