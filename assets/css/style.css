@@ -450,9 +450,9 @@ main.home > .hero { grid-column: 1 / -1; }
 }
 .map-hero { margin-top: 40px; padding: 3px; background: var(--paper); box-shadow: inset 0 0 0 3px var(--ink), 6px 6px 0 var(--line); }
 .map-hero .hello { padding: 24px 26px 26px; border-bottom: 2px solid var(--ink); }
-.map-hero .who { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
-.map-hero .avatar { width: 64px; height: 64px; padding: 3px; background: var(--paper); box-shadow: inset 0 0 0 3px var(--ink), 4px 4px 0 var(--acc); }
-.map-hero h1 { font: 400 16px/1.2 var(--tiny); }
+.map-hero .who { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; }
+.map-hero .avatar { width: 104px; height: 104px; padding: 3px; background: var(--paper); box-shadow: inset 0 0 0 3px var(--ink), 4px 4px 0 var(--acc); }
+.map-hero h1 { font: 400 18px/1.2 var(--tiny); }
 .map-hero .role { margin-top: 6px; font: 400 11px/1.4 var(--tiny); color: var(--acc); }
 .map-hero .adv { margin-top: 4px; font-size: 14px; color: var(--mid); }
 .map-hero .big { margin-top: 26px; font: 600 clamp(28px, 4.5vw, 54px)/1.15 var(--sans); letter-spacing: -.028em; color: var(--ink); text-wrap: pretty; }
@@ -508,8 +508,10 @@ main.home > .hero { grid-column: 1 / -1; }
 /* phones: the world scrolls sideways; the box sits under it, tail pointing up */
 @media (max-width: 640px) {
   .map-hero .hello { padding: 18px; }
-  .map-hero .who { grid-template-columns: 56px 1fr; align-items: start; }
-  .map-hero .avatar { width: 56px; height: 56px; }
+  .map-hero .who { grid-template-columns: 96px 1fr; gap: 16px; align-items: start; }
+  .map-hero .avatar { width: 96px; height: 96px; }
+  .map-hero h1 { margin-top: 2px; font-size: 16px; }
+  .map-hero .adv { font-size: 13px; }
   .map { overflow-x: auto; scrollbar-width: none; }
   .map .inner { width: 300%; }
   .zone .board { padding: 5px 7px; font-size: 9px; }
