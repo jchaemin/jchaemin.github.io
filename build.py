@@ -723,6 +723,10 @@ def hero(ps) -> str:
     for x in range(W):
         hh = int(6 + 4 * math.sin(x / 23) + 3 * math.sin(x / 9))
         g.append(f'<rect x="{x}" y="{70 - hh}" width="1" height="{hh}" class="hill"/>')
+    stars = ((14, 30), (40, 18), (62, 34), (118, 28), (150, 22), (170, 36), (214, 26), (236, 17), (262, 32), (296, 27))
+    g.append('<g class="night"><rect x="21" y="17" width="6" height="10" class="moon"/><rect x="19" y="19" width="10" height="6" class="moon"/><rect x="20" y="18" width="8" height="8" class="moon"/>'
+             '<rect x="24" y="15" width="6" height="10" class="sky"/><rect x="22" y="17" width="10" height="6" class="sky"/><rect x="23" y="16" width="8" height="8" class="sky"/>'
+             + "".join(f'<rect x="{x}" y="{y}" width="1" height="1" class="star" style="--d:{i * .37 % 2.6:.2f}s"/>' for i, (x, y) in enumerate(stars)) + '</g>')
     g.append(f'<rect x="0" y="70" width="{W}" height="26" class="ground"/>')
     g += [f'<rect x="{x}" y="78" width="3" height="1" class="path"/>' for x in range(0, W, 6)]
     for i, k in enumerate(TOPICS):
