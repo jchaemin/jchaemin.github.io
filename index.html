@@ -207,7 +207,7 @@
 
   // Hero: the three words and the three places pick the same direction; the player walks there, a dialogue box opens beside it, a second click closes it
   const picks = [...document.querySelectorAll('.zone, .kw')], player = document.querySelector('.player');
-  function choose(k, first) {
+  function choose(k, first, swiped) {
     picks.forEach(b => b.setAttribute('aria-pressed', b.dataset.k === k));
     document.querySelectorAll('.zcap').forEach(c => c.hidden = c.dataset.k !== k);
     const bb = document.querySelector('.bubble');
@@ -219,11 +219,24 @@
       player.style.setProperty('--px', z.style.getPropertyValue('--x'));
       if (!first) { player.classList.add('walking'); setTimeout(() => player.classList.remove('walking'), 1100); }
       const m = document.querySelector('.map');
-      if (m.scrollWidth > m.clientWidth) m.scrollTo({ left: parseFloat(z.style.getPropertyValue('--x')) / 100 * m.scrollWidth - m.clientWidth / 2, behavior: first ? 'auto' : 'smooth' });
+      if (!swiped && m.scrollWidth > m.clientWidth) m.scrollTo({ left: parseFloat(z.style.getPropertyValue('--x')) / 100 * m.scrollWidth - m.clientWidth / 2, behavior: first ? 'auto' : 'smooth' });
     }
   }
   let cur = null;
   picks.forEach(b => b.addEventListener('click', () => { cur = cur === b.dataset.k ? null : b.dataset.k; choose(cur); }));
+  // Phone: the map scrolls sideways; while a dialogue is open, swiping hands it to the place now in the middle of the view
+  const map = document.querySelector('.map');
+  let settle;
+  map?.addEventListener('scroll', () => {
+    clearTimeout(settle);
+    settle = setTimeout(() => {
+      if (!cur || map.scrollWidth <= map.clientWidth) return;
+      const mid = (map.scrollLeft + map.clientWidth / 2) / map.scrollWidth * 100;
+      let best = cur, gap = Infinity;
+      document.querySelectorAll('.zone').forEach(z => { const d = Math.abs(parseFloat(z.style.getPropertyValue('--x')) - mid); if (d < gap) { gap = d; best = z.dataset.k; } });
+      if (best !== cur) { cur = best; choose(cur, false, true); }
+    }, 150);
+  }, { passive: true });
 
   // Experience: timeline blocks and save slots highlight each other
   const pair = k => [...document.querySelectorAll(`.blk[data-k="${k}"], .slot[data-k="${k}"]`)];
