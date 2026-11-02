@@ -751,11 +751,10 @@ def hero(ps) -> str:
                     f'<span class="board">{ticon(k)}{ZONE[k]}</span><span class="post"></span></button>' for i, k in enumerate(TOPICS))
     kw = {k: f'<button type="button" class="kw" data-k="{k}" aria-pressed="false">{ticon(k)}{w}</button>'
           for k, w in (("internals", "inside"), ("simulation", "people"), ("satellite", "field"))}
-    return f"""  <section class="hero map-hero" aria-label="Introduction">
-    <div class="hello"><div class="who">{avatar()}<div><h1>Chaemin Jang</h1><p class="role">M.S. Student · KAIST School of Computing</p><p class="adv">Advised by Jihee Kim and Dongman Lee.</p></div></div>
-      <p class="big">I study language models from the <span class="nw">{kw["internals"]},</span> as stand-ins for <span class="nw">{kw["simulation"]},</span> and out in the <span class="nw">{kw["satellite"]}.</span></p>{start}</div>
-    <div class="world"><div class="map"><div class="inner">{"".join(g)}<span class="player">{sprite(ME_SPRITE, ME_COLORS, "pl")}</span>{zones}</div></div><div class="zcaps bubble">{"".join(zone_caption(k, counts) for k in TOPICS)}</div></div>
-    <p class="map-hint" aria-hidden="true">◀ SWIPE THE MAP ▶</p>
+    return f"""  <section class="hero map-hero v-console" aria-label="Introduction">
+    <div class="screenwrap"><div class="led"><i></i>POWER</div><div class="glass"><div class="world"><div class="map"><div class="inner">{"".join(g)}<span class="player">{sprite(ME_SPRITE, ME_COLORS, "pl")}</span>{zones}</div></div><div class="zcaps bubble">{"".join(zone_caption(k, counts) for k in TOPICS)}</div></div>
+    <p class="map-hint" aria-hidden="true">◀ SWIPE THE MAP ▶</p><div class="dlg"><p class="speaker">CHAEMIN</p><p class="big">I study language models from the <span class="nw">{kw["internals"]},</span> as stand-ins for <span class="nw">{kw["simulation"]},</span> and out in the <span class="nw">{kw["satellite"]}.</span></p><span class="more" aria-hidden="true"></span></div></div><p class="brand">PIXEL RESEARCH SYSTEM</p></div>
+    <div class="body"><div class="hello"><div class="who">{avatar()}<div><h1>Chaemin Jang</h1><p class="role">M.S. Student · KAIST School of Computing</p><p class="adv">Advised by Jihee Kim and Dongman Lee.</p></div></div></div><div class="ctl">{start}<span class="ab" aria-hidden="true"><b>B</b><b>A</b></span></div></div>
   </section>"""
 
 

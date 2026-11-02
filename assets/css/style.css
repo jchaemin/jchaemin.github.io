@@ -542,3 +542,49 @@ main.home h2 small { margin-bottom: 10px; }
 .map-hero:not(.picked) .player .pl { animation: idle 7s steps(1) infinite; }
 @keyframes idle { 0%, 30% { transform: none; } 31%, 50% { transform: scaleX(-1); } 51%, 80% { transform: none; } 81% { transform: translateY(-8%); } 83% { transform: none; } 85% { transform: translateY(-8%); } 87%, 100% { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .map-hero .player .pl, .pano .star { animation: none !important; } }
+
+
+/* Hero as a small handheld console: the world on its screen, a dialogue box under it, the profile on the body (2026-11-03) */
+/* Layout: hero in the left column, news beside it */
+main.home > .hero { grid-column: 1; }
+@media (min-width: 900px) { main.home > .side { grid-row: 2 / span 20; } main.home > .hero ~ .side { margin-top: 40px; } }
+@keyframes blink { 50% { opacity: 0; } }
+
+.dlg { position: relative; padding: 18px 16px 14px; background: var(--paper); box-shadow: inset 0 0 0 2px var(--ink), 3px 3px 0 var(--ink); }
+.dlg .speaker { position: absolute; top: -10px; left: 12px; padding: 4px 7px 3px; font: 400 9px/1 var(--tiny); color: #fff; background: var(--ink); }
+.dlg .big { margin: 0; font: 600 clamp(16px, 1.55vw, 19px)/1.4 var(--sans); letter-spacing: -.01em; }
+.dlg .more { position: absolute; right: 10px; bottom: 8px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--acc); animation: bob 1s steps(2) infinite; }
+@keyframes bob { 50% { transform: translateY(3px); } }
+
+.v-console { position: relative; padding: 14px 14px 18px; background: #eeece5; border-radius: 10px 10px 34px 10px; box-shadow: inset 0 0 0 3px var(--ink), 6px 6px 0 var(--line); }
+:root[data-theme="dark"] .v-console { background: #2b2d34; }
+.v-console .screenwrap { padding: 10px 16px 7px; background: #545a68; border-radius: 6px 6px 18px 6px; }
+.v-console .led { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; font: 400 8px/1 var(--tiny); color: #c3c6d2; }
+.v-console .led i { width: 7px; height: 7px; background: #ff5f57; box-shadow: 0 0 6px #ff5f57; }
+.v-console .glass { position: relative; background: #eef4f1; box-shadow: 0 0 0 3px #1c1c22; }
+.v-console .glass::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent 1px 3px); }
+.v-console .glass .dlg { margin: 4px 13px 0; } .v-console .glass { padding-bottom: 14px; }
+.v-console .map-hint { background: transparent; border: 0; }
+.v-console .brand { margin-top: 6px; font: italic 400 9px/1 var(--tiny); color: #c3c6d2; letter-spacing: .08em; }
+.v-console .body { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20px; padding: 18px 16px 2px; }
+.v-console .hello { padding: 0; border: 0; }
+.v-console .avatar { width: 92px; height: 92px; box-shadow: inset 0 0 0 3px var(--ink), 4px 4px 0 var(--acc); }
+.v-console .who { grid-template-columns: 92px 1fr; gap: 18px; align-items: center; }
+.v-console h1 { font-size: 16px; } .v-console .role { margin-top: 7px; } .v-console .adv { margin-top: 5px; font-size: 13.5px; }
+.v-console .ctl { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+.v-console .ctl .start-wrap { margin: 0; } .v-console .ctl .start .sub { display: none; }
+.v-console .ab { display: flex; gap: 10px; order: -1; }
+.v-console .ab b { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #b2245b; color: #fff; font: 400 8px/1 var(--tiny); box-shadow: inset -3px -3px 0 rgba(0,0,0,.25); }
+
+.v-console .grille { position: absolute; right: 26px; bottom: 10px; display: flex; gap: 5px; transform: rotate(-25deg); }
+.v-console .grille i { width: 3px; height: 16px; background: #c9c6bc; border-radius: 2px; }
+@media (max-width: 640px) { .v-console { padding: 10px 10px 18px; } .v-console .screenwrap { padding: 8px 8px 6px; } .v-console .body { grid-template-columns: 1fr; padding: 16px 8px 0; } .v-console .who { grid-template-columns: 76px 1fr; gap: 14px; } .v-console .avatar { width: 76px; height: 76px; } .v-console .ctl { flex-direction: row; justify-content: space-between; align-items: center; } .v-console .ab { order: 1; } .v-console .bubble { position: static; } }
+:root[data-theme="dark"] .v-console .glass { background: #141a1c; }
+.dlg .speaker { color: var(--paper); }
+/* In the console, a picked place speaks in the dialogue box instead of a floating bubble */
+.v-console .bubble, .v-console .bubble[data-k] { position: static; width: auto; transform: none; margin: 4px 13px 0; padding: 0; border: 0; background: none; }
+.v-console .bubble .zcap { padding: 14px 16px 14px; box-shadow: inset 0 0 0 2px var(--ink), 3px 3px 0 var(--ink); }
+.v-console .bubble[data-k] .zcap::before { display: none; }
+.v-console.picked .glass > .dlg { display: none; }
+.v-console.picked .map-hint { display: none; }
+@media (max-width: 640px) { .v-console.picked .map-hint { display: block; } }
