@@ -727,7 +727,7 @@ def hero(ps) -> str:
     g += [f'<rect x="{x}" y="78" width="3" height="1" class="path"/>' for x in range(0, W, 6)]
     for i, k in enumerate(TOPICS):
         sw = {"internals": 78, "simulation": 94, "satellite": 90}[k]; sh = sw / 2
-        g.append(f'<svg class="zscene" data-k="{k}" x="{52 + i * 100 - sw / 2:.1f}" y="{69 - sh * 0.975:.1f}" width="{sw}" height="{sh}" viewBox="0 0 80 40">{SCENES[k]()}</svg>')
+        g.append(f'<svg class="zscene play" data-k="{k}" x="{52 + i * 100 - sw / 2:.1f}" y="{69 - sh * 0.975:.1f}" width="{sw}" height="{sh}" viewBox="0 0 80 40">{SCENES[k]()}</svg>')
     g.append('<rect x="244" y="69" width="44" height="2" class="soil"/>')
     g.append("</svg>")
     zones = "".join(f'<button type="button" class="zone" data-k="{k}" style="--x:{(52 + i * 100) / W * 100:.2f}%" aria-pressed="false">'
