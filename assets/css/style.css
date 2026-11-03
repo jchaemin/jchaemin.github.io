@@ -632,3 +632,11 @@ body.project-page .small-caption, body.project-page .result-table caption { font
   .research-page .ptitle, body.project-page h1 { font-size: 25px; }
   .research-page .overview > p, body.project-page .project-summary { font-size: 16.5px; }
 }
+/* Same footprint for the intro dialogue and the picked-place box, so the console does not jump on click */
+.v-console .glass > .dlg, .v-console .bubble .zcap { box-sizing: border-box; min-height: 102px; }
+@media (max-width: 640px) { .v-console .glass > .dlg, .v-console .bubble .zcap { min-height: 120px; } }
+@media (max-width: 380px) { .v-console .glass > .dlg, .v-console .bubble .zcap { min-height: 152px; } }
+/* Picked-place box wears the same blinking green arrow and padding as the intro dialogue */
+.v-console .bubble .zcap { padding: 18px 16px 14px; }
+.v-console .bubble .zcap::after { content: ""; position: absolute; right: 10px; bottom: 8px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid var(--acc); animation: bob 1s steps(2) infinite; }
+@media (prefers-reduced-motion: reduce) { .v-console .bubble .zcap::after { animation: none; } }
