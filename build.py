@@ -1108,7 +1108,7 @@ def render_home() -> str:
     links = "".join(f'<li><a href="{h(l["url"])}"{ext(l["url"])}>{h(l["label"])}</a></li>'
                     for l in site.get("profiles", []) if l.get("url"))
     dirs = "".join(f'<li><a href="research/#{k}"><span class="dn">{h(t["name"])}</span>'
-                   f'<span class="dl">{h(t["line"])}</span></a></li>' for k, t in TOPICS.items())
+                   f'<span class="dl">{h(t["line"])}</span><span class="dm">Read more &rarr;</span></a></li>' for k, t in TOPICS.items())
 
     def news_item(n):
         y, m = n["date"].split("-")
