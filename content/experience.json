@@ -21,6 +21,16 @@
   },
   {
     "date": "2023–2024",
+    "organization": "Orderly",
+    "description": "Founder · QR ordering platform for restaurants, connected to their POS systems to manage store data",
+    "role": "Founder",
+    "detail": "QR ordering platform for restaurants, connected to their POS systems to manage store data",
+    "start_year": 2023,
+    "end_year": 2024,
+    "track": "industry"
+  },
+  {
+    "date": "2023–2024",
     "organization": "KAIST & IBS",
     "description": "Undergraduate research · Graph learning and multimodal imaging",
     "role": "Undergraduate research",

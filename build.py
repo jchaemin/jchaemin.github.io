@@ -984,12 +984,210 @@ def render_404() -> str:
 </html>
 """
 
+# Academic homepage (since 2026-11-18; the pixel version is on the game-design branch) ---------
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def venue_tag(p: dict) -> str:
+    if is_preprint(p):
+        return f"Preprint {year_of(p)}"
+    v = short_venue(p).split("\n")[0]
+    ws = " Workshop" if "workshop" in p["venue"].lower() else ""
+    return f"{v}{ws} {year_of(p)}"
+
+
+def pub_item(p: dict, pre: str = "") -> str:
+    aid = arxiv_id(p)
+    links = []
+    if p.get("url"):
+        links.append((p.get("url_label") or ("arXiv" if aid else "Paper"), p["url"]))
+    if aid:
+        links.append(("PDF", f"https://arxiv.org/pdf/{aid}"))
+    for i in p.get("links", []):
+        if i["url"].rstrip("/") != p.get("url", "").rstrip("/") and i["label"].lower() != "paper":
+            links.append((i["label"], i["url"]))
+    lk = "".join(f'<a href="{h(rel(u, pre))}"{ext(u)}>{h(l)}</a>' for l, u in links)
+    a = p.get("award")
+    award = f'<p class="award">{h(a["label"].title())} at {h(a["text"])}</p>' if a else ""
+    full = "" if is_preprint(p) else f'<p class="pv">{h(p["venue"])}</p>'
+    return (f'<li class="row"><p class="side">{h(venue_tag(p))}</p><div class="main">'
+            f'<p class="pt">{title_html(p)}</p><p class="pa">{authors(p)}</p>{full}{award}'
+            f'<p class="pl">{lk}</p></div></li>')
+
+
+def id_card(pre: str = "") -> str:
+    links = "".join(f'<li><a href="{h(rel(l["url"], pre))}"{ext(l["url"])}>{h(l["label"])}</a></li>'
+                    for l in site.get("profiles", []) if l.get("url"))
+    return f"""<aside class="card">
+    <a href="{pre or './'}" class="home-link"><span class="portrait" title="Hover for the pixel version"><img src="{pre}assets/images/portrait-square.jpg" width="320" height="320" alt="Portrait of {h(site['name'])}">{sprite(ME_SPRITE, ME_COLORS, "me-px")}</span>
+    <h1 class="name">{h(site['name'])}</h1></a>
+    <p class="role">M.S. Student<br>School of Computing, KAIST</p>
+    <p class="adv">Co-advised by<br>Jihee Kim and Dongman Lee</p>
+    <ul class="links">{links}</ul>
+  </aside>"""
+
+
+def page_head(title: str, desc: str, path: str, pre: str = "") -> str:
+    url = "https://chaeminjang.com/" + path
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{h(desc)}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{h(title)}">
+  <meta property="og:description" content="{h(desc)}">
+  <meta property="og:image" content="{h(site['og_image'])}">
+  <meta property="og:url" content="{url}">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="{url}">
+  <link rel="icon" href="{pre}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{pre}assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  {css(pre, "fonts.css")}
+  {css(pre, "home.css")}
+  <title>{h(title)}</title>
+</head>"""
+
+
+def home_footer() -> str:
+    return f"<footer>&copy; {h(site['footer_year'])} {h(site['name'])} · Updated {MONTHS[int(TODAY[5:]) - 1]} {TODAY[:4]}</footer>"
+
+
+def render_project_page2(pr: dict) -> str:
+    pre = "../../"
+    t = TOPICS.get(pr.get("topic"), {"name": ""})
+    paras = "".join(f"<p>{h(x)}</p>" for x in pr.get("summary", [pr["line"]]))
+    facts = [("Funding", pr["partner"]), ("Period", pr["period"])]
+    if pr.get("team"):
+        facts.append(("Team", pr["team"]))
+    if pr.get("role"):
+        facts.append(("My role", pr["role"]))
+    facts_html = "".join(f'<li class="row"><p class="side">{h(a)}</p><div class="main"><p>{h(v)}</p></div></li>' for a, v in facts)
+    lk = "".join(f'<a href="{h(rel(l["url"], pre))}"{ext(l["url"])}>{h(l["label"])}</a>' for l in pr.get("links", []))
+    img = pr.get("image")
+    fig = (f'<figure class="fig"><img src="{pre}{h(img["src"])}" alt="{h(img["alt"])}" loading="lazy">'
+           f'<figcaption>{h(img.get("caption", ""))}</figcaption></figure>') if img else ""
+    secs = ""
+    for sec in pr.get("sections", []):
+        body = "".join(f"<p>{h(x)}</p>" for x in sec.get("paras", []))
+        if sec.get("bullets"):
+            body += '<ul class="bul">' + "".join(f"<li>{h(x)}</li>" for x in sec["bullets"]) + "</ul>"
+        secs += f'<section><h2>{h(sec["heading"])}</h2><div class="prose">{body}</div></section>'
+    related = [p for p in order(papers) if arxiv_id(p) in pr.get("papers", [])]
+    rel_html = (f'<section><h2>Related papers</h2><ol class="rows">{"".join(pub_item(p, pre) for p in related)}</ol></section>'
+                if related else "")
+    return page_head(f"{pr['title']} · {site['name']}", pr["line"], f"projects/{pr['slug']}/", pre) + f"""
+<body>
+<div class="page">
+  {id_card(pre)}
+  <main>
+    <p class="crumb"><a href="{pre}#proj-h">&larr; Projects</a></p>
+    <section class="intro sub" aria-label="Project">
+      <p class="dn"><a href="{pre}research/#{h(pr.get('topic', ''))}">{h(t['name'])}</a></p>
+      <h2 class="ptitle">{h(pr['title'])}</h2>
+      <div class="prose lead">{paras}</div>
+      {f'<p class="pl">{lk}</p>' if lk else ""}
+      <ol class="rows facts">{facts_html}</ol>
+    </section>
+    {f'<section>{fig}</section>' if fig else ""}
+    {secs}
+    {rel_html}
+    {home_footer()}
+  </main>
+</div>
+</body>
+</html>
+"""
+
+
+def render_home() -> str:
+    ps = order(papers)
+    pub = [p for p in ps if not is_preprint(p)]
+    pre = [p for p in ps if is_preprint(p)]
+    links = "".join(f'<li><a href="{h(l["url"])}"{ext(l["url"])}>{h(l["label"])}</a></li>'
+                    for l in site.get("profiles", []) if l.get("url"))
+    dirs = "".join(f'<li><a href="research/#{k}"><span class="dn">{h(t["name"])}</span>'
+                   f'<span class="dl">{h(t["line"])}</span></a></li>' for k, t in TOPICS.items())
+
+    def news_item(n):
+        y, m = n["date"].split("-")
+        head = h(n["head"])
+        if n.get("url"):
+            head = f'<a href="{h(n["url"])}"{ext(n["url"])}>{head}</a>'
+        up = '<span class="up">Upcoming</span>' if n["date"] > TODAY else ""
+        return (f'<li class="row"><p class="side"><time datetime="{h(n["date"])}">{MONTHS[int(m) - 1]} {y}</time></p>'
+                f'<div class="main"><p>{head}{up}</p></div></li>')
+    news_html = '<div class="news-box" tabindex="0" role="region" aria-label="All news"><ol class="rows news">' + "".join(news_item(n) for n in news) + "</ol></div>"
+
+    projs = "".join(f"""
+      <li class="row"><p class="side">{h(pr['period'])}</p><div class="main"><p class="pt"><a href="projects/{h(pr['slug'])}/">{h(pr['title'])}</a></p>
+        <p class="pa">{h(pr['partner'])}</p><p class="pd">{h(pr['line'])}</p></div></li>""" for pr in projects)
+    rows = sorted(experience, key=lambda i: (i["end_year"] is not None, -(i["end_year"] or 9999), -i["start_year"]))
+    exp = "".join(f'<li class="row"><p class="side">{h(i["date"].replace("–present", "–now"))}</p><div class="main"><p class="pt">{h(i["organization"])}'
+                  f'<span class="role-in">{h(i["role"])}</span></p><p class="pd">{h(i["detail"])}</p></div></li>' for i in rows)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{h(site['home_description'])}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{h(site['name'])}">
+  <meta property="og:description" content="{h(site['home_description'])}">
+  <meta property="og:image" content="{h(site['og_image'])}">
+  <meta property="og:url" content="https://chaeminjang.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://chaeminjang.com/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  {css("", "fonts.css")}
+  {css("", "home.css")}
+  <title>{h(site['name'])}</title>
+</head>
+<body>
+<div class="page">
+  {id_card()}
+
+  <main>
+    <section class="intro" aria-label="About">
+      <p class="thesis">{h(site['lead'])}</p>
+      <p>{h(site['split'])}</p>
+      <ul class="dirs">{dirs}</ul>
+    </section>
+
+    <section aria-labelledby="news-h">
+      <h2 id="news-h">News</h2>
+      {news_html}
+    </section>
+
+    <section aria-labelledby="pubs-h">
+      <h2 id="pubs-h">Selected publications</h2>
+      <ol class="rows">{"".join(pub_item(p) for p in pub + pre)}</ol>
+    </section>
+
+    <section aria-labelledby="proj-h">
+      <h2 id="proj-h">Projects</h2>
+      <ol class="rows">{projs}</ol>
+    </section>
+
+    <section aria-labelledby="exp-h">
+      <h2 id="exp-h">Experience</h2>
+      <ol class="rows">{exp}</ol>
+    </section>
+
+    {home_footer()}
+  </main>
+</div>
+</body>
+</html>
+"""
 
 if __name__ == "__main__":
     unknown = [k for k in research if not k.startswith("_") and k not in {key_of(p) for p in papers}]
     if unknown:
         print(f"note: research.json has entries with no matching paper: {unknown}")
-    (ROOT / "index.html").write_text(render(), encoding="utf-8")
+    (ROOT / "index.html").write_text(render_home(), encoding="utf-8")
     (ROOT / "404.html").write_text(render_404(), encoding="utf-8")
     (ROOT / "research").mkdir(exist_ok=True)
     (ROOT / "research" / "index.html").write_text(render_research(), encoding="utf-8")
@@ -998,7 +1196,7 @@ if __name__ == "__main__":
     for pr in projects:
         d = ROOT / "projects" / pr["slug"]
         d.mkdir(parents=True, exist_ok=True)
-        (d / "index.html").write_text(render_project_page(pr), encoding="utf-8")
+        (d / "index.html").write_text(render_project_page2(pr), encoding="utf-8")
     pages = ["", "research/"] + [f"projects/{pr['slug']}/" for pr in projects] + [f"papers/{slug}/" for slug in PAPER_PAGES.values()]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + "".join(f"  <url><loc>https://chaeminjang.com/{p}</loc></url>\n" for p in pages) + "</urlset>\n", encoding="utf-8")
