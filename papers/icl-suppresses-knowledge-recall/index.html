@@ -3,67 +3,63 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#fcfcfa">
   <meta name="description" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs. COLM 2026 research project by Chaemin Jang and collaborators.">
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs — Chaemin Jang">
-  <title>In-Context Examples Suppress Scientific Knowledge Recall — Chaemin Jang</title>
-  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="../../assets/fonts/pixelify-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../../assets/css/fonts.css?v=cc4e0e83"><link rel="stylesheet" href="../../assets/css/style.css?v=a940b8a9"><link rel="stylesheet" href="../../assets/css/project.css?v=39d05158">
-  <meta property="og:url" content="https://chaeminjang.com/papers/icl-suppresses-knowledge-recall/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="In-Context Examples Suppress Scientific Knowledge Recall — Chaemin Jang">
+  <meta property="og:description" content="In-Context Examples Suppress Scientific Knowledge Recall in LLMs. COLM 2026 research project by Chaemin Jang and collaborators.">
   <meta property="og:image" content="https://chaeminjang.com/assets/images/social-card-v2.png">
+  <meta property="og:url" content="https://chaeminjang.com/papers/icl-suppresses-knowledge-recall/">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://chaeminjang.com/papers/icl-suppresses-knowledge-recall/">
-<script>try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(_){}</script>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/fonts.css?v=cc4e0e83">
+  <link rel="stylesheet" href="../../assets/css/home.css?v=96de1de1">
+  <title>In-Context Examples Suppress Scientific Knowledge Recall — Chaemin Jang</title>
 </head>
-<body id="top" class="project-page">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <main id="main" class="page-width">
-    <nav class="project-return" aria-label="Return to homepage"><a href="../../">← All research</a></nav>
-    <section class="section-grid project-intro" aria-labelledby="project-heading">
-      <aside class="section-rail">
-        <p class="rail-label">COLM 2026</p>
-        <p class="rail-small">Conference on Language Modeling</p>
-      </aside>
-      <div class="section-main">
+<body>
+<div class="page">
+  <aside class="card">
+    <a href="../../" class="home-link"><span class="portrait" title="Hover for the pixel version"><img src="../../assets/images/portrait-square.jpg" width="320" height="320" alt="Portrait of Chaemin Jang"><svg class="sprite me-px" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><rect x="5" y="1" width="1" height="1" fill="#1c1c22"/><rect x="6" y="1" width="1" height="1" fill="#1c1c22"/><rect x="7" y="1" width="1" height="1" fill="#1c1c22"/><rect x="8" y="1" width="1" height="1" fill="#1c1c22"/><rect x="9" y="1" width="1" height="1" fill="#1c1c22"/><rect x="10" y="1" width="1" height="1" fill="#1c1c22"/><rect x="3" y="2" width="1" height="1" fill="#1c1c22"/><rect x="4" y="2" width="1" height="1" fill="#1c1c22"/><rect x="5" y="2" width="1" height="1" fill="#1c1c22"/><rect x="6" y="2" width="1" height="1" fill="#1c1c22"/><rect x="7" y="2" width="1" height="1" fill="#1c1c22"/><rect x="8" y="2" width="1" height="1" fill="#1c1c22"/><rect x="9" y="2" width="1" height="1" fill="#1c1c22"/><rect x="10" y="2" width="1" height="1" fill="#1c1c22"/><rect x="11" y="2" width="1" height="1" fill="#1c1c22"/><rect x="12" y="2" width="1" height="1" fill="#1c1c22"/><rect x="2" y="3" width="1" height="1" fill="#1c1c22"/><rect x="3" y="3" width="1" height="1" fill="#1c1c22"/><rect x="4" y="3" width="1" height="1" fill="#1c1c22"/><rect x="5" y="3" width="1" height="1" fill="#1c1c22"/><rect x="6" y="3" width="1" height="1" fill="#1c1c22"/><rect x="7" y="3" width="1" height="1" fill="#1c1c22"/><rect x="8" y="3" width="1" height="1" fill="#1c1c22"/><rect x="9" y="3" width="1" height="1" fill="#1c1c22"/><rect x="10" y="3" width="1" height="1" fill="#1c1c22"/><rect x="11" y="3" width="1" height="1" fill="#1c1c22"/><rect x="12" y="3" width="1" height="1" fill="#1c1c22"/><rect x="13" y="3" width="1" height="1" fill="#1c1c22"/><rect x="2" y="4" width="1" height="1" fill="#1c1c22"/><rect x="3" y="4" width="1" height="1" fill="#1c1c22"/><rect x="4" y="4" width="1" height="1" fill="#1c1c22"/><rect x="5" y="4" width="1" height="1" fill="#1c1c22"/><rect x="6" y="4" width="1" height="1" fill="#1c1c22"/><rect x="7" y="4" width="1" height="1" fill="#1c1c22"/><rect x="8" y="4" width="1" height="1" fill="#1c1c22"/><rect x="9" y="4" width="1" height="1" fill="#1c1c22"/><rect x="10" y="4" width="1" height="1" fill="#1c1c22"/><rect x="11" y="4" width="1" height="1" fill="#1c1c22"/><rect x="12" y="4" width="1" height="1" fill="#1c1c22"/><rect x="13" y="4" width="1" height="1" fill="#1c1c22"/><rect x="14" y="4" width="1" height="1" fill="#1c1c22"/><rect x="2" y="5" width="1" height="1" fill="#1c1c22"/><rect x="3" y="5" width="1" height="1" fill="#1c1c22"/><rect x="4" y="5" width="1" height="1" fill="#1c1c22"/><rect x="5" y="5" width="1" height="1" fill="#1c1c22"/><rect x="6" y="5" width="1" height="1" fill="#1c1c22"/><rect x="7" y="5" width="1" height="1" fill="#1c1c22"/><rect x="8" y="5" width="1" height="1" fill="#1c1c22"/><rect x="9" y="5" width="1" height="1" fill="#1c1c22"/><rect x="10" y="5" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="5" width="1" height="1" fill="#1c1c22"/><rect x="12" y="5" width="1" height="1" fill="#1c1c22"/><rect x="13" y="5" width="1" height="1" fill="#1c1c22"/><rect x="14" y="5" width="1" height="1" fill="#1c1c22"/><rect x="2" y="6" width="1" height="1" fill="#1c1c22"/><rect x="3" y="6" width="1" height="1" fill="#1c1c22"/><rect x="4" y="6" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="6" width="1" height="1" fill="#f1d9c6"/><rect x="6" y="6" width="1" height="1" fill="#1c1c22"/><rect x="7" y="6" width="1" height="1" fill="#1c1c22"/><rect x="8" y="6" width="1" height="1" fill="#1c1c22"/><rect x="9" y="6" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="6" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="6" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="6" width="1" height="1" fill="#1c1c22"/><rect x="13" y="6" width="1" height="1" fill="#1c1c22"/><rect x="14" y="6" width="1" height="1" fill="#1c1c22"/><rect x="2" y="7" width="1" height="1" fill="#1c1c22"/><rect x="3" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="4" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="6" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="9" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="13" y="7" width="1" height="1" fill="#f1d9c6"/><rect x="14" y="7" width="1" height="1" fill="#1c1c22"/><rect x="2" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="3" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="4" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="8" width="1" height="1" fill="#1c1c22"/><rect x="6" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="9" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="8" width="1" height="1" fill="#1c1c22"/><rect x="11" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="13" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="14" y="8" width="1" height="1" fill="#f1d9c6"/><rect x="2" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="3" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="4" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="9" width="1" height="1" fill="#1c1c22"/><rect x="6" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="9" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="9" width="1" height="1" fill="#1c1c22"/><rect x="11" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="13" y="9" width="1" height="1" fill="#f1d9c6"/><rect x="14" y="9" width="1" height="1" fill="#ddbfa8"/><rect x="2" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="3" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="4" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="6" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="9" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="13" y="10" width="1" height="1" fill="#f1d9c6"/><rect x="14" y="10" width="1" height="1" fill="#ddbfa8"/><rect x="3" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="4" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="5" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="6" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="11" width="1" height="1" fill="#b98a7a"/><rect x="9" y="11" width="1" height="1" fill="#b98a7a"/><rect x="10" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="11" width="1" height="1" fill="#f1d9c6"/><rect x="13" y="11" width="1" height="1" fill="#ddbfa8"/><rect x="4" y="12" width="1" height="1" fill="#ddbfa8"/><rect x="5" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="6" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="7" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="8" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="9" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="10" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="11" y="12" width="1" height="1" fill="#f1d9c6"/><rect x="12" y="12" width="1" height="1" fill="#ddbfa8"/><rect x="3" y="13" width="1" height="1" fill="#2a2a31"/><rect x="4" y="13" width="1" height="1" fill="#2a2a31"/><rect x="5" y="13" width="1" height="1" fill="#2a2a31"/><rect x="6" y="13" width="1" height="1" fill="#2a2a31"/><rect x="7" y="13" width="1" height="1" fill="#ddbfa8"/><rect x="8" y="13" width="1" height="1" fill="#ddbfa8"/><rect x="9" y="13" width="1" height="1" fill="#2a2a31"/><rect x="10" y="13" width="1" height="1" fill="#2a2a31"/><rect x="11" y="13" width="1" height="1" fill="#2a2a31"/><rect x="12" y="13" width="1" height="1" fill="#2a2a31"/><rect x="2" y="14" width="1" height="1" fill="#2a2a31"/><rect x="3" y="14" width="1" height="1" fill="#2a2a31"/><rect x="4" y="14" width="1" height="1" fill="#2a2a31"/><rect x="5" y="14" width="1" height="1" fill="#2a2a31"/><rect x="6" y="14" width="1" height="1" fill="#2a2a31"/><rect x="7" y="14" width="1" height="1" fill="#2a2a31"/><rect x="8" y="14" width="1" height="1" fill="#2a2a31"/><rect x="9" y="14" width="1" height="1" fill="#2a2a31"/><rect x="10" y="14" width="1" height="1" fill="#2a2a31"/><rect x="11" y="14" width="1" height="1" fill="#2a2a31"/><rect x="12" y="14" width="1" height="1" fill="#2a2a31"/><rect x="13" y="14" width="1" height="1" fill="#2a2a31"/><rect x="1" y="15" width="1" height="1" fill="#2a2a31"/><rect x="2" y="15" width="1" height="1" fill="#2a2a31"/><rect x="3" y="15" width="1" height="1" fill="#2a2a31"/><rect x="4" y="15" width="1" height="1" fill="#3d3d46"/><rect x="5" y="15" width="1" height="1" fill="#2a2a31"/><rect x="6" y="15" width="1" height="1" fill="#2a2a31"/><rect x="7" y="15" width="1" height="1" fill="#2a2a31"/><rect x="8" y="15" width="1" height="1" fill="#2a2a31"/><rect x="9" y="15" width="1" height="1" fill="#2a2a31"/><rect x="10" y="15" width="1" height="1" fill="#2a2a31"/><rect x="11" y="15" width="1" height="1" fill="#3d3d46"/><rect x="12" y="15" width="1" height="1" fill="#2a2a31"/><rect x="13" y="15" width="1" height="1" fill="#2a2a31"/><rect x="14" y="15" width="1" height="1" fill="#2a2a31"/></svg></span>
+    <h1 class="name">Chaemin Jang</h1></a>
+    <p class="role">M.S. Student<br>School of Computing, KAIST</p>
+    <p class="adv">Co-advised by<br>Jihee Kim and Dongman Lee</p>
+    <ul class="links"><li><a href="mailto:jchaemin@gmail.com">Email</a></li><li><a href="https://scholar.google.com/citations?user=Zeo31B4AAAAJ" target="_blank" rel="noopener noreferrer">Scholar</a></li><li><a href="https://github.com/jchaemin" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/chaeminjang/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a href="../../assets/cv/cv.pdf">CV</a></li></ul>
+  </aside>
+  <main class="paper-main">
+    <p class="crumb"><a href="../../#pubs-h">&larr; Publications</a></p>
+    
+    
+    <section class="intro sub paper" aria-labelledby="project-heading"><p class="dn"><a href="../../research/internals/">LLM Internals</a> · COLM 2026</p><p class="venue">Conference on Language Modeling</p>
         
-        <h1 id="project-heading">In-Context Examples Suppress Scientific Knowledge Recall in LLMs</h1>
+        <h2 class="ptitle" id="project-heading">In-Context Examples Suppress Scientific Knowledge Recall in LLMs</h2>
         <p class="project-authors"><strong>Chaemin Jang</strong>, Woojin Park, Hyeok Yun, Dongman Lee, Jihee Kim</p>
         <p class="project-affiliations">KAIST · Shanghai Jiao Tong University</p>
         <p class="project-summary">Models recall the right formula on their own. Show them a few examples of it, and they stop deriving. They start pattern-fitting instead.</p>
         <div class="project-links"><a href="https://arxiv.org/abs/2604.27540" target="_blank" rel="noopener noreferrer">Read the paper ↗</a></div>
-      </div>
-    </section>
-    <section class="section-grid project-panel" aria-label="Study at a glance">
-      <div class="section-rail"><p class="rail-label">At a glance</p></div>
-      <div class="section-main"><div class="stat-row">
+      </section>
+    <section class="ppanel" aria-label="Study at a glance">
+      <h2>At a glance</h2><div class="section-main"><div class="stat-row">
         <div class="stat-item"><strong>60</strong><span>Tasks</span></div>
         <div class="stat-item"><strong>5</strong><span>Domains</span></div>
         <div class="stat-item"><strong>6,000</strong><span>Trials</span></div>
         <div class="stat-item"><strong>4</strong><span>Models</span></div>
       </div></div>
     </section>
-    <section class="section-grid project-panel" id="strategy-shift" aria-labelledby="strategy-heading">
-      <div class="section-rail"><p class="rail-label">Main result</p></div>
-      <div class="section-main">
-        <h2 id="strategy-heading">The strategy shift</h2>
+    <section class="ppanel" id="strategy-shift" aria-labelledby="strategy-heading">
+      <p class="dn pk">Main result</p><h2 id="strategy-heading">The strategy shift</h2><div class="section-main">
         <p>Few-shot examples pull every domain toward pattern-fitting, whether or not it helps.</p>
         
       </div>
     </section>
-    <section class="section-grid project-panel" id="causal-check" aria-labelledby="causal-heading">
-      <div class="section-rail"><p class="rail-label">Validation</p></div>
-      <div class="section-main">
-        <h2 id="causal-heading">A causal check</h2>
+    <section class="ppanel" id="causal-check" aria-labelledby="causal-heading">
+      <p class="dn pk">Validation</p><h2 id="causal-heading">A causal check</h2><div class="section-main">
         <p>Is this real, or just noisy chain-of-thought labels? A paired log-probability test on three open models says real.</p>
         
       </div>
     </section>
-    <section class="section-grid project-panel" id="example-task" aria-labelledby="example-heading">
-      <div class="section-rail"><p class="rail-label">Example</p></div>
-      <div class="section-main">
-        <h2 id="example-heading">How a task looks</h2>
+    <section class="ppanel" id="example-task" aria-labelledby="example-heading">
+      <p class="dn pk">Example</p><h2 id="example-heading">How a task looks</h2><div class="section-main">
         <p>Example task from the economics domain, shown zero-shot and few-shot. What is the consumer surplus at the Cournot-Nash equilibrium?</p>
         <div class="example-grid">
           <div class="example-card"><h3>Zero-shot: correct</h3><pre>Step 1: Identify Cournot model
@@ -81,13 +77,11 @@ Step 2: Apply fitted rule
         </div>
       </div>
     </section>
-    <section class="section-grid project-panel" id="suppression" aria-labelledby="suppression-heading">
-      <div class="section-rail"><p class="rail-label">Interpretation</p></div>
-      <div class="section-main"><h2 id="suppression-heading">Why recall is so easy to suppress</h2><p>Swap “price” for a meaningless code word. Keep the same math. Zero-shot accuracy: 55–88% → 3–14%. The model isn't deriving the answer. It's recognizing keywords. That's why a few examples are enough to knock it off course.</p></div>
+    <section class="ppanel" id="suppression" aria-labelledby="suppression-heading">
+      <p class="dn pk">Interpretation</p><h2 id="suppression-heading">Why recall is so easy to suppress</h2><div class="section-main"><p>Swap “price” for a meaningless code word. Keep the same math. Zero-shot accuracy: 55–88% → 3–14%. The model isn't deriving the answer. It's recognizing keywords. That's why a few examples are enough to knock it off course.</p></div>
     </section>
-    <section class="section-grid project-panel" id="findings" aria-labelledby="findings-heading">
-      <div class="section-rail"><p class="rail-label">Takeaways</p></div>
-      <div class="section-main"><h2 id="findings-heading">What we find</h2>
+    <section class="ppanel" id="findings" aria-labelledby="findings-heading">
+      <p class="dn pk">Takeaways</p><h2 id="findings-heading">What we find</h2><div class="section-main">
         <ul class="project-findings">
           <li><strong>Uniform direction.</strong> Every domain loses 6–20pp of formula-based reasoning, even where accuracy barely moves.</li>
           <li><strong>Strong priors lose most.</strong> Economics (88.3% prior) drops most; Geoscience (55.3% prior) looks best: a weak prior is just easy to beat, not improved on.</li>
@@ -95,13 +89,30 @@ Step 2: Apply fitted rule
         </ul>
       </div>
     </section>
+  
+    <footer>&copy; 2026 Chaemin Jang · Updated Nov 2026</footer>
   </main>
-<footer class="site-footer">
-    <div class="page-width footer-inner">
-      <span>© 2026 Chaemin Jang</span>
-      <a class="back-top" href="#top">Back to top ↑</a>
-    </div>
-  </footer>
+</div>
+<script>
+(() => {
+  // Section titles arrive the way a language model writes: token by token, behind a blinking cursor
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; io.unobserve(e.target);
+    const el = e.target, toks = el.dataset.full.match(/.{1,3}/g) || [];
+    let i = 0; el.textContent = ''; el.classList.add('streaming');
+    const tick = () => {
+      if (i >= toks.length) { setTimeout(() => el.classList.remove('streaming'), 900); return; }
+      el.append(toks[i++]); setTimeout(tick, 70 + Math.random() * 90);
+    };
+    tick();
+  }), { threshold: 1 });
+  document.querySelectorAll('main > section > h2:not(.ptitle)').forEach(el => {
+    el.dataset.full = el.textContent; el.setAttribute('aria-label', el.textContent);
+    el.textContent = ' '; io.observe(el);
+  });
+})();
+</script>
 
 <script>
 (() => {

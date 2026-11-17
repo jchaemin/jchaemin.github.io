@@ -959,6 +959,59 @@ def build_project(src: str = "project-page.html", slug: str = "icl-suppresses-kn
     dest.write_text(page, encoding="utf-8")
 
 
+PAPER_TOPIC = {"icl-suppresses-knowledge-recall": "internals", "who-differs": "simulation"}
+
+
+def build_paper2(src: str, slug: str) -> None:
+    """A paper page (content/<src> -> papers/<slug>/) in the home layout. Figures whose image is missing are left out."""
+    source = (CONTENT / src).read_text(encoding="utf-8")
+    title = html.unescape(re.search(r"<title>(.*?)</title>", source, re.S).group(1))
+    desc = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', source).group(1))
+    body = re.search(r'<main[^>]*>(.*)</main>', source, re.S).group(1)
+    body = re.sub(r'<nav class="project-return".*?</nav>', "", body, flags=re.S)
+
+    def keep_figure(m):
+        s = re.search(r'src="\.\./\.\./([^"]+)"', m.group(0))
+        return m.group(0).replace('class="project-figure"', 'class="fig pfig"') if s and (ROOT / s.group(1)).exists() else ""
+    body = re.sub(r'<figure class="project-figure">.*?</figure>', keep_figure, body, flags=re.S)
+
+    k = PAPER_TOPIC.get(slug)
+    topic = f'<a href="../../research/{k}/">{h(TOPICS[k]["name"])}</a> · ' if k in TOPICS else ""
+
+    def intro(m):
+        inner = m.group(4)
+        inner = re.sub(r'<h1 id="project-heading">(.*?)</h1>', r'<h2 class="ptitle" id="project-heading">\1</h2>', inner, flags=re.S)
+        return (f'<section class="intro sub paper" aria-labelledby="project-heading">'
+                f'<p class="dn">{topic}{m.group(1)}</p><p class="venue">{m.group(2) or ""}</p>{inner}</section>')
+    body = re.sub(r'<section class="section-grid project-intro"[^>]*>\s*<aside class="section-rail">\s*<p class="rail-label">(.*?)</p>\s*'
+                  r'(?:<p class="rail-small">(.*?)</p>)?\s*</aside>(\s*)<div class="section-main">(.*?)</div>\s*</section>',
+                  intro, body, count=1, flags=re.S)
+    body = re.sub(r'<div class="section-rail"><p class="rail-label">([^<]*)</p></div>\s*<div class="section-main">\s*<h2 ([^>]*)>(.*?)</h2>',
+                  r'<p class="dn pk">\1</p><h2 \2>\3</h2><div class="section-main">', body, flags=re.S)
+    body = re.sub(r'<div class="section-rail"><p class="rail-label">([^<]*)</p></div>\s*<div class="section-main">',
+                  r'<h2>\1</h2><div class="section-main">', body, flags=re.S)
+    body = body.replace('class="section-grid project-panel"', 'class="ppanel"')
+    pre = "../../"
+    page = page_head(title, desc, f"papers/{slug}/", pre) + f"""
+<body>
+<div class="page">
+  {id_card(pre)}
+  <main class="paper-main">
+    <p class="crumb"><a href="{pre}#pubs-h">&larr; Publications</a></p>
+    {body}
+    {home_footer()}
+  </main>
+</div>
+{STREAM}
+{SCAN}
+</body>
+</html>
+"""
+    dest = ROOT / "papers" / slug / "index.html"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(page, encoding="utf-8")
+
+
 def render_404() -> str:
     """Served by GitHub Pages for any missing path, so every link is root-absolute."""
     return head("Game over — " + site["name"], "This page does not exist.", "404.html", "/") + f"""
@@ -1309,7 +1362,7 @@ if __name__ == "__main__":
         (ROOT / "research" / k).mkdir(exist_ok=True)
         (ROOT / "research" / k / "index.html").write_text(render_topic(k), encoding="utf-8")
     for src, slug in PAPER_PAGES.items():
-        build_project(src, slug)
+        build_paper2(src, slug)
     for pr in projects:
         d = ROOT / "projects" / pr["slug"]
         d.mkdir(parents=True, exist_ok=True)
