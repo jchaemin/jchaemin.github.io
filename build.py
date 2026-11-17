@@ -887,7 +887,7 @@ def render_project_page(pr: dict) -> str:
     pre = "../../"
     t = TOPICS.get(pr.get("topic"), {"name": ""})
     paras = "".join(f"<p>{h(x)}</p>" for x in pr.get("summary", [pr["line"]]))
-    facts = [("Funding", pr["partner"]), ("Period", pr["period"])]
+    facts = [("Partner", pr["partner"]), ("Period", pr["period"])]
     if pr.get("team"):
         facts.append(("Team", pr["team"]))
     if pr.get("role"):
@@ -1058,7 +1058,7 @@ def render_project_page2(pr: dict) -> str:
     pre = "../../"
     t = TOPICS.get(pr.get("topic"), {"name": ""})
     paras = "".join(f"<p>{h(x)}</p>" for x in pr.get("summary", [pr["line"]]))
-    facts = [("Funding", pr["partner"]), ("Period", pr["period"])]
+    facts = [("Partner", pr["partner"]), ("Period", pr["period"])]
     if pr.get("team"):
         facts.append(("Team", pr["team"]))
     if pr.get("role"):
@@ -1084,7 +1084,7 @@ def render_project_page2(pr: dict) -> str:
   <main>
     <p class="crumb"><a href="{pre}#proj-h">&larr; Projects</a></p>
     <section class="intro sub" aria-label="Project">
-      <p class="dn"><a href="{pre}research/#{h(pr.get('topic', ''))}">{h(t['name'])}</a></p>
+      <p class="dn"><a href="{pre}research/{h(pr.get('topic', ''))}/">{h(t['name'])}</a></p>
       <h2 class="ptitle">{h(pr['title'])}</h2>
       <div class="prose lead">{paras}</div>
       {f'<p class="pl">{lk}</p>' if lk else ""}
@@ -1125,28 +1125,75 @@ STREAM = r"""<script>
 </script>"""
 
 
-def render_research2() -> str:
-    ps = order(papers)
-    pre = "../"
-    secs = ""
-    for k, t in TOPICS.items():
-        mine = [x for x in ps if topic_of(x) == k]
-        qs = "".join(f"<li>{h(q)}</li>" for q in t.get("questions", []))
-        prs = [pr for pr in projects if pr.get("topic") == k]
-        pr_rows = "".join(f"""<li class="row"><p class="side">{h(pr['period'])}</p><div class="main"><p class="pt"><a href="{pre}projects/{h(pr['slug'])}/">{h(pr['title'])}</a></p>
-          <p class="pa">{h(pr['partner'])}</p><p class="pd">{h(pr['line'])}</p></div></li>""" for pr in prs)
-        secs += f"""
-    <section id="{k}" aria-labelledby="{k}-h">
-      <h2 id="{k}-h">{h(t['name'])}</h2>
-      <p class="dn topic-look">{h(t.get('look', ''))}</p>
-      <div class="prose">{f"<p>{h(t['intro'])}</p>" if t.get('intro') else ""}</div>
+def topic_paper(p: dict, pre: str) -> str:
+    row = pub_item(p, pre)
+    s = research.get(key_of(p), {}).get("summary")
+    if s:
+        row = row.replace('<p class="pl">', f'<p class="pd">{h(s)}</p><p class="pl">', 1)
+    return row
+
+
+def topic_project(pr: dict, pre: str) -> str:
+    paras = "".join(f"<p>{h(x)}</p>" for x in pr.get("summary", [pr["line"]]))
+    facts = [("Partner", pr["partner"]), ("Period", pr["period"])]
+    if pr.get("team"):
+        facts.append(("Team", pr["team"]))
+    if pr.get("role"):
+        facts.append(("My role", pr["role"]))
+    facts_html = "".join(f'<li class="row"><p class="side">{h(a)}</p><div class="main"><p>{h(v)}</p></div></li>' for a, v in facts)
+    return f"""
+      <article class="tproj">
+        <h3 class="tp-title"><a href="{pre}projects/{h(pr['slug'])}/">{h(pr['title'])}</a></h3>
+        <div class="prose">{paras}</div>
+        <ol class="rows facts">{facts_html}</ol>
+        <p class="more"><a href="{pre}projects/{h(pr['slug'])}/">Full project page &rarr;</a></p>
+      </article>"""
+
+
+def render_topic(k: str) -> str:
+    pre = "../../"
+    keys = list(TOPICS)
+    t = TOPICS[k]
+    ps = [x for x in order(papers) if topic_of(x) == k]
+    prs = [pr for pr in projects if pr.get("topic") == k]
+    qs = "".join(f"<li>{h(q)}</li>" for q in t.get("questions", []))
+    others = "".join(f'<li><a href="{pre}research/{o}/"><span class="dn">{h(TOPICS[o]["name"])}</span><span class="dl">{h(TOPICS[o]["line"])}</span><span class="dm">Read more &rarr;</span></a></li>'
+                     for o in keys if o != k)
+    return page_head(f"{t['name']} · {site['name']}", t["line"], f"research/{k}/", pre) + f"""
+<body>
+<div class="page">
+  {id_card(pre)}
+  <main>
+    <p class="crumb"><a href="{pre}">&larr; Home</a></p>
+    <section class="intro sub" aria-label="{h(t['name'])}">
+      <p class="dn">{h(t.get('look', ''))}</p>
+      <h2 class="ptitle">{h(t['name'])}</h2>
+      <div class="prose lead"><p>{h(t.get('intro', t['line']))}</p></div>
       {f'<h3>Questions</h3><ul class="bul qs">{qs}</ul>' if qs else ""}
-      {f'<h3>Papers</h3><ol class="rows">{"".join(pub_item(x, pre) for x in mine)}</ol>' if mine else ""}
-      {f'<h3>Projects</h3><ol class="rows">{pr_rows}</ol>' if prs else ""}
-    </section>"""
-    toc = "".join(f'<li><a href="#{k}"><span class="dn">{h(t["name"])}</span><span class="dl">{h(t["line"])}</span></a></li>' for k, t in TOPICS.items())
+    </section>
+    {f'<section aria-labelledby="tproj-h"><h2 id="tproj-h">Projects</h2>{"".join(topic_project(pr, pre) for pr in prs)}</section>' if prs else ""}
+    {f'<section aria-labelledby="tpap-h"><h2 id="tpap-h">Papers</h2><ol class="rows">{"".join(topic_paper(x, pre) for x in ps)}</ol></section>' if ps else ""}
+    <section aria-labelledby="other-h">
+      <h2 id="other-h">Other directions</h2>
+      <ul class="dirs two">{others}</ul>
+    </section>
+    {home_footer()}
+  </main>
+</div>
+{STREAM}
+{SCAN}
+</body>
+</html>
+"""
+
+
+def render_research2() -> str:
+    pre = "../"
+    toc = "".join(f'<li><a href="{k}/"><span class="dn">{h(t["name"])}</span><span class="dl">{h(t["line"])}</span><span class="dm">Read more &rarr;</span></a></li>' for k, t in TOPICS.items())
+    keys = ",".join(f"'{k}'" for k in TOPICS)
     return page_head(f"Research · {site['name']}", topics_data["overview"], "research/", pre) + f"""
 <body>
+<script>(() => {{ const k = location.hash.slice(1); if ([{keys}].includes(k)) location.replace(k + '/'); }})();</script>
 <div class="page">
   {id_card(pre)}
   <main>
@@ -1156,7 +1203,6 @@ def render_research2() -> str:
       <div class="prose lead"><p>{h(topics_data['overview'])}</p></div>
       <ul class="dirs">{toc}</ul>
     </section>
-    {secs}
     {home_footer()}
   </main>
 </div>
@@ -1173,7 +1219,7 @@ def render_home() -> str:
     pre = [p for p in ps if is_preprint(p)]
     links = "".join(f'<li><a href="{h(l["url"])}"{ext(l["url"])}>{h(l["label"])}</a></li>'
                     for l in site.get("profiles", []) if l.get("url"))
-    dirs = "".join(f'<li><a href="research/#{k}"><span class="dn">{h(t["name"])}</span>'
+    dirs = "".join(f'<li><a href="research/{k}/"><span class="dn">{h(t["name"])}</span>'
                    f'<span class="dl">{h(t["line"])}</span><span class="dm">Read more &rarr;</span></a></li>' for k, t in TOPICS.items())
 
     def news_item(n):
@@ -1259,13 +1305,16 @@ if __name__ == "__main__":
     (ROOT / "404.html").write_text(render_404(), encoding="utf-8")
     (ROOT / "research").mkdir(exist_ok=True)
     (ROOT / "research" / "index.html").write_text(render_research2(), encoding="utf-8")
+    for k in TOPICS:
+        (ROOT / "research" / k).mkdir(exist_ok=True)
+        (ROOT / "research" / k / "index.html").write_text(render_topic(k), encoding="utf-8")
     for src, slug in PAPER_PAGES.items():
         build_project(src, slug)
     for pr in projects:
         d = ROOT / "projects" / pr["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(render_project_page2(pr), encoding="utf-8")
-    pages = ["", "research/"] + [f"projects/{pr['slug']}/" for pr in projects] + [f"papers/{slug}/" for slug in PAPER_PAGES.values()]
+    pages = ["", "research/"] + [f"research/{k}/" for k in TOPICS] + [f"projects/{pr['slug']}/" for pr in projects] + [f"papers/{slug}/" for slug in PAPER_PAGES.values()]
     (ROOT / "sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                                       + "".join(f"  <url><loc>https://chaeminjang.com/{p}</loc></url>\n" for p in pages) + "</urlset>\n", encoding="utf-8")
     (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\nSitemap: https://chaeminjang.com/sitemap.xml\n", encoding="utf-8")

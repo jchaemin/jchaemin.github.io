@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://chaeminjang.com/</loc></url>
   <url><loc>https://chaeminjang.com/research/</loc></url>
+  <url><loc>https://chaeminjang.com/research/internals/</loc></url>
+  <url><loc>https://chaeminjang.com/research/simulation/</loc></url>
+  <url><loc>https://chaeminjang.com/research/satellite/</loc></url>
   <url><loc>https://chaeminjang.com/projects/sbs-dforum-2026/</loc></url>
   <url><loc>https://chaeminjang.com/projects/ai-science-hub/</loc></url>
   <url><loc>https://chaeminjang.com/projects/nk-crop-mapping/</loc></url>

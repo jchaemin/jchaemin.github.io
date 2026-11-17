@@ -14,7 +14,7 @@
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../../assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/fonts.css?v=cc4e0e83">
-  <link rel="stylesheet" href="../../assets/css/home.css?v=9c0ec8c7">
+  <link rel="stylesheet" href="../../assets/css/home.css?v=591fd35f">
   <title>Mapping North Korean Agriculture from Satellite Imagery · Chaemin Jang</title>
 </head>
 <body>
@@ -29,11 +29,11 @@
   <main>
     <p class="crumb"><a href="../../#proj-h">&larr; Projects</a></p>
     <section class="intro sub" aria-label="Project">
-      <p class="dn"><a href="../../research/#satellite">Satellite &amp; Low-Resource</a></p>
+      <p class="dn"><a href="../../research/satellite/">Satellite &amp; Low-Resource</a></p>
       <h2 class="ptitle">Mapping North Korean Agriculture from Satellite Imagery</h2>
       <div class="prose lead"><p>Commissioned by the Ministry of Unification, with Prof. David Lobell and Prof. Jennifer Burney at Stanford. North Korea has no public field labels, so standard crop mapping cannot be trained there.</p><p>We combine two crop classifiers trained in other countries, keep the pixels where they agree, and self-train a small transformer on those labels. It maps rice, maize and wheat/barley at 10 m resolution across North and South Hwanghae for 2019–2025, and the area estimates are checked against official statistics.</p></div>
       
-      <ol class="rows facts"><li class="row"><p class="side">Funding</p><div class="main"><p>Ministry of Unification · with Stanford University</p></div></li><li class="row"><p class="side">Period</p><div class="main"><p>2026</p></div></li><li class="row"><p class="side">Team</p><div class="main"><p>Prof. Jihee Kim (PI, KAIST), with Prof. David Lobell and Prof. Jennifer Burney (Stanford)</p></div></li><li class="row"><p class="side">My role</p><div class="main"><p>Crop classification, area estimation and county-level analysis.</p></div></li></ol>
+      <ol class="rows facts"><li class="row"><p class="side">Partner</p><div class="main"><p>Ministry of Unification · with Stanford University</p></div></li><li class="row"><p class="side">Period</p><div class="main"><p>2026</p></div></li><li class="row"><p class="side">Team</p><div class="main"><p>Prof. Jihee Kim (PI, KAIST), with Prof. David Lobell and Prof. Jennifer Burney (Stanford)</p></div></li><li class="row"><p class="side">My role</p><div class="main"><p>Crop classification, area estimation and county-level analysis.</p></div></li></ol>
     </section>
     <section><figure class="fig"><img src="../../assets/images/projects/nk-crop-method.png" alt="Four-step method: two models guess, keep where both agree, train our model, map every field" loading="lazy"><figcaption>Method: two existing classifiers label North Korean pixels, we keep only where they agree, train a small transformer on those labels, and map all cropland at 10 m.</figcaption></figure></section>
     <section><h2>Why it is hard</h2><div class="prose"><p>There are no public field labels for North Korea, so a crop classifier cannot be trained there directly, and models trained in other countries transfer imperfectly.</p></div></section><section><h2>What we did</h2><div class="prose"><ul class="bul"><li>Two existing classifiers, one trained in China and one in the US and France, label Sentinel-2 pixels</li><li>We keep the pixels where both agree as training labels</li><li>A small transformer is trained on those labels and refined by self-training</li><li>The model maps rice, maize and wheat/barley at 10 m across North and South Hwanghae, 2019–2025</li></ul></div></section><section><h2>How we check it</h2><div class="prose"><p>With no field ground truth, accuracy is measured as agreement with independent estimates: national statistics, the Rural Development Administration, and other published crop maps.</p></div></section>
