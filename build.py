@@ -1097,6 +1097,7 @@ def render_project_page2(pr: dict) -> str:
   </main>
 </div>
 {STREAM}
+{SCAN}
 </body>
 </html>
 """
@@ -1160,6 +1161,7 @@ def render_research2() -> str:
   </main>
 </div>
 {STREAM}
+{SCAN}
 </body>
 </html>
 """
@@ -1244,6 +1246,7 @@ def render_home() -> str:
   </main>
 </div>
 {STREAM}
+{SCAN}
 </body>
 </html>
 """

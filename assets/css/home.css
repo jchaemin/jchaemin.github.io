@@ -147,3 +147,10 @@ main > section[id] { scroll-margin-top: 24px; }
 .topic-look { margin-top: 14px; }
 .qs { margin-top: 10px; }
 .intro.sub .dirs { margin-top: 24px; }
+
+/* pointer scan: grid cells light up where the pointer passes */
+body { position: relative; }
+.scan { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.scan i { position: absolute; width: 31px; height: 31px; margin: 1px 0 0 1px; background: var(--acc); opacity: .16; animation: scan 1.2s steps(6) forwards; }
+@keyframes scan { to { opacity: 0; } }
+.page { position: relative; z-index: 1; }

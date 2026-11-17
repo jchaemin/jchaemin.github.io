@@ -14,7 +14,7 @@
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="../../assets/fonts/inter-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../assets/css/fonts.css?v=cc4e0e83">
-  <link rel="stylesheet" href="../../assets/css/home.css?v=9f5ba1ec">
+  <link rel="stylesheet" href="../../assets/css/home.css?v=9c0ec8c7">
   <title>AI-Agent-Based Social Simulation: Validation and Alignment with Human Behavior · Chaemin Jang</title>
 </head>
 <body>
@@ -59,6 +59,25 @@
     el.dataset.full = el.textContent; el.setAttribute('aria-label', el.textContent);
     el.textContent = ' '; io.observe(el);
   });
+})();
+</script>
+
+<script>
+(() => {
+  document.querySelector('.theme')?.addEventListener('click', () => {
+    const d = document.documentElement, t = d.dataset.theme === 'dark' ? 'light' : 'dark';
+    d.dataset.theme = t; try { localStorage.setItem('theme', t); } catch (_) {}
+  });
+  // The grid is a map: cells light up where the pointer passes, like pixels being classified
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+  const layer = document.createElement('div'); layer.className = 'scan'; layer.setAttribute('aria-hidden', 'true'); document.body.prepend(layer);
+  let last = '';
+  addEventListener('pointermove', e => {
+    const x = Math.floor(e.pageX / 32) * 32, y = Math.floor(e.pageY / 32) * 32, key = x + ',' + y;
+    if (key === last) return; last = key;
+    const c = document.createElement('i'); c.style.left = x + 'px'; c.style.top = y + 'px';
+    layer.append(c); setTimeout(() => c.remove(), 1200);
+  }, { passive: true });
 })();
 </script>
 </body>
