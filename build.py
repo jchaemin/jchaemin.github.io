@@ -1096,6 +1096,70 @@ def render_project_page2(pr: dict) -> str:
     {home_footer()}
   </main>
 </div>
+{STREAM}
+</body>
+</html>
+"""
+
+
+STREAM = r"""<script>
+(() => {
+  // Section titles arrive the way a language model writes: token by token, behind a blinking cursor
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; io.unobserve(e.target);
+    const el = e.target, toks = el.dataset.full.match(/.{1,3}/g) || [];
+    let i = 0; el.textContent = ''; el.classList.add('streaming');
+    const tick = () => {
+      if (i >= toks.length) { setTimeout(() => el.classList.remove('streaming'), 900); return; }
+      el.append(toks[i++]); setTimeout(tick, 70 + Math.random() * 90);
+    };
+    tick();
+  }), { threshold: 1 });
+  document.querySelectorAll('main > section > h2:not(.ptitle)').forEach(el => {
+    el.dataset.full = el.textContent; el.setAttribute('aria-label', el.textContent);
+    el.textContent = ' '; io.observe(el);
+  });
+})();
+</script>"""
+
+
+def render_research2() -> str:
+    ps = order(papers)
+    pre = "../"
+    secs = ""
+    for k, t in TOPICS.items():
+        mine = [x for x in ps if topic_of(x) == k]
+        qs = "".join(f"<li>{h(q)}</li>" for q in t.get("questions", []))
+        prs = [pr for pr in projects if pr.get("topic") == k]
+        pr_rows = "".join(f"""<li class="row"><p class="side">{h(pr['period'])}</p><div class="main"><p class="pt"><a href="{pre}projects/{h(pr['slug'])}/">{h(pr['title'])}</a></p>
+          <p class="pa">{h(pr['partner'])}</p><p class="pd">{h(pr['line'])}</p></div></li>""" for pr in prs)
+        secs += f"""
+    <section id="{k}" aria-labelledby="{k}-h">
+      <h2 id="{k}-h">{h(t['name'])}</h2>
+      <p class="dn topic-look">{h(t.get('look', ''))}</p>
+      <div class="prose">{f"<p>{h(t['intro'])}</p>" if t.get('intro') else ""}</div>
+      {f'<h3>Questions</h3><ul class="bul qs">{qs}</ul>' if qs else ""}
+      {f'<h3>Papers</h3><ol class="rows">{"".join(pub_item(x, pre) for x in mine)}</ol>' if mine else ""}
+      {f'<h3>Projects</h3><ol class="rows">{pr_rows}</ol>' if prs else ""}
+    </section>"""
+    toc = "".join(f'<li><a href="#{k}"><span class="dn">{h(t["name"])}</span><span class="dl">{h(t["line"])}</span></a></li>' for k, t in TOPICS.items())
+    return page_head(f"Research · {site['name']}", topics_data["overview"], "research/", pre) + f"""
+<body>
+<div class="page">
+  {id_card(pre)}
+  <main>
+    <p class="crumb"><a href="{pre}">&larr; Home</a></p>
+    <section class="intro sub" aria-label="Research">
+      <h2 class="ptitle">Research</h2>
+      <div class="prose lead"><p>{h(topics_data['overview'])}</p></div>
+      <ul class="dirs">{toc}</ul>
+    </section>
+    {secs}
+    {home_footer()}
+  </main>
+</div>
+{STREAM}
 </body>
 </html>
 """
@@ -1179,6 +1243,7 @@ def render_home() -> str:
     {home_footer()}
   </main>
 </div>
+{STREAM}
 </body>
 </html>
 """
@@ -1190,7 +1255,7 @@ if __name__ == "__main__":
     (ROOT / "index.html").write_text(render_home(), encoding="utf-8")
     (ROOT / "404.html").write_text(render_404(), encoding="utf-8")
     (ROOT / "research").mkdir(exist_ok=True)
-    (ROOT / "research" / "index.html").write_text(render_research(), encoding="utf-8")
+    (ROOT / "research" / "index.html").write_text(render_research2(), encoding="utf-8")
     for src, slug in PAPER_PAGES.items():
         build_project(src, slug)
     for pr in projects:

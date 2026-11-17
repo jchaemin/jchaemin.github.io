@@ -137,3 +137,13 @@ footer { margin-top: 80px; padding-top: 16px; border-top: 1px solid var(--line);
 .fig { margin: 0; }
 .fig img { display: block; max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
 .fig figcaption { margin-top: 10px; font-size: 13.5px; color: var(--mid); }
+
+/* section titles stream in behind a cursor */
+h2.streaming::after { content: ""; display: inline-block; width: .55em; height: .95em; margin-left: 3px; vertical-align: -2px; background: var(--acc); animation: caret .5s steps(2) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
+/* research page */
+main > section[id] { scroll-margin-top: 24px; }
+.topic-look { margin-top: 14px; }
+.qs { margin-top: 10px; }
+.intro.sub .dirs { margin-top: 24px; }
