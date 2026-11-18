@@ -2,7 +2,7 @@
   "name": "Chaemin Jang",
   "title": "M.S. Student, KAIST School of Computing",
   "email": "jchaemin@kaist.ac.kr",
-  "lead": "I study the gap between what language models learn and what they can actually use.",
+  "lead": "I study how language models produce their behavior, especially when outputs fall short of what they seem capable of.",
   "bio": "I’m an M.S. student at KAIST, co-advised by Jihee Kim and Dongman Lee.",
   "scholar_url": "https://scholar.google.com/citations?user=Zeo31B4AAAAJ",
   "github_url": "https://github.com/jchaemin",
@@ -12,7 +12,7 @@
   "home_description": "M.S. student at KAIST School of Computing, researching LLM internals and simulation.",
   "og_description": "Research on knowledge, retrieval, and behavior in language models.",
   "og_image": "https://chaeminjang.com/assets/images/social-card-v2.png",
-  "split": "My papers keep finding the same split. A model knows something, whether a fact, a formula, a distribution, or its own judgment, and yet does not act on it. I study where that gap comes from, how to measure it, and when it can be closed.",
+  "split": "One line of my work asks when information recoverable from a model’s internal states shapes its answers, and how to help models use what they have learned more reliably. The other asks whether language models faithfully reproduce human behavior: the distribution of people’s opinions, and the ways they interact and change their minds.",
   "profiles": [
     {
       "label": "Email",
