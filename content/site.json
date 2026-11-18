@@ -1,7 +1,7 @@
 {
   "name": "Chaemin Jang",
   "title": "M.S. Student, KAIST School of Computing",
-  "email": "jchaemin@gmail.com",
+  "email": "jchaemin@kaist.ac.kr",
   "lead": "I study the gap between what language models learn and what they can actually use.",
   "bio": "I’m an M.S. student at KAIST, co-advised by Jihee Kim and Dongman Lee.",
   "scholar_url": "https://scholar.google.com/citations?user=Zeo31B4AAAAJ",
@@ -16,7 +16,7 @@
   "profiles": [
     {
       "label": "Email",
-      "url": "mailto:jchaemin@gmail.com"
+      "url": "mailto:jchaemin@kaist.ac.kr"
     },
     {
       "label": "Scholar",
